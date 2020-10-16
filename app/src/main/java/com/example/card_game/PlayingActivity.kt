@@ -13,6 +13,14 @@ class PlayingActivity : AppCompatActivity() {
         var cards = arrayOfNulls<game>(40)
         var i = 0
         val tag:String = "HOHO"
+
+        var player: player = player(1, 0, "Player")
+        var computer: player = player(2, 0, "Computer")
+        var position1: Int
+        var position2: Int
+        var faza: Int = 0
+
+
         //stvaranje karata
 
         cards[0] =  game(1, "kupe", 11, 10) // as
@@ -69,7 +77,145 @@ class PlayingActivity : AppCompatActivity() {
             player_text4.text = "${cards[niz[3]]?.number} ${cards[niz[3]]?.type}"
 
             adut_text.text =  "${cards[niz[39]]?.number} ${cards[niz[39]]?.type}"
+
+
+            // default/start postavke
+            player.bodovi = 0
+            computer.bodovi = 0
+            position1 = 0
+            position2 = 20
+            faza = 0
+            stol1_text.text = ""
+            stol2_text.text = ""
+            stol2_text.text = ""
+            stol2_text.text = ""
         }
+
+        player_card1.setOnClickListener {
+
+            faza = faza + 1
+
+            if(stol1_text.text == "")
+            {
+                stol1_text.text = player_text1.text
+            }
+            else if(stol2_text.text == "")
+            {
+                stol2_text.text = player_text2.text
+            }
+            else if(stol3_text.text == "")
+            {
+                stol3_text.text = player_text3.text
+            }
+            else if(stol4_text.text == "")
+            {
+                stol4_text.text = player_text4.text
+            }
+
+            if(faza == 4)
+            {
+                faza = 0
+                stol1_text.text = ""
+                stol2_text.text = ""
+                stol3_text.text = ""
+                stol4_text.text = ""
+
+            }
+        }
+
+        player_card2.setOnClickListener {
+            faza = faza + 1
+
+            if(stol1_text.text == "")
+            {
+                stol1_text.text = player_text1.text
+            }
+            else if(stol2_text.text == "")
+            {
+                stol2_text.text = player_text2.text
+            }
+            else if(stol3_text.text == "")
+            {
+                stol3_text.text = player_text3.text
+            }
+            else if(stol4_text.text == "")
+            {
+                stol4_text.text = player_text4.text
+            }
+
+            if(faza == 4)
+            {
+                faza = 0
+                stol1_text.text = ""
+                stol2_text.text = ""
+                stol3_text.text = ""
+                stol4_text.text = ""
+
+            }
+        }
+
+        player_card3.setOnClickListener {
+            faza = faza + 1
+
+            if(stol1_text.text == "")
+            {
+                stol1_text.text = player_text1.text
+            }
+            else if(stol2_text.text == "")
+            {
+                stol2_text.text = player_text2.text
+            }
+            else if(stol3_text.text == "")
+            {
+                stol3_text.text = player_text3.text
+            }
+            else if(stol4_text.text == "")
+            {
+                stol4_text.text = player_text4.text
+            }
+
+            if(faza == 4)
+            {
+                faza = 0
+                stol1_text.text = ""
+                stol2_text.text = ""
+                stol3_text.text = ""
+                stol4_text.text = ""
+
+            }
+        }
+
+        player_card4.setOnClickListener {
+            faza = faza + 1
+
+            if(stol1_text.text == "")
+            {
+                stol1_text.text = player_text1.text
+            }
+            else if(stol2_text.text == "")
+            {
+                stol2_text.text = player_text2.text
+            }
+            else if(stol3_text.text == "")
+            {
+                stol3_text.text = player_text3.text
+            }
+            else if(stol4_text.text == "")
+            {
+                stol4_text.text = player_text4.text
+            }
+
+            if(faza == 4)
+            {
+                faza = 0
+                stol1_text.text = ""
+                stol2_text.text = ""
+                stol3_text.text = ""
+                stol4_text.text = ""
+
+            }
+        }
+
 
 
 
@@ -77,8 +223,85 @@ class PlayingActivity : AppCompatActivity() {
 
 
     //funkcija koja vraca objekt klase result_of_hand_win, odnosno vraca koji je igrac pobijedio te broj bodova pridjeljen tom igracu
+    fun hand_winner(first_card: game, second_card: game, third_card: game, forth_card: game, adut: game, first_player: player, second_player: player):player
+    {
+        var cardWinner: game = game()
+        var handWinner: player = player()
+        var bodovi: Int
 
 
+        var hand_adut: game = first_card
+
+        // deklaracija aduta u tenutnoj ruci, odnosno provjera je li adut prve karte jednak glavnom adutu u igri
+        // ako nije jednak, hand_adut cemo postaviti na adut jednak adutu prve karte
+
+
+        // prva provjera -> provjeravamo je li karta ima tim glavnog aduta i ako je je li veća od prethodne karte s tim da početnu prvu kartu
+        // postavljamo kao da je pobjednik prvi igrac
+        // ako nijedan uvjet od ovih nije zadovoljen, znači da nijedna karta nema tip glavnog aduta u igri
+        // te trebamo samo provjeriti
+        if(hand_adut.type != adut.type)
+        {
+            hand_adut.type = adut.type
+        }
+
+        if(first_card.type == adut.type)
+        {
+            handWinner = first_player
+        }
+        else if((second_card.type == adut.type) && (second_card.value > first_card.value))
+        {
+            handWinner = second_player
+        }
+        else if((third_card.type == adut.type) && (third_card.value > second_card.value))
+        {
+            handWinner = first_player
+        }
+        else if((forth_card.type == adut.type) && (forth_card.value > third_card.value))
+        {
+            handWinner = second_player
+        }
+
+        // druga provjera -> provjeravamo je li karta ima tim hand_aduta i ako je je li veća od prethodne karte s tim da početnu prvu kartu
+        // postavljamo kao da je pobjednik prvi igrac
+        // ako nijedan uvjet od ovih nije zadovoljen, znači da nijedna karta nema tip glavnog aduta u igri
+        // te trebamo samo provjeriti
+        if(first_card.type == hand_adut.type)
+        {
+            handWinner = first_player
+        }
+        else if((second_card.type == hand_adut.type) && (second_card.value > first_card.value))
+        {
+            handWinner = second_player
+        }
+        else if((third_card.type == hand_adut.type) && (third_card.value > second_card.value))
+        {
+            handWinner = first_player
+        }
+        else if((forth_card.type == hand_adut.type) && (forth_card.value > third_card.value))
+        {
+            handWinner = second_player
+        }
+        else
+        {
+            handWinner = first_player
+        }
+
+        bodovi = first_card.points + second_card.points + third_card.points + forth_card.points
+
+        handWinner.bodovi = bodovi
+
+
+        return handWinner
+
+    } // end of fun hand_winner
+
+
+
+    fun test_hand()
+    {
+
+    }
 
 
 }   // end of class
