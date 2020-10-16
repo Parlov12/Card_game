@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Card_game</string>
+    <string name="player_card1">player_card1</string>
+    <string name="player_card2">player_card2</string>
+    <string name="player_card3">player_card3</string>
+    <string name="player_card4">player_card4</string>
+</resources>
