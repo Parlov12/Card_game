@@ -2,6 +2,7 @@ package com.example.card_game
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import kotlinx.android.synthetic.main.activity_playing.*
 
@@ -14,10 +15,12 @@ class PlayingActivity : AppCompatActivity() {
         var i = 0
         val tag:String = "HOHO"
 
+        val handler = Handler()
+
         var player: player = player(1, 0, "Player")
         var computer: player = player(2, 0, "Computer")
-        var position1: Int
-        var position2: Int
+        var position1: Int = 0
+        var position2: Int = 0
         var faza: Int = 0
 
 
@@ -89,6 +92,10 @@ class PlayingActivity : AppCompatActivity() {
             stol2_text.text = ""
             stol2_text.text = ""
             stol2_text.text = ""
+            player_card1.text = player_text1.text
+            player_card2.text = player_text2.text
+            player_card3.text = player_text3.text
+            player_card4.text = player_text4.text
         }
 
         player_card1.setOnClickListener {
@@ -98,28 +105,39 @@ class PlayingActivity : AppCompatActivity() {
             if(stol1_text.text == "")
             {
                 stol1_text.text = player_text1.text
+                player_card1.text = ""
             }
             else if(stol2_text.text == "")
             {
-                stol2_text.text = player_text2.text
+                stol2_text.text = player_text1.text
+                player_card1.text = ""
             }
             else if(stol3_text.text == "")
             {
-                stol3_text.text = player_text3.text
+                stol3_text.text = player_text1.text
+                player_card1.text = ""
             }
             else if(stol4_text.text == "")
             {
-                stol4_text.text = player_text4.text
+                stol4_text.text = player_text1.text
+                player_card1.text = ""
             }
 
             if(faza == 4)
             {
                 faza = 0
-                stol1_text.text = ""
-                stol2_text.text = ""
-                stol3_text.text = ""
-                stol4_text.text = ""
 
+                position1 = position1 + 1
+
+                handler.postDelayed({
+                    // do something after 1000ms
+
+                    stol1_text.text = ""
+                    stol2_text.text = ""
+                    stol3_text.text = ""
+                    stol4_text.text = ""
+
+                }, 1000)
             }
         }
 
@@ -128,29 +146,37 @@ class PlayingActivity : AppCompatActivity() {
 
             if(stol1_text.text == "")
             {
-                stol1_text.text = player_text1.text
+                stol1_text.text = player_text2.text
+                player_card2.text = ""
             }
             else if(stol2_text.text == "")
             {
                 stol2_text.text = player_text2.text
+                player_card2.text = ""
             }
             else if(stol3_text.text == "")
             {
-                stol3_text.text = player_text3.text
+                stol3_text.text = player_text2.text
+                player_card2.text = ""
             }
             else if(stol4_text.text == "")
             {
-                stol4_text.text = player_text4.text
+                stol4_text.text = player_text2.text
+                player_card2.text = ""
             }
 
             if(faza == 4)
             {
                 faza = 0
-                stol1_text.text = ""
-                stol2_text.text = ""
-                stol3_text.text = ""
-                stol4_text.text = ""
+                handler.postDelayed({
+                    // do something after 1000ms
 
+                    stol1_text.text = ""
+                    stol2_text.text = ""
+                    stol3_text.text = ""
+                    stol4_text.text = ""
+
+                }, 1000)
             }
         }
 
@@ -159,29 +185,37 @@ class PlayingActivity : AppCompatActivity() {
 
             if(stol1_text.text == "")
             {
-                stol1_text.text = player_text1.text
+                stol1_text.text = player_text3.text
+                player_card3.text = ""
             }
             else if(stol2_text.text == "")
             {
-                stol2_text.text = player_text2.text
+                stol2_text.text = player_text3.text
+                player_card3.text = ""
             }
             else if(stol3_text.text == "")
             {
                 stol3_text.text = player_text3.text
+                player_card3.text = ""
             }
             else if(stol4_text.text == "")
             {
-                stol4_text.text = player_text4.text
+                stol4_text.text = player_text3.text
+                player_card3.text = ""
             }
 
             if(faza == 4)
             {
                 faza = 0
-                stol1_text.text = ""
-                stol2_text.text = ""
-                stol3_text.text = ""
-                stol4_text.text = ""
+                handler.postDelayed({
+                    // do something after 1000ms
 
+                    stol1_text.text = ""
+                    stol2_text.text = ""
+                    stol3_text.text = ""
+                    stol4_text.text = ""
+
+                }, 1000)
             }
         }
 
@@ -190,29 +224,39 @@ class PlayingActivity : AppCompatActivity() {
 
             if(stol1_text.text == "")
             {
-                stol1_text.text = player_text1.text
+                stol1_text.text = player_text4.text
+                player_card4.text = ""
             }
             else if(stol2_text.text == "")
             {
-                stol2_text.text = player_text2.text
+                stol2_text.text = player_text4.text
+                player_card4.text = ""
             }
             else if(stol3_text.text == "")
             {
-                stol3_text.text = player_text3.text
+                stol3_text.text = player_text4.text
+                player_card4.text = ""
             }
             else if(stol4_text.text == "")
             {
                 stol4_text.text = player_text4.text
+                player_card4.text = ""
             }
+
+
 
             if(faza == 4)
             {
                 faza = 0
-                stol1_text.text = ""
-                stol2_text.text = ""
-                stol3_text.text = ""
-                stol4_text.text = ""
+                handler.postDelayed({
+                    // do something after 1000ms
 
+                    stol1_text.text = ""
+                    stol2_text.text = ""
+                    stol3_text.text = ""
+                    stol4_text.text = ""
+
+                }, 1000)
             }
         }
 
