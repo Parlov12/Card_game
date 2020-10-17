@@ -10,6 +10,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        briskula_button.background.alpha = 64
+        blackjack_button.background.alpha = 64
+
         briskula_button.setOnClickListener {
 
             val playing_activity = Intent(this, PlayingActivity::class.java)

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_blackjack.*
 import kotlinx.android.synthetic.main.activity_playing.*
@@ -15,7 +16,7 @@ class Blackjack : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blackjack)
-
+        var check: Int = 1
         var pHandPc: Int = 0
         var winner: Int
         var pDeck: Int = 0
@@ -26,7 +27,7 @@ class Blackjack : AppCompatActivity() {
         var playerSum: Int = 0
         var pcSum: Int = 0
 
-        var stanje: Int = 1000
+        var stanje: Int = 10000
         var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
         stanje_text.text = "STANJE: $stanje"
 
@@ -87,20 +88,38 @@ class Blackjack : AppCompatActivity() {
         bj_cards[51] = blackjack_class(13,"herc",10, pic = R.drawable.herc_13)
 
 
+        bjNiz.shuffle()
 
         dijeli_button.setOnClickListener {
+            if(pDeck == 52)
+            {
+                bjNiz.shuffle()
+            }
             if((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false))
             {
-                Toast.makeText  (this, "Ulog stisni, najbolje na 500!", Toast.LENGTH_SHORT).show()
+                Toast.makeText  (this, "Ulog namisti, najbolje na 500!", Toast.LENGTH_SHORT).show()
             }
             else {
-                player_second_card.setImageResource(0)
-                player_third_card.setImageResource(0)
-                player_forth_card.setImageResource(0)
-                player_fifth_card.setImageResource(0)
-                player_sixth_card.setImageResource(0)
+                check = 0
+                reset_views(
+                    pc_card_background,
+                    pc_second_card,
+                    pc_third_card,
+                    pc_forth_card,
+                    pc_fifth_card,
+                    pc_sixth_card,
+                    no_card
+                )
+                reset_views(
+                    player_card_background,
+                    player_second_card,
+                    player_third_card,
+                    player_forth_card,
+                    player_fifth_card,
+                    player_sixth_card,
+                    no_card
+                )
 
-                bjNiz.shuffle()
                 player_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic);
                 playerSum = 0
                 playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
@@ -112,28 +131,70 @@ class Blackjack : AppCompatActivity() {
             }
         }
 
+
+
         dosta_button.setOnClickListener {
             // dealer section
-
-            pHandPc = 0
+            if (check == 1) {
+                Toast.makeText(this, "Podijeli prvo karte!!", Toast.LENGTH_SHORT).show()
+            } else{
+                check = 1
+                pHandPc = 0
             pc_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
             pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
             pHandPc = pHandPc + 1
             pDeck = pDeck + 1
 
-            handler.postDelayed({
-                println("")
-            }, 500)
+            while (pcSum < 17) {
 
-            pc_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-            pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
-            pDeck = pDeck + 1
+                if (pHandPc == 1) {
 
-            if(pcSum > 21)
-            {
+                    pc_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
 
+                } else if (pHandPc == 2) {
+                    pc_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPc == 3) {
+                    pc_forth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPc == 4) {
+                    pc_fifth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPc == 5) {
+                    pc_sixth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                }
+
+                pHandPc = pHandPc + 1
+                pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
+                pDeck = pDeck + 1
+
+                if (pcSum > 21) {
+                    Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
+                    stanje = stanje + ulog*2
+                    stanje_text.text = "STANJE: $stanje"
+                    pHandPc = 0
+                    pHandPlayer = 0
+                } else if (pcSum == playerSum) {
+                    Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
+                    stanje = stanje
+                    stanje_text.text = "STANJE: $stanje"
+                        pHandPc = 0
+                    pHandPlayer = 0
+                } else if (pcSum > playerSum && pcSum <= 21) {
+                    Toast.makeText(this, "You lost!!", Toast.LENGTH_SHORT).show()
+                    stanje = stanje - ulog
+                    stanje_text.text = "STANJE: $stanje"
+                    pHandPc = 0
+                    pHandPlayer = 0
+
+                } else if (pcSum < playerSum && pcSum >= 17) {
+                    Toast.makeText(this, "AJDEEEEEEE!!", Toast.LENGTH_SHORT).show()
+                    stanje = stanje + ulog
+                    stanje_text.text = "STANJE: $stanje"
+                    pHandPc = 0
+                    pHandPlayer = 0
+                }
             }
-        }
+                pcSum = 0
+        }// end of provjera check-a
+        } // end of dosta
 
         vuci_button.setOnClickListener {
             if (pHandPlayer == 0) {
@@ -158,7 +219,7 @@ class Blackjack : AppCompatActivity() {
                 pDeck = pDeck + 1
                 pHandPlayer = pHandPlayer + 1
 
-                if (playerSum >= 17 && playerSum <= 21) {
+                if (playerSum >= 17 && playerSum < 21) {
 
 
 
@@ -172,7 +233,7 @@ class Blackjack : AppCompatActivity() {
                         player_fifth_card.setImageResource(0)
                         player_sixth_card.setImageResource(0)
 
-                        Toast.makeText(this, "Lol popusia si!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Prisa si 21!", Toast.LENGTH_SHORT).show()
 
                     }, 500)
                 }
@@ -188,7 +249,15 @@ class Blackjack : AppCompatActivity() {
 
 
 
-
+    fun reset_views(a:ImageView,b:ImageView,c:ImageView,d:ImageView,e:ImageView,f:ImageView,m:Int)
+    {
+        a.setImageResource(m)
+        b.setImageResource(0)
+        c.setImageResource(0)
+        d.setImageResource(0)
+        e.setImageResource(0)
+        f.setImageResource(0)
+    }
 
     fun Ulog1Clicked(view: View)
     {
