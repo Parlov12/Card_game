@@ -10,12 +10,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        start_button.setOnClickListener {
+        briskula_button.setOnClickListener {
 
             val playing_activity = Intent(this, PlayingActivity::class.java)
 
                     startActivity(playing_activity)
+
+
         }
 
+        blackjack_button.setOnClickListener {
+            val black_jack = Intent(this, Blackjack::class.java)
+
+            startActivity(black_jack)
+        }
+        }
+
+
+
     }
-}
