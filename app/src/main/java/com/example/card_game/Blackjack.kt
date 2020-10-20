@@ -31,6 +31,7 @@ class Blackjack : AppCompatActivity() {
         val dosta_off: Int = R.drawable.dosta_button_off
         val dosta_disabled: Int = R.drawable.dosta_button_disabled
         val tag: String = "provjera"
+        var ulogCheck: Boolean = true
         var checkVuci: Boolean = false
         var checkDosta: Boolean = false
         var checkDijeli: Boolean = true
@@ -43,7 +44,7 @@ class Blackjack : AppCompatActivity() {
         var playerSum: Int = 0
         var pcSum: Int = 0
 
-        var stanje: Int = 10000
+        var stanje: Int = 1000
         var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
         stanje_text.text = "STANJE: $stanje kn"
 
@@ -108,27 +109,26 @@ class Blackjack : AppCompatActivity() {
         dosta_button.setBackgroundResource(dosta_disabled)
 
         dijeli_button.setOnClickListener {
-            if(checkDijeli == false)
-            {
-                show_text.text = "IGRA U TIJEKU..."
-                handler.postDelayed({
-                    show_text.text = ""
-                },2000)
-            }else {
-                checkDijeli = false
-                if (stanje <= 0) {
-                    Toast.makeText(this, "Stanje = 0. Nadoplati na Parlov12!", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    Log.d(
-                        tag,
-                        "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n"
-                    )
-
-                    if ((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false)) {
+                    if (checkDijeli == false) {
+                        show_text.text = "IGRA U TIJEKU..."
+                         handler.postDelayed({
+                            show_text.text = ""
+                             }, 2000)
+                     }
+                    else if (((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false))||(ulogCheck == false)) {
                         Toast.makeText(this, "Odaberi ulog, najbolje na 500!", Toast.LENGTH_SHORT)
                             .show()
+                    }
+                    else if (stanje <= 0 || ulog > stanje) {
+                        Toast.makeText(this, "Nedovoljno stanje na računu!", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
+                        checkDijeli = false
+                        Log.d(
+                            tag,
+                            "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n"
+                        )
+
 
                         dosta_button.setBackgroundResource(dosta_off)
                         vuci_button.setBackgroundResource(vuci_off)
@@ -168,15 +168,13 @@ class Blackjack : AppCompatActivity() {
                         stanje = stanje - ulog
                         stanje_text.text = "STANJE: $stanje kn"
                         pc_sum.text = "$pcSum"
-                    }
 
-                    player_sum.text = "$playerSum"
-                    Log.d(
-                        tag,
-                        "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n"
-                    )
-                }
-            }
+
+                        player_sum.text = "$playerSum"
+
+                    } // kraj svih provjera tj kraj else-a
+
+            Log.d(tag, "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
         } // end of dijeli_button
 
         vuci_button.setOnClickListener {
