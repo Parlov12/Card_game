@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E9520"
+    android:background="#51ACF5"
     tools:context=".Blackjack"
     tools:layout_editor_absoluteY="25dp">
 
@@ -123,10 +123,9 @@
         android:layout_height="120dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src = "@drawable/no_card"
+        android:src="@drawable/no_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        />
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <ImageView
         android:id="@+id/player_second_card"
@@ -136,8 +135,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_third_card"
@@ -147,8 +145,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_forth_card"
@@ -158,8 +155,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0"
-         />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_fifth_card"
@@ -169,8 +165,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_sixth_card"
@@ -180,18 +175,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/choose_bet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_subrayada"
+        android:fontFamily="@font/bangers"
         android:text="ODABERI ULOG:"
         android:textColor="#ffffff"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player_card_background" />
 
@@ -211,7 +206,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/choose_bet" />
 
     <ToggleButton
         android:id="@+id/ulog2"
@@ -239,8 +234,8 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/ulog_onoff"
         android:onClick="Ulog3Clicked"
-        android:text="ToggleButton"
-        android:textColor="#FFFFFF"
+        android:text="500"
+        android:textColor="#ffffff"
         android:textOff="500"
         android:textOn="500"
         app:layout_constraintBottom_toBottomOf="@+id/ulog2"
@@ -253,13 +248,14 @@
 
     <TextView
         android:id="@+id/stanje_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="189dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/montserrat_subrayada"
+        android:fontFamily="@font/bangers"
         android:text="STANJE: "
-        android:textSize="18sp"
+        android:textAlignment="viewStart"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -268,7 +264,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:background="#0B530D"
+        android:background="#2C3FA1"
         android:text="DIJELI"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="@+id/ulog3"
@@ -279,26 +275,62 @@
 
     <Button
         android:id="@+id/vuci_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="108dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:background="#0B530D"
-        android:text="VUCI"
+        android:background="@drawable/vuci_button_off"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <Button
         android:id="@+id/dosta_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="#0B530D"
-        android:text="DOSTA"
+        android:background="@drawable/dosta_button_off"
         android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/vuci_button"
+        app:layout_constraintStart_toStartOf="@+id/vuci_button"
         app:layout_constraintTop_toBottomOf="@+id/vuci_button" />
+
+    <TextView
+        android:id="@+id/player_sum"
+        android:layout_width="38dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="50dp"
+        android:background="@drawable/custom_text"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/pc_sum"
+        android:layout_width="37dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="164dp"
+        android:background="@drawable/custom_text"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/show_text"
+        android:layout_width="288dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/bangers"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

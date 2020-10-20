@@ -1,36 +1,51 @@
 package com.example.card_game
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_blackjack.*
-import kotlinx.android.synthetic.main.activity_playing.*
 
 class Blackjack : AppCompatActivity() {
 
 
+    val handler = Handler()
     var ulog: Int = 0
+    var result_background = Color.parseColor("#ffffff")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blackjack)
-        var check: Int = 1
+
+        val vuci_on:Int = R.drawable.vuci_button_on
+        val vuci_off:Int = R.drawable.vuci_button_off
+        val vuci_disabled:Int = R.drawable.vuci_button_disabled
+        val dosta_on: Int = R.drawable.dosta_button_on
+        val dosta_off: Int = R.drawable.dosta_button_off
+        val dosta_disabled: Int = R.drawable.dosta_button_disabled
+        val tag: String = "provjera"
+        var checkVuci: Boolean = false
+        var checkDosta: Boolean = false
+        var checkDijeli: Boolean = true
         var pHandPc: Int = 0
-        var winner: Int
         var pDeck: Int = 0
         var pHandPlayer: Int = 0
         val handler = Handler()
         var no_card: Int = R.drawable.no_card
-
+        var pomSum: Int = 0
         var playerSum: Int = 0
         var pcSum: Int = 0
 
         var stanje: Int = 10000
         var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
-        stanje_text.text = "STANJE: $stanje"
-
+        stanje_text.text = "STANJE: $stanje kn"
 
 
         var bj_cards = arrayOfNulls<blackjack_class>(52)
@@ -89,68 +104,159 @@ class Blackjack : AppCompatActivity() {
 
 
         bjNiz.shuffle()
+        vuci_button.setBackgroundResource(vuci_disabled)
+        dosta_button.setBackgroundResource(dosta_disabled)
 
         dijeli_button.setOnClickListener {
-            if(pDeck == 52)
+            if(checkDijeli == false)
             {
-                bjNiz.shuffle()
+                show_text.text = "IGRA U TIJEKU..."
+                handler.postDelayed({
+                    show_text.text = ""
+                },2000)
+            }else {
+                checkDijeli = false
+                if (stanje <= 0) {
+                    Toast.makeText(this, "Stanje = 0. Nadoplati na Parlov12!", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Log.d(
+                        tag,
+                        "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n"
+                    )
+
+                    if ((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false)) {
+                        Toast.makeText(this, "Odaberi ulog, najbolje na 500!", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+
+                        dosta_button.setBackgroundResource(dosta_off)
+                        vuci_button.setBackgroundResource(vuci_off)
+                        pcSum = 0
+                        checkDosta = true
+                        checkVuci = true
+
+                        reset_views(
+                            pc_card_background,
+                            pc_second_card,
+                            pc_third_card,
+                            pc_forth_card,
+                            pc_fifth_card,
+                            pc_sixth_card,
+                            no_card
+                        )
+                        reset_views(
+                            player_card_background,
+                            player_second_card,
+                            player_third_card,
+                            player_forth_card,
+                            player_fifth_card,
+                            player_sixth_card,
+                            no_card
+                        )
+
+                        pDeck = position_check(pDeck, bjNiz)
+                        player_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                        pDeck = pDeck + 1
+                        pDeck = position_check(pDeck, bjNiz)
+                        pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
+                        pc_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                        playerSum = 0
+                        playerSum = playerSum + bj_cards[bjNiz[pDeck - 1]]!!.value
+                        pHandPlayer = 0
+                        pHandPlayer = pHandPlayer + 1
+                        stanje = stanje - ulog
+                        stanje_text.text = "STANJE: $stanje kn"
+                        pc_sum.text = "$pcSum"
+                    }
+
+                    player_sum.text = "$playerSum"
+                    Log.d(
+                        tag,
+                        "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n"
+                    )
+                }
             }
-            if((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false))
+        } // end of dijeli_button
+
+        vuci_button.setOnClickListener {
+
+            Log.d(tag,"\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
+
+            if(checkVuci == false)
             {
-                Toast.makeText  (this, "Ulog namisti, najbolje na 500!", Toast.LENGTH_SHORT).show()
+                println("Error")
             }
             else {
-                check = 0
-                reset_views(
-                    pc_card_background,
-                    pc_second_card,
-                    pc_third_card,
-                    pc_forth_card,
-                    pc_fifth_card,
-                    pc_sixth_card,
-                    no_card
-                )
-                reset_views(
-                    player_card_background,
-                    player_second_card,
-                    player_third_card,
-                    player_forth_card,
-                    player_fifth_card,
-                    player_sixth_card,
-                    no_card
-                )
+                vuci_button.setBackgroundResource(vuci_on)
 
-                player_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic);
-                playerSum = 0
-                playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
-                pDeck = pDeck + 1
-                pHandPlayer = 0
-                pHandPlayer = pHandPlayer + 1
-                stanje = stanje - ulog
-                stanje_text.text = "STANJE: $stanje "
-            }
-        }
+                    pDeck = pDeck + 1
+                    pDeck = position_check(pDeck,bjNiz)
+
+                    if (pHandPlayer == 1) {
+                        player_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    } else if (pHandPlayer == 2) {
+                        player_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    } else if (pHandPlayer == 3) {
+                        player_forth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    } else if (pHandPlayer == 4) {
+                        player_fifth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    } else if (pHandPlayer == 5) {
+                        player_sixth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                        pHandPlayer = 0
+                    } else {
+                        Toast.makeText(this, "Error!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
+                    pHandPlayer = pHandPlayer + 1
+
+                    if (playerSum >= 0 && playerSum <=21) {
+
+                        handler.postDelayed({
+                            vuci_button.setBackgroundResource(vuci_off)
+                        }, 200)
+
+                    } else if (playerSum > 21) {
+                        stanje = stanje
+                        checkDosta = false
+                        checkVuci = false
+                        Toast.makeText(this, "Preko 21!", Toast.LENGTH_SHORT).show()
+                        show_n_disappear("  -${ulog} kn", show_text)
+                        vuci_button.setBackgroundResource(vuci_disabled)
+                        dosta_button.setBackgroundResource(dosta_disabled)
+                        checkDijeli = true
+                    }
+                    else{
+                        Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+                    }
+
+                player_sum.text = "$playerSum"
+            } // end of provjera checkVuci
 
 
+            Log.d(tag,"\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
+
+
+
+        } // end of vuci_button
 
         dosta_button.setOnClickListener {
+            Log.d(tag,"\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
             // dealer section
-            if (check == 1) {
-                Toast.makeText(this, "Podijeli prvo karte!!", Toast.LENGTH_SHORT).show()
+            if (checkDosta == false) {
+               // Toast.makeText(this, "Podijeli prvo karte!!", Toast.LENGTH_SHORT).show()
             } else{
-                check = 1
-                pHandPc = 0
-            pc_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-            pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
-            pHandPc = pHandPc + 1
-            pDeck = pDeck + 1
+                dosta_button.setBackgroundResource(dosta_on)
+                checkDosta = false
+                pHandPc = 1
+                pDeck = pDeck + 1
+                pDeck = position_check(pDeck,bjNiz)
 
             while (pcSum < 17) {
 
                 if (pHandPc == 1) {
-
                     pc_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-
                 } else if (pHandPc == 2) {
                     pc_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
                 } else if (pHandPc == 3) {
@@ -163,86 +269,67 @@ class Blackjack : AppCompatActivity() {
 
                 pHandPc = pHandPc + 1
                 pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
-                pDeck = pDeck + 1
 
                 if (pcSum > 21) {
                     Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
+                    show_n_disappear("  +${ulog*2}!", show_text)
                     stanje = stanje + ulog*2
-                    stanje_text.text = "STANJE: $stanje"
+                    stanje_text.text = "STANJE: $stanje kn"
                     pHandPc = 0
                     pHandPlayer = 0
-                } else if (pcSum == playerSum) {
+                    checkVuci = false
+                    checkDijeli = true
+                } else if (pcSum == playerSum && pcSum >= 17) {
                     Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
-                    stanje = stanje
-                    stanje_text.text = "STANJE: $stanje"
+                    show_n_disappear("  +0 kn!", show_text)
+                    stanje = stanje + ulog
+                    stanje_text.text = "STANJE: $stanje kn"
                         pHandPc = 0
                     pHandPlayer = 0
-                } else if (pcSum > playerSum && pcSum <= 21) {
-                    Toast.makeText(this, "You lost!!", Toast.LENGTH_SHORT).show()
-                    stanje = stanje - ulog
-                    stanje_text.text = "STANJE: $stanje"
+                    checkVuci = false
+                    checkDijeli = true
+                } else if ((pcSum > playerSum) && (pcSum <= 21)) {
+                    Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
+                    show_n_disappear("  -${ulog} kn", show_text)
+                    stanje = stanje
+                    stanje_text.text = "STANJE: $stanje kn"
                     pHandPc = 0
                     pHandPlayer = 0
+                    checkVuci = false
+                    checkDijeli = true
 
                 } else if (pcSum < playerSum && pcSum >= 17) {
-                    Toast.makeText(this, "AJDEEEEEEE!!", Toast.LENGTH_SHORT).show()
-                    stanje = stanje + ulog
-                    stanje_text.text = "STANJE: $stanje"
+                    Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
+                    show_n_disappear("  +${ulog*2} kn!!", show_text)
+                    stanje = stanje + ulog*2
+                    stanje_text.text = "STANJE: $stanje kn"
                     pHandPc = 0
                     pHandPlayer = 0
+                    checkVuci = false
+                    checkDijeli = true
                 }
-            }
-                pcSum = 0
-        }// end of provjera check-a
-        } // end of dosta
 
-        vuci_button.setOnClickListener {
-            if (pHandPlayer == 0) {
-                Toast.makeText(this, "Podili karte prvo bogati!", Toast.LENGTH_SHORT).show()
-            } else {
-                if (pHandPlayer == 1) {
-                    player_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 2) {
-                    player_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 3) {
-                    player_forth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 4) {
-                    player_fifth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 5) {
-                    player_sixth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                    pHandPlayer = 0
-                } else {
-                    Toast.makeText(this, "Jebiga sad, nema vise karata!!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
                 pDeck = pDeck + 1
-                pHandPlayer = pHandPlayer + 1
-
-                if (playerSum >= 17 && playerSum < 21) {
-
-
-
-                } else if (playerSum > 21) {
-                    handler.postDelayed({
-                        // do something after 500ms
-                        player_card_background.setImageResource(no_card)
-                        player_second_card.setImageResource(0)
-                        player_third_card.setImageResource(0)
-                        player_forth_card.setImageResource(0)
-                        player_fifth_card.setImageResource(0)
-                        player_sixth_card.setImageResource(0)
-
-                        Toast.makeText(this, "Prisa si 21!", Toast.LENGTH_SHORT).show()
-
-                    }, 500)
-                }
-
+                pDeck = position_check(pDeck,bjNiz)
             }
+                pc_sum.text = "$pcSum"
 
-        }
+                pcSum = 0
 
+                handler.postDelayed({
+                    dosta_button.setBackgroundResource(dosta_disabled)
+                    vuci_button.setBackgroundResource(vuci_disabled)
+                },200)
 
+        }// end of provjera check-a
+
+            Log.d(tag,"\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
+
+            handler.postDelayed({
+                dosta_button.setBackgroundResource(dosta_disabled)
+            },200)
+
+        } // end of dosta_button
 
 
     } // end of onCreate()
@@ -282,4 +369,31 @@ class Blackjack : AppCompatActivity() {
     {
 
     }
-}
+
+    fun show_n_disappear(message: String, show: TextView)
+    {
+      //  var color = Color.parseColor("#4E65DA")
+      //  var color2 = Color.parseColor("#2C3FA1")
+        show.text = message
+       // show.setBackgroundColor(color2)
+        handler.postDelayed({
+                show.text = ""
+               // show.setBackgroundColor(color)
+        }, 3000)
+    }
+
+    // provjera pozicije u deck
+    // fukcija provjerava je li deck dosao do zadnje karte
+    // te ako je, pozicija se vraca na index 0 te se deck
+    // ponovno mijesa
+    fun position_check(deckPosition: Int, deck: IntArray): Int {
+        var pos: Int = deckPosition
+        if(deckPosition == 51)
+        {
+            pos = 0
+            deck.shuffle()
+        }
+        return pos
+
+    }
+}   // end of class BlackJack

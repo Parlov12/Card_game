@@ -10,8 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        briskula_button.background.alpha = 64
-        blackjack_button.background.alpha = 64
+           briskula_button.background.alpha = 200
+           blackjack_button.background.alpha = 200
 
         briskula_button.setOnClickListener {
 
