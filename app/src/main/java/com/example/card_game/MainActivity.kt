@@ -3,6 +3,7 @@ package com.example.card_game
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,9 +16,11 @@ class MainActivity : AppCompatActivity() {
 
         briskula_button.setOnClickListener {
 
-            val playing_activity = Intent(this, PlayingActivity::class.java)
+            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
 
-                    startActivity(playing_activity)
+          //  val playing_activity = Intent(this, PlayingActivity::class.java)
+
+               //     startActivity(playing_activity)
 
 
         }

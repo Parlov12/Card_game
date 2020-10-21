@@ -20,7 +20,8 @@
         android:scaleType="fitCenter"
         android:src="@drawable/deck6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/deck" />
 
     <ImageView
         android:id="@+id/pc_card_background"
@@ -34,7 +35,8 @@
         android:src="@drawable/no_card"
         app:layout_constraintBottom_toBottomOf="@+id/deck"
         app:layout_constraintStart_toEndOf="@+id/deck"
-        app:layout_constraintTop_toTopOf="@+id/deck" />
+        app:layout_constraintTop_toTopOf="@+id/deck"
+        android:contentDescription="@string/no_card_for_pc_also_place_for_first_card" />
 
     <ImageView
         android:id="@+id/pc_second_card"
@@ -48,7 +50,8 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="@+id/pc_card_background"
-        app:layout_constraintTop_toTopOf="@+id/pc_card_background" />
+        app:layout_constraintTop_toTopOf="@+id/pc_card_background"
+        android:contentDescription="@string/second_pc_card" />
 
     <ImageView
         android:id="@+id/pc_third_card"
@@ -63,7 +66,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="@+id/pc_card_background"
         app:layout_constraintTop_toTopOf="@+id/pc_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/third_pc_card" />
 
     <ImageView
         android:id="@+id/pc_forth_card"
@@ -78,7 +82,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="@+id/pc_card_background"
         app:layout_constraintTop_toTopOf="@+id/pc_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription= "@string/forth_pc_card" />
 
     <ImageView
         android:id="@+id/pc_fifth_card"
@@ -93,7 +98,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="@+id/pc_card_background"
         app:layout_constraintTop_toTopOf="@+id/pc_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/fifth_pc_card" />
 
     <ImageView
         android:id="@+id/pc_sixth_card"
@@ -108,7 +114,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="@+id/pc_card_background"
         app:layout_constraintTop_toTopOf="@+id/pc_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/sixth_pc_card" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -125,7 +132,8 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/no_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        android:contentDescription="@string/no_card_for_player_also_place_for_players_first_card" />
 
     <ImageView
         android:id="@+id/player_second_card"
@@ -135,7 +143,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/second_player_card" />
 
     <ImageView
         android:id="@+id/player_third_card"
@@ -145,7 +154,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/third_player_card" />
 
     <ImageView
         android:id="@+id/player_forth_card"
@@ -155,7 +165,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/forth_player_card" />
 
     <ImageView
         android:id="@+id/player_fifth_card"
@@ -165,7 +176,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/fifth_player_card" />
 
     <ImageView
         android:id="@+id/player_sixth_card"
@@ -175,7 +187,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="@+id/player_card_background"
         app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/sixth_player_card" />
 
     <TextView
         android:id="@+id/choose_bet"
@@ -184,7 +197,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/bangers"
-        android:text="ODABERI ULOG:"
+        android:text="@string/choose_bet"
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -199,8 +212,8 @@
         android:fontFamily="@font/montserrat_subrayada"
         android:onClick="Ulog1Clicked"
         android:textColor="#ffffff"
-        android:textOff="100"
-        android:textOn="100"
+        android:textOff="@string/ulog1"
+        android:textOn="@string/ulog1"
         app:layout_constraintBottom_toTopOf="@+id/stanje_text"
         app:layout_constraintEnd_toStartOf="@+id/ulog2"
         app:layout_constraintHorizontal_bias="0.5"
@@ -212,14 +225,13 @@
         android:id="@+id/ulog2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/ulog_onoff"
         android:onClick="Ulog2Clicked"
-        android:text="ToggleButton"
         android:textColor="#FFFFFF"
-        android:textOff="200"
-        android:textOn="200"
+        android:textOff="@string/ulog2"
+        android:textOn="@string/ulog2"
         app:layout_constraintBottom_toBottomOf="@+id/ulog1"
         app:layout_constraintEnd_toStartOf="@+id/ulog3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -230,14 +242,13 @@
         android:id="@+id/ulog3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/ulog_onoff"
         android:onClick="Ulog3Clicked"
-        android:text="500"
         android:textColor="#ffffff"
-        android:textOff="500"
-        android:textOn="500"
+        android:textOff="@string/ulog3"
+        android:textOn="@string/ulog3"
         app:layout_constraintBottom_toBottomOf="@+id/ulog2"
         app:layout_constraintEnd_toStartOf="@+id/dijeli_button"
         app:layout_constraintHorizontal_bias="0.5"
@@ -253,7 +264,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/bangers"
-        android:text="STANJE: "
+        android:text="@string/balance"
         android:textAlignment="viewStart"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -265,7 +276,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="#2C3FA1"
-        android:text="DIJELI"
+        android:text="@string/start"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="@+id/ulog3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -297,11 +308,22 @@
 
     <TextView
         android:id="@+id/player_sum"
-        android:layout_width="38dp"
+        android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="50dp"
         android:background="@drawable/custom_text"
-        android:text="0"
+        android:text="@string/player_sum"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/player_sum2"
+        android:layout_width="72dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="50dp"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="24sp"
@@ -310,11 +332,22 @@
 
     <TextView
         android:id="@+id/pc_sum"
-        android:layout_width="37dp"
+        android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="164dp"
         android:background="@drawable/custom_text"
-        android:text="0"
+        android:text="@string/pc_sum"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pc_sum2"
+        android:layout_width="72dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="164dp"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="24sp"

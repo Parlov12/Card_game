@@ -30,6 +30,7 @@ class Blackjack : AppCompatActivity() {
         val dosta_on: Int = R.drawable.dosta_button_on
         val dosta_off: Int = R.drawable.dosta_button_off
         val dosta_disabled: Int = R.drawable.dosta_button_disabled
+        val show_suma: Int = R.drawable.custom_text
         val tag: String = "provjera"
         var ulogCheck: Boolean = true
         var checkVuci: Boolean = false
@@ -40,7 +41,10 @@ class Blackjack : AppCompatActivity() {
         var pHandPlayer: Int = 0
         val handler = Handler()
         var no_card: Int = R.drawable.no_card
-        var pomSum: Int = 0
+        var pomPlayerSum: Int = 0
+        var mainPlayerSum: Int = 0
+        var mainPcSum: Int = 0
+        var pomPcSum: Int = 0
         var playerSum: Int = 0
         var pcSum: Int = 0
 
@@ -49,8 +53,9 @@ class Blackjack : AppCompatActivity() {
         stanje_text.text = "STANJE: $stanje kn"
 
 
+
         var bj_cards = arrayOfNulls<blackjack_class>(52)
-        bj_cards[0] = blackjack_class(1,"tref",11, pic = R.drawable.tref_1)
+        bj_cards[0] = blackjack_class(1,"tref",1, pic = R.drawable.tref_1)
         bj_cards[1] = blackjack_class(2,"tref", 2, pic = R.drawable.tref_2)
         bj_cards[2] = blackjack_class(3,"tref", 3, pic = R.drawable.tref_3)
         bj_cards[3] = blackjack_class(4,"tref",4, pic = R.drawable.tref_4)
@@ -63,7 +68,7 @@ class Blackjack : AppCompatActivity() {
         bj_cards[10] = blackjack_class(11, "tref", 10, pic = R.drawable.tref_11)
         bj_cards[11] = blackjack_class(12,"tref",10, pic = R.drawable.tref_12)
         bj_cards[12] = blackjack_class(13,"tref",10, pic = R.drawable.tref_13)
-        bj_cards[13] = blackjack_class(1,"pik",11, pic = R.drawable.pik_1)
+        bj_cards[13] = blackjack_class(1,"pik",1, pic = R.drawable.pik_1)
         bj_cards[14] = blackjack_class(2,"pik", 2, pic = R.drawable.pik_2)
         bj_cards[15] = blackjack_class(3,"pik", 3, pic = R.drawable.pik_3)
         bj_cards[16] = blackjack_class(4,"pik",4, pic = R.drawable.pik_4)
@@ -76,7 +81,7 @@ class Blackjack : AppCompatActivity() {
         bj_cards[23] = blackjack_class(11, "pik", 10, pic = R.drawable.pik_11)
         bj_cards[24] = blackjack_class(12,"pik",10, pic = R.drawable.pik_12)
         bj_cards[25] = blackjack_class(13,"pik",10, pic = R.drawable.pik_13)
-        bj_cards[26] = blackjack_class(1,"karo",11, pic = R.drawable.karo_1)
+        bj_cards[26] = blackjack_class(1,"karo",1, pic = R.drawable.karo_1)
         bj_cards[27] = blackjack_class(2,"karo", 2, pic = R.drawable.karo_2)
         bj_cards[28] = blackjack_class(3,"karo", 3, pic = R.drawable.karo_3)
         bj_cards[29] = blackjack_class(4,"karo",4, pic = R.drawable.karo_4)
@@ -89,7 +94,7 @@ class Blackjack : AppCompatActivity() {
         bj_cards[36] = blackjack_class(11, "karo", 10, pic = R.drawable.karo_11)
         bj_cards[37] = blackjack_class(12,"karo",10, pic = R.drawable.karo_12)
         bj_cards[38] = blackjack_class(13,"karo",10, pic = R.drawable.karo_13)
-        bj_cards[39] = blackjack_class(1,"herc",11, pic = R.drawable.herc_1)
+        bj_cards[39] = blackjack_class(1,"herc",1, pic = R.drawable.herc_1)
         bj_cards[40] = blackjack_class(2,"herc", 2, pic = R.drawable.herc_2)
         bj_cards[41] = blackjack_class(3,"herc", 3, pic = R.drawable.herc_3)
         bj_cards[42] = blackjack_class(4,"herc",4, pic = R.drawable.herc_4)
@@ -104,9 +109,15 @@ class Blackjack : AppCompatActivity() {
         bj_cards[51] = blackjack_class(13,"herc",10, pic = R.drawable.herc_13)
 
 
+
         bjNiz.shuffle()
         vuci_button.setBackgroundResource(vuci_disabled)
         dosta_button.setBackgroundResource(dosta_disabled)
+
+        Log.d(tag, "\n${bj_cards[bjNiz[0]]!!.number} - ${bj_cards[0]!!.type}\n" +
+                         "${bj_cards[bjNiz[1]]!!.number} - ${bj_cards[bjNiz[1]]!!.type}\n" +
+                         "${bj_cards[bjNiz[2]]!!.number} - ${bj_cards[bjNiz[2]]!!.type}\n" +
+                         "${bj_cards[bjNiz[3]]!!.number} - ${bj_cards[bjNiz[3]]!!.type}\n")
 
         dijeli_button.setOnClickListener {
                     if (checkDijeli == false) {
@@ -122,17 +133,18 @@ class Blackjack : AppCompatActivity() {
                     else if (stanje <= 0 || ulog > stanje) {
                         Toast.makeText(this, "Nedovoljno stanje na računu!", Toast.LENGTH_SHORT)
                             .show()
-                    } else {
+                    }
+                    else {
                         checkDijeli = false
                         Log.d(
                             tag,
-                            "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n"
+                            "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
                         )
-
 
                         dosta_button.setBackgroundResource(dosta_off)
                         vuci_button.setBackgroundResource(vuci_off)
                         pcSum = 0
+                        pomPcSum = 0
                         checkDosta = true
                         checkVuci = true
 
@@ -160,32 +172,88 @@ class Blackjack : AppCompatActivity() {
                         pDeck = pDeck + 1
                         pDeck = position_check(pDeck, bjNiz)
                         pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
+
+                        // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
+                        pomPcSum = pomPcSum + bj_cards[bjNiz[pDeck]]!!.value
+                        if(bj_cards[bjNiz[pDeck]]!!.number == 1)
+                        {
+                            pomPcSum = pomPcSum + 11 - 1 // zamjena vrijednosti asa sa 1 na 11
+                        }
+
+
                         pc_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
                         playerSum = 0
                         playerSum = playerSum + bj_cards[bjNiz[pDeck - 1]]!!.value
+
+                        pomPlayerSum = 0
+                        pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck - 1]]!!.value
+                        // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
+                        if(bj_cards[bjNiz[pDeck - 1]]!!.number == 1)
+                        {
+                            pomPlayerSum = pomPlayerSum + 11 - 1 // zamjena vrijednosti asa sa 11 na 1
+                        }
+                        
                         pHandPlayer = 0
                         pHandPlayer = pHandPlayer + 1
                         stanje = stanje - ulog
                         stanje_text.text = "STANJE: $stanje kn"
-                        pc_sum.text = "$pcSum"
+
+                        if((pcSum != pomPcSum)&&(pomPcSum <= 21))
+                        {
+                            player_sum2.setBackgroundResource(show_suma)
+                            player_sum2.text = "$playerSum/$pomPlayerSum"
+                        }
+                        else if((pcSum != pomPcSum)&&(pomPcSum > 21))
+                        {
+                            pc_sum2.text = ""
+                            pc_sum2.setBackgroundResource(0)
+                            pc_sum.text = "$pcSum"
+                        }
+                        else
+                        {
+                            pc_sum2.text = ""
+                            pc_sum2.setBackgroundResource(0)
+                            pc_sum.text = "$pcSum"
+                        }
 
 
-                        player_sum.text = "$playerSum"
-
+                        if(playerSum != pomPlayerSum)
+                        {
+                            player_sum2.setBackgroundResource(show_suma)
+                            player_sum2.text = "$playerSum/$pomPlayerSum"
+                        }
+                        else if((playerSum != pomPlayerSum)&&(pomPlayerSum > 21))
+                        {
+                            player_sum2.text = ""
+                            player_sum2.setBackgroundResource(0)
+                            player_sum.text = "$playerSum"
+                        }
+                        else
+                        {
+                            player_sum2.text = ""
+                            player_sum2.setBackgroundResource(0)
+                            player_sum.text = "$playerSum"
+                        }
+                        Log.d(
+                            tag,
+                            "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                        )
                     } // kraj svih provjera tj kraj else-a
-
-            Log.d(tag, "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
         } // end of dijeli_button
 
         vuci_button.setOnClickListener {
 
-            Log.d(tag,"\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
 
             if(checkVuci == false)
             {
                 println("Error")
             }
             else {
+                Log.d(
+                    tag,
+                    "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                )
+
                 vuci_button.setBackgroundResource(vuci_on)
 
                     pDeck = pDeck + 1
@@ -207,15 +275,29 @@ class Blackjack : AppCompatActivity() {
                             .show()
                     }
                     playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
+
+                    pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck]]!!.value
+                    // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
+                    if(bj_cards[bjNiz[pDeck]]!!.number == 1)
+                    {
+                        pomPlayerSum = pomPlayerSum + 11 - 1 // zamjena vrijednosti asa sa 11 na 1
+                    }
                     pHandPlayer = pHandPlayer + 1
 
-                    if (playerSum >= 0 && playerSum <=21) {
+                    if (playerSum >= 0 && playerSum <=21 && pomPlayerSum >= 0 && pomPlayerSum <= 21) {
 
                         handler.postDelayed({
                             vuci_button.setBackgroundResource(vuci_off)
                         }, 200)
 
-                    } else if (playerSum > 21) {
+                    }
+                    else if(playerSum >= 0 && playerSum <= 21 && pomPlayerSum > 21)
+                    {
+                        handler.postDelayed({
+                            vuci_button.setBackgroundResource(vuci_off)
+                        }, 200)
+                    }
+                    else if ((playerSum > 21)&&(pomPlayerSum > 21)) {
                         stanje = stanje
                         checkDosta = false
                         checkVuci = false
@@ -229,18 +311,47 @@ class Blackjack : AppCompatActivity() {
                         Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
                     }
 
-                player_sum.text = "$playerSum"
+
+                // regulation of what text shows between playerSum and pomPlayerSum
+                if((playerSum != pomPlayerSum)&&(pomPlayerSum <= 21))
+                {
+                    player_sum2.setBackgroundResource(show_suma)
+                    player_sum2.text = "$playerSum/$pomPlayerSum"
+                }
+                else if((playerSum != pomPlayerSum)&&(pomPlayerSum > 21))
+                {
+                    player_sum2.text = ""
+                    player_sum2.setBackgroundResource(0)
+                    player_sum.text = "$playerSum"
+                }
+                else
+                {
+                    player_sum2.text = ""
+                    player_sum2.setBackgroundResource(0)
+                    player_sum.text = "$playerSum"
+                }
+                Log.d(
+                    tag,
+                    "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                )
             } // end of provjera checkVuci
-
-
-            Log.d(tag,"\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
-
-
-
         } // end of vuci_button
 
         dosta_button.setOnClickListener {
-            Log.d(tag,"\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
+            Log.d(
+                tag,
+                "\nBefore\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+            )
+
+            if((pomPlayerSum <= 21)&&(pomPlayerSum>playerSum))
+            {
+                mainPlayerSum = pomPlayerSum
+            }
+            else
+            {
+                mainPlayerSum = playerSum
+            }
+
             // dealer section
             if (checkDosta == false) {
                // Toast.makeText(this, "Podijeli prvo karte!!", Toast.LENGTH_SHORT).show()
@@ -267,8 +378,23 @@ class Blackjack : AppCompatActivity() {
 
                 pHandPc = pHandPc + 1
                 pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
+                // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
+                pomPcSum = pomPcSum + bj_cards[bjNiz[pDeck]]!!.value
+                if(bj_cards[bjNiz[pDeck]]!!.number == 1)
+                {
+                    pomPcSum = pomPcSum - 11 + 1 // zamjena vrijednosti asa sa 11 na 1
+                }
 
-                if (pcSum > 21) {
+                if(pomPcSum <= 21 && pomPcSum > pcSum)
+                {
+                    mainPcSum = pomPcSum
+                }
+                else
+                {
+                    mainPcSum = pcSum
+                }
+
+                if (pcSum > 21 && pomPcSum > 21) {
                     Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +${ulog*2}!", show_text)
                     stanje = stanje + ulog*2
@@ -277,7 +403,7 @@ class Blackjack : AppCompatActivity() {
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
-                } else if (pcSum == playerSum && pcSum >= 17) {
+                } else if (pcSum == mainPlayerSum && pcSum >= 17) {
                     Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +0 kn!", show_text)
                     stanje = stanje + ulog
@@ -286,7 +412,7 @@ class Blackjack : AppCompatActivity() {
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
-                } else if ((pcSum > playerSum) && (pcSum <= 21)) {
+                } else if ((pcSum > mainPlayerSum) && (pcSum <= 21)) {
                     Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  -${ulog} kn", show_text)
                     stanje = stanje
@@ -296,7 +422,7 @@ class Blackjack : AppCompatActivity() {
                     checkVuci = false
                     checkDijeli = true
 
-                } else if (pcSum < playerSum && pcSum >= 17) {
+                } else if (pcSum < mainPlayerSum && pcSum >= 17) {
                     Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +${ulog*2} kn!!", show_text)
                     stanje = stanje + ulog*2
@@ -312,7 +438,6 @@ class Blackjack : AppCompatActivity() {
             }
                 pc_sum.text = "$pcSum"
 
-                pcSum = 0
 
                 handler.postDelayed({
                     dosta_button.setBackgroundResource(dosta_disabled)
@@ -321,7 +446,10 @@ class Blackjack : AppCompatActivity() {
 
         }// end of provjera check-a
 
-            Log.d(tag,"\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\n")
+            Log.d(
+                tag,
+                "\nAfter\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+            )
 
             handler.postDelayed({
                 dosta_button.setBackgroundResource(dosta_disabled)

@@ -18,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_start"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ace_3" />
+        app:srcCompat="@drawable/ace_3"
+        android:contentDescription="@string/card_background" />
 
     <Button
         android:id="@+id/blackjack_button"
@@ -28,7 +29,7 @@
         android:background="@drawable/custom_button"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="Blackjack"
+        android:text="@string/blackjack_game_main"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="36sp"
@@ -44,7 +45,7 @@
         android:background="@drawable/custom_button"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="Briskula"
+        android:text="@string/briskula_game_main"
         android:textColor="#ffffff"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bangers"
-        android:text="CardGames"
+        android:text="@string/title_main"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
