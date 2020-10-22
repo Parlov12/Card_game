@@ -47,11 +47,11 @@
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="30dp"
+        android:contentDescription="@string/second_pc_card"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="@+id/pc_card_background"
-        app:layout_constraintTop_toTopOf="@+id/pc_card_background"
-        android:contentDescription="@string/second_pc_card" />
+        app:layout_constraintTop_toTopOf="@+id/pc_card_background" />
 
     <ImageView
         android:id="@+id/pc_third_card"
