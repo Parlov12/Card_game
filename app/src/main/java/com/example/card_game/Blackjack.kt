@@ -1,9 +1,13 @@
 package com.example.card_game
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
+import android.provider.Settings.Global.putInt
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -14,9 +18,9 @@ import kotlinx.android.synthetic.main.activity_blackjack.*
 class Blackjack : AppCompatActivity() {
 
 
+    // outside
     val handler = Handler()
     var ulog: Int = 0
-    // ??? var result_background = Color.parseColor("#ffffff")
     val ulog_10: Int = R.drawable.ulog_10_off
     val ulog_25: Int = R.drawable.ulog_25_off
     val ulog_50: Int = R.drawable.ulog_50_off
@@ -26,11 +30,13 @@ class Blackjack : AppCompatActivity() {
     var currency: String = "$"
     val TAG: String = "provjera"
     var ulogCheck: Boolean = true
-    var stanje: Int = 1000
+    var stanje: Int = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blackjack)
+
+        loadData()
 
         //image variables
         val vuci_on:Int = R.drawable.vuci_button_on_fix
@@ -69,6 +75,8 @@ class Blackjack : AppCompatActivity() {
         var mainPlayerSum: Int = 0
         var pomPcSum: Int = 0
         var mainPcSum: Int = 0
+        var bj1: Int
+        var bj2: Int
 
         // other variables
         val handler = Handler()
@@ -165,8 +173,7 @@ class Blackjack : AppCompatActivity() {
 
 
 
-        bjNiz[0] = 4
-        bjNiz[1] = 5
+
 
         dijeli_button.setOnClickListener {
                     if (checkDijeli == false) {
@@ -233,6 +240,9 @@ class Blackjack : AppCompatActivity() {
                         //setting up pomPlayer sum
                         pomPlayerSum = 0
                         pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck]]!!.value
+
+                        bj1 = bj_cards[bjNiz[pDeck]]!!.value
+
                         if(bj_cards[bjNiz[pDeck]]!!.number == 1)
                         {
                             pomPlayerSum = pomPlayerSum + 11 - 1 // replacing A values: A-1 -> A-11
@@ -256,6 +266,8 @@ class Blackjack : AppCompatActivity() {
                         player_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
                         // setting up sum text above cards - player
                         sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
+
+                        bj2 = bj_cards[bjNiz[pDeck]]!!.value
 
                         //increasing "pointer" to deck +1 and that will be pc's first card
                         pDeck = pDeck + 1
@@ -287,7 +299,7 @@ class Blackjack : AppCompatActivity() {
 
                         //Log.d(TAG, "${bj_cards[bjNiz[pDeck-1]]!!.value}\n${bj_cards[bjNiz[pDeck-2]]!!.value}")
                         // if player gets 21 in first to cards, he/she instantly wins
-                        if((bj_cards[bjNiz[pDeck-1]]!!.value == 1 && bj_cards[bjNiz[pDeck-2]]!!.value == 10)||(bj_cards[bjNiz[pDeck-1]]!!.value == 10 && bj_cards[bjNiz[pDeck-2]]!!.value == 1))
+                        if((bj1== 1 && bj2 == 10)||(bj1 == 10 && bj2 == 1))
                         {
                             mainPlayerSum = sum_check(playerSum, pomPlayerSum)
                             Toast.makeText(this, "Blackjack!", Toast.LENGTH_SHORT).show()
@@ -310,6 +322,8 @@ class Blackjack : AppCompatActivity() {
                             ulog = 0
                             total_bet.text = "TOTAL BET: 0 $currency"
                             total_bet_chip.setImageResource(0)
+
+                            saveData()
                         }
 
                         // check for checkDouble
@@ -402,6 +416,7 @@ class Blackjack : AppCompatActivity() {
                         total_bet_chip.setImageResource(0)
                         ulog = 0
                         total_bet.text = "TOTAL BET: 0 $currency"
+                        saveData()
                     }
                     else{
                         Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
@@ -483,6 +498,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet_chip.setImageResource(0)
                     ulog = 0
                     total_bet.text = "TOTAL BET: 0 $currency"
+                    saveData()
                 }
                 else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
                   //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
@@ -497,6 +513,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet_chip.setImageResource(0)
                     ulog = 0
                     total_bet.text = "TOTAL BET: 0 $currency"
+                    saveData()
                 }
                 else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
                     //Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
@@ -511,6 +528,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet_chip.setImageResource(0)
                     ulog = 0
                     total_bet.text = "TOTAL BET: 0 $currency"
+                    saveData()
                 }
 
                 pDeck = pDeck + 1
@@ -611,7 +629,7 @@ class Blackjack : AppCompatActivity() {
                 // end of part of code from vuci_button
 
                 // start of part of dosta_button
-                handler.postDelayed({
+
                 pc_second_card.setImageResource(0)
                 dosta_button.setBackgroundResource(dosta_on)
                 checkDosta = false
@@ -716,7 +734,6 @@ class Blackjack : AppCompatActivity() {
 
                 }
 
-                }, 200)
             }
         }
 
@@ -736,7 +753,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet.text = "TOTAL BET: $ulog $currency"
                 }
                 else{
-                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
                 }
             }
             else
@@ -756,7 +773,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet.text = "TOTAL BET: $ulog $currency"
                 }
                 else{
-                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
                 }
             }
             else
@@ -776,7 +793,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet.text = "TOTAL BET: $ulog $currency"
                 }
                 else{
-                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
                 }
             }
             else
@@ -795,7 +812,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet.text = "TOTAL BET: $ulog $currency"
                 }
                 else{
-                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
                 }
             }
             else
@@ -907,7 +924,7 @@ class Blackjack : AppCompatActivity() {
             total_bet.text = "TOTAL BET: $ulog $currency"
     }
     else{
-        Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
     }
     }
     else
@@ -955,8 +972,6 @@ class Blackjack : AppCompatActivity() {
     }
     }
 
-
-
     fun Ulog4Clicked(view: View)
     {
         if(ulogCheck == true)
@@ -977,20 +992,13 @@ class Blackjack : AppCompatActivity() {
         }
     }
 
-
     fun cancelCliked(view: View)
     {
         ulog = 0
         total_bet.text = "TOTAL BET: $ulog $currency"
         total_bet_chip.setImageResource(0)
-        handler.postDelayed({
-            cancel_bet.setBackgroundResource(0)
-        }, 200)
+        cancel_bet.setBackgroundResource(0)
 
-    }
-
-    fun dijeli()
-    {
 
     }
 
@@ -1019,5 +1027,29 @@ class Blackjack : AppCompatActivity() {
         }
         return pos
 
+    }
+
+    fun doNothing(view: View)
+    {
+        Log.d(TAG, "Ne radi nista mater ti jeben!")
+    }
+
+    private fun saveData()
+    {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.apply {
+            putInt("STRING_KEY", stanje)
+        }.apply()
+
+        Log.d(TAG, "Data saved!")
+    }
+
+    private fun loadData()
+    {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val savedBalance = sharedPreferences.getInt("STRING_KEY", stanje)
+
+        stanje = savedBalance
     }
 }   // end of class BlackJack
