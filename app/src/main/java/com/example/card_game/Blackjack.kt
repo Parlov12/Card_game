@@ -1,6 +1,5 @@
 package com.example.card_game
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
@@ -18,7 +17,16 @@ class Blackjack : AppCompatActivity() {
     val handler = Handler()
     var ulog: Int = 0
     // ??? var result_background = Color.parseColor("#ffffff")
-
+    val ulog_10: Int = R.drawable.ulog_10_off
+    val ulog_25: Int = R.drawable.ulog_25_off
+    val ulog_50: Int = R.drawable.ulog_50_off
+    val ulog_100: Int = R.drawable.ulog_100_off
+    val cancel_background: Int = R.drawable.cancel_button
+    var maxBet: Int = 500
+    var currency: String = "$"
+    val TAG: String = "provjera"
+    var ulogCheck: Boolean = true
+    var stanje: Int = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +44,9 @@ class Blackjack : AppCompatActivity() {
         val vuci_dis_text_color: Int = R.drawable.vuci_disabled_text_color
         val dosta_dis_text_color: Int = R.drawable.dosta_disabled_text_color
         val button_color: Int = R.drawable.button_color_white
+        val default_on: Int = R.drawable.deal_cust_on
+        val default_off: Int = R.drawable.deal_cust
+        val fckingcolor1: Int = 0x3A3838.toInt()
 
         // check variables
         var ulogCheck: Boolean = true
@@ -62,18 +73,24 @@ class Blackjack : AppCompatActivity() {
         // other variables
         val handler = Handler()
         var no_card: Int = R.drawable.no_card
-        val TAG: String = "provjera"
-        var stanje: Int = 1000
+
+
+
 
 
         var back_text: TextView = findViewById(R.id.background_text)
         back_text.setTextColor(back_text_color)
 
 
+        cancel_bet.setBackgroundResource(0)
 
+        double_button.setTextAppearance(fckingcolor1)
+        split_button.setTextAppearance(fckingcolor1)
+        vuci_button.setTextAppearance(fckingcolor1)
+        dosta_button.setTextAppearance(fckingcolor1)
 
-        var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
-        balance_text.text = "BALANCE: $stanje kn"
+        var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,50,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
+        balance_text.text = "BALANCE: $stanje $currency"
 
 
         var bj_cards = arrayOfNulls<blackjack_class>(52)
@@ -102,7 +119,7 @@ class Blackjack : AppCompatActivity() {
         bj_cards[22] = blackjack_class(10,"pik", 10, pic = R.drawable.pik_10)
         bj_cards[23] = blackjack_class(11, "pik", 10, pic = R.drawable.pik_11)
         bj_cards[24] = blackjack_class(12,"pik",10, pic = R.drawable.pik_12)
-        bj_cards[25] = blackjack_class(13,"pik",10, pic = R.drawable.pik_13)
+        bj_cards[50] = blackjack_class(13,"pik",10, pic = R.drawable.pik_13)
         bj_cards[26] = blackjack_class(1,"karo",1, pic = R.drawable.karo_1)
         bj_cards[27] = blackjack_class(2,"karo", 2, pic = R.drawable.karo_2)
         bj_cards[28] = blackjack_class(3,"karo", 3, pic = R.drawable.karo_3)
@@ -148,6 +165,8 @@ class Blackjack : AppCompatActivity() {
 
 
 
+        bjNiz[0] = 4
+        bjNiz[1] = 5
 
         dijeli_button.setOnClickListener {
                     if (checkDijeli == false) {
@@ -156,8 +175,8 @@ class Blackjack : AppCompatActivity() {
                             show_text.text = ""
                              }, 2000)
                      }
-                    else if (((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false)&&(ulog4.isChecked == false))||(ulogCheck == false)) {
-                        Toast.makeText(this, "Choose your bet!", Toast.LENGTH_SHORT)
+                    else if (ulog == 0) {
+                        Toast.makeText(this, "Place your bet!", Toast.LENGTH_SHORT)
                             .show()
                     }
                     else if(stanje == 0 || stanje < ulog)
@@ -165,7 +184,15 @@ class Blackjack : AppCompatActivity() {
                         Toast.makeText(this, "Insuficient balance!", Toast.LENGTH_SHORT).show()
                     }
                     else {
+                        vuci_button.setTextAppearance(fckingcolor1)
+                        dosta_button.setTextAppearance(fckingcolor1)
                         checkDijeli = false
+                        ulogCheck = false
+
+                        cancel_bet.setBackgroundResource(0)
+
+
+
                         Log.d(
                             TAG,
                             "\nBefore - DIJELI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
@@ -256,7 +283,7 @@ class Blackjack : AppCompatActivity() {
                         pHandPlayer = pHandPlayer + 2
                         //
                         stanje = stanje - ulog
-                        balance_text.text = "BALANCE: $stanje kn"
+                        balance_text.text = "BALANCE: $stanje $currency"
 
                         //Log.d(TAG, "${bj_cards[bjNiz[pDeck-1]]!!.value}\n${bj_cards[bjNiz[pDeck-2]]!!.value}")
                         // if player gets 21 in first to cards, he/she instantly wins
@@ -264,9 +291,9 @@ class Blackjack : AppCompatActivity() {
                         {
                             mainPlayerSum = sum_check(playerSum, pomPlayerSum)
                             Toast.makeText(this, "Blackjack!", Toast.LENGTH_SHORT).show()
-                            show_n_disappear("  +${(ulog*2.5).toInt()} kn!!", show_text)
+                            show_n_disappear("  +${(ulog*2.5).toInt()} $currency!!", show_text)
                             stanje = stanje + ulog*2
-                            balance_text.text = "BALANCE: $stanje kn"
+                            balance_text.text = "BALANCE: $stanje $currency"
                             pHandPc = 0
                             pHandPlayer = 0
                             checkVuci = false
@@ -277,12 +304,20 @@ class Blackjack : AppCompatActivity() {
                             player_sum.text = "$mainPlayerSum"
                             vuci_button.setBackgroundResource(vuci_disabled)
                             dosta_button.setBackgroundResource(dosta_disabled)
+                            vuci_button.setTextColor(dosta_dis_text_color)
+                            dosta_button.setTextColor(dosta_dis_text_color)
+                            ulogCheck = true
+                            ulog = 0
+                            total_bet.text = "TOTAL BET: 0 $currency"
+                            total_bet_chip.setImageResource(0)
                         }
 
                         // check for checkDouble
                         if((playerSum == 9)||(playerSum == 10)||(playerSum==11))
                         {
-                            checkDouble == true
+                            checkDouble = true
+                            double_button.setBackgroundResource(default_on)
+                            Log.d(TAG, "Sucessful check")
                         }
 
                         Log.d(
@@ -304,7 +339,8 @@ class Blackjack : AppCompatActivity() {
                 )
 
                 vuci_button.setBackgroundResource(vuci_on)
-
+                checkDouble = false
+                double_button.setBackgroundResource(default_off)
                     pDeck = pDeck + 1
                     pDeck = position_check(pDeck,bjNiz)
 
@@ -354,10 +390,18 @@ class Blackjack : AppCompatActivity() {
                         stanje = stanje
                         checkDosta = false
                         checkVuci = false
-                        show_n_disappear("  -${ulog} kn", show_text)
+                        show_n_disappear("  -${ulog} $currency", show_text)
                         vuci_button.setBackgroundResource(vuci_disabled)
                         dosta_button.setBackgroundResource(dosta_disabled)
+                        vuci_button.setTextColor(dosta_dis_text_color)
+                        dosta_button.setTextColor(dosta_dis_text_color)
+                        double_button.setBackgroundResource(default_off)
+
                         checkDijeli = true
+                        ulogCheck = true
+                        total_bet_chip.setImageResource(0)
+                        ulog = 0
+                        total_bet.text = "TOTAL BET: 0 $currency"
                     }
                     else{
                         Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
@@ -415,42 +459,58 @@ class Blackjack : AppCompatActivity() {
                    // Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +${ulog*2}!", show_text)
                     stanje = stanje + ulog*2
-                    balance_text.text = "BALANCE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje $currency"
                     pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
+                    ulogCheck = true
+                    total_bet_chip.setImageResource(0)
+                    ulog = 0
+                    total_bet.text = "TOTAL BET: 0 $currency"
                 }
                 else if(mainPcSum >= 17 && mainPcSum  <= 21 && mainPcSum > mainPlayerSum )
                 {
                     //Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
-                    show_n_disappear("  -${ulog} kn", show_text)
+                    show_n_disappear("  -${ulog} $currency", show_text)
                     stanje = stanje
-                    balance_text.text = "BALANCE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje $currency"
                     pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
+                    ulogCheck = true
+                    total_bet_chip.setImageResource(0)
+                    ulog = 0
+                    total_bet.text = "TOTAL BET: 0 $currency"
                 }
                 else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
                   //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
-                    show_n_disappear("  +0 kn!", show_text)
+                    show_n_disappear("  +0 $currency!", show_text)
                     stanje = stanje + ulog
-                    balance_text.text = "BALANCE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje $currency"
                         pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
+                    ulogCheck = true
+                    total_bet_chip.setImageResource(0)
+                    ulog = 0
+                    total_bet.text = "TOTAL BET: 0 $currency"
                 }
                 else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
                     //Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
-                    show_n_disappear("  +${ulog*2} kn!!", show_text)
+                    show_n_disappear("  +${ulog*2} $currency!!", show_text)
                     stanje = stanje + ulog*2
-                    balance_text.text = "BALANCE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje $currency"
                     pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
+                    ulogCheck = true
+                    total_bet_chip.setImageResource(0)
+                    ulog = 0
+                    total_bet.text = "TOTAL BET: 0 $currency"
                 }
 
                 pDeck = pDeck + 1
@@ -462,6 +522,9 @@ class Blackjack : AppCompatActivity() {
                 handler.postDelayed({
                     dosta_button.setBackgroundResource(dosta_disabled)
                     vuci_button.setBackgroundResource(vuci_disabled)
+                    vuci_button.setTextColor(dosta_dis_text_color)
+                    dosta_button.setTextColor(dosta_dis_text_color)
+                    double_button.setBackgroundResource(default_off)
                 },200)
 
         }// end of provjera check-a
@@ -478,22 +541,267 @@ class Blackjack : AppCompatActivity() {
         } // end of dosta_button
 
         double_button.setOnClickListener {
-            Toast.makeText(this, "Not available yet!", Toast.LENGTH_SHORT).show()
 
-            if(checkDouble == false)
-            {
+            if (checkDouble == false) {
                 Log.d(TAG, "Double is not available")
             }
-            else
-            {
+            else {
 
+                // part of code from vuci_button
+                pDeck = pDeck + 1
+                pDeck = position_check(pDeck, bjNiz)
+
+
+                // "pointer" to player's hand, used to check where card must be playes
+                if (pHandPlayer == 1) {
+                    player_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPlayer == 2) {
+                    player_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPlayer == 3) {
+                    player_forth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPlayer == 4) {
+                    player_fifth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                } else if (pHandPlayer == 5) {
+                    player_sixth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    pHandPlayer = 0
+                } else {
+                    Toast.makeText(this, "Error!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+                // adding sum to playerSum
+                playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
+
+                //adding that same sum to pomSum
+                pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck]]!!.value
+                if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
+                    pomPlayerSum = pomPlayerSum + 11 - 1 // replacing A values: A-1 -> A-11
+                }
+                pHandPlayer = pHandPlayer + 1
+
+                if (playerSum >= 0 && playerSum <= 21 && pomPlayerSum >= 0 && pomPlayerSum <= 21) {
+
+                    handler.postDelayed({
+                        vuci_button.setBackgroundResource(vuci_off)
+                    }, 200)
+
+                } else if (playerSum >= 0 && playerSum <= 21 && pomPlayerSum > 21) {
+                    handler.postDelayed({
+                        vuci_button.setBackgroundResource(vuci_off)
+                    }, 200)
+                } else if ((playerSum > 21) && (pomPlayerSum > 21)) {
+                    stanje = stanje
+                    checkDosta = false
+                    checkVuci = false
+                    show_n_disappear("  -${ulog} $currency", show_text)
+                    vuci_button.setBackgroundResource(vuci_disabled)
+                    dosta_button.setBackgroundResource(dosta_disabled)
+                    checkDijeli = true
+                    ulogCheck = true
+                    total_bet_chip.setImageResource(0)
+                    ulog = 0
+                    total_bet.text = "TOTAL BET: 0 $currency"
+                } else {
+                    Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+                }
+
+
+                // regulation of what text shows between playerSum and pomPlayerSum
+                sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
+                // end of part of code from vuci_button
+
+                // start of part of dosta_button
+                handler.postDelayed({
+                pc_second_card.setImageResource(0)
+                dosta_button.setBackgroundResource(dosta_on)
+                checkDosta = false
+                pHandPc = 1
+                pDeck = pDeck + 1
+                pDeck = position_check(pDeck, bjNiz)
+
+                while (mainPcSum < 17) {
+
+                    right_place_for_pic(
+                        pDeck,
+                        pHandPc,
+                        pc_second_card,
+                        pc_third_card,
+                        pc_forth_card,
+                        pc_fifth_card,
+                        pc_second_card,
+                        pc_seventh_card,
+                        bjNiz,
+                        bj_cards
+                    )
+
+                    pHandPc = pHandPc + 1
+                    pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
+                    Log.d(TAG, "pcSum = $pcSum")
+                    // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
+                    pomPcSum = pomPcSum + bj_cards[bjNiz[pDeck]]!!.value
+                    if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
+                        pomPcSum = pomPcSum - 1 + 11 // zamjena vrijednosti asa sa 11 na 1
+                    }
+                    sum_text_dealer(pcSum, pomPcSum, pc_sum, pc_sum2, show_suma)
+
+                    mainPcSum = sum_check(pcSum, pomPcSum)
+
+                    if (mainPcSum > 21) {
+                        // Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
+                        show_n_disappear("  +${ulog * 2}!", show_text)
+                        stanje = stanje + ulog * 2
+                        balance_text.text = "BALANCE: $stanje $currency"
+                        pHandPc = 0
+                        pHandPlayer = 0
+                        checkVuci = false
+                        checkDijeli = true
+                        ulogCheck = true
+                        total_bet_chip.setImageResource(0)
+                        ulog = 0
+                        total_bet.text = "TOTAL BET: 0 $currency"
+                    } else if (mainPcSum >= 17 && mainPcSum <= 21 && mainPcSum > mainPlayerSum) {
+                        //Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
+                        show_n_disappear("  -${ulog} $currency", show_text)
+                        stanje = stanje
+                        balance_text.text = "BALANCE: $stanje $currency"
+                        pHandPc = 0
+                        pHandPlayer = 0
+                        checkVuci = false
+                        checkDijeli = true
+                        ulogCheck = true
+                        total_bet_chip.setImageResource(0)
+                        ulog = 0
+                        total_bet.text = "TOTAL BET: 0 $currency"
+                    } else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
+                        //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
+                        show_n_disappear("  +0 $currency!", show_text)
+                        stanje = stanje + ulog
+                        balance_text.text = "BALANCE: $stanje $currency"
+                        pHandPc = 0
+                        pHandPlayer = 0
+                        checkVuci = false
+                        checkDijeli = true
+                        ulogCheck = true
+                        total_bet_chip.setImageResource(0)
+                        ulog = 0
+                        total_bet.text = "TOTAL BET: 0 $currency"
+                    } else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
+                        //Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
+                        show_n_disappear("  +${ulog * 2} $currency!!", show_text)
+                        stanje = stanje + ulog * 2
+                        balance_text.text = "BALANCE: $stanje $currency"
+                        pHandPc = 0
+                        pHandPlayer = 0
+                        checkVuci = false
+                        checkDijeli = true
+                        ulogCheck = true
+                        total_bet_chip.setImageResource(0)
+                        ulog = 0
+                        total_bet.text = "TOTAL BET: 0 $currency"
+                    }
+
+                    pDeck = pDeck + 1
+                    pDeck = position_check(pDeck, bjNiz)
+
+
+
+
+                    handler.postDelayed({
+                        dosta_button.setBackgroundResource(dosta_disabled)
+                        vuci_button.setBackgroundResource(vuci_disabled)
+                        vuci_button.setTextColor(dosta_dis_text_color)
+                        dosta_button.setTextColor(dosta_dis_text_color)
+                        double_button.setBackgroundResource(default_off)
+                    }, 200)
+
+                }
+
+                }, 200)
             }
-
         }
 
         split_button.setOnClickListener {
             Toast.makeText(this, "Nota available yet!", Toast.LENGTH_SHORT).show()
 
+
+        }
+
+        ulog1.setOnClickListener {
+            if(ulogCheck == true)
+            {
+                if((ulog + 10 <= maxBet)&&(ulog + 10 <= stanje)) {
+                    cancel_bet.setBackgroundResource(cancel_background)
+                    total_bet_chip.setImageResource(ulog_10)
+                    ulog = ulog + 10
+                    total_bet.text = "TOTAL BET: $ulog $currency"
+                }
+                else{
+                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else
+            {
+                Log.d(TAG, "Error with Ulog1Clicked")
+            }
+
+        }
+
+        ulog2.setOnClickListener {
+            if(ulogCheck == true)
+            {
+                if((ulog + 25 <= maxBet)&&(ulog + 25 <= stanje)) {
+                    cancel_bet.setBackgroundResource(cancel_background)
+                    total_bet_chip.setImageResource(ulog_25)
+                    ulog = ulog + 25
+                    total_bet.text = "TOTAL BET: $ulog $currency"
+                }
+                else{
+                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else
+            {
+                Log.d(TAG, "Error with Ulog2Clicked")
+            }
+
+        }
+
+        ulog3.setOnClickListener {
+            if(ulogCheck == true)
+            {
+                if((ulog + 50 <= maxBet)&&(ulog + 50 <= stanje)) {
+                    cancel_bet.setBackgroundResource(cancel_background)
+                    total_bet_chip.setImageResource(ulog_50)
+                    ulog = ulog + 50
+                    total_bet.text = "TOTAL BET: $ulog $currency"
+                }
+                else{
+                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else
+            {
+                Log.d(TAG, "Error with Ulog3Clicked")
+            }
+        }
+
+        ulog4.setOnClickListener {
+            if(ulogCheck == true)
+            {
+                if((ulog + 100 <= maxBet)&&(ulog + 100 <= stanje)) {
+                    cancel_bet.setBackgroundResource(cancel_background)
+                    total_bet_chip.setImageResource(ulog_100)
+                    ulog = ulog + 100
+                    total_bet.text = "TOTAL BET: $ulog $currency"
+                }
+                else{
+                    Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else
+            {
+                Log.d(TAG, "Error with Ulog4Clicked")
+            }
         }
 
     } // end of onCreate()
@@ -587,34 +895,98 @@ class Blackjack : AppCompatActivity() {
         return mainSum
     }
 
+
     fun Ulog1Clicked(view: View)
     {
-        ulog2.isChecked = false
-        ulog3.isChecked = false
-        ulog4.isChecked = false
-        ulog = 10
+        if(ulogCheck == true)
+        {
+        if((ulog + 10 <= maxBet)&&(ulog + 10 <= stanje)) {
+            cancel_bet.setBackgroundResource(cancel_background)
+            total_bet_chip.setImageResource(ulog_10)
+            ulog = ulog + 10
+            total_bet.text = "TOTAL BET: $ulog $currency"
+    }
+    else{
+        Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+    }
+    }
+    else
+    {
+        Log.d(TAG, "Error with Ulog1Clicked")
+    }
     }
     fun Ulog2Clicked(view: View)
     {
-        ulog1.isChecked = false
-        ulog3.isChecked = false
-        ulog4.isChecked = false
-        ulog = 25
+        if(ulogCheck == true)
+        {
+        if((ulog + 25 <= maxBet)&&(ulog + 25 <= stanje)) {
+            cancel_bet.setBackgroundResource(cancel_background)
+            total_bet_chip.setImageResource(ulog_25)
+            ulog = ulog + 25
+            total_bet.text = "TOTAL BET: $ulog $currency"
+    }
+    else{
+        Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+    }
+        }
+        else
+        {
+            Log.d(TAG, "Error with Ulog2Clicked")
+        }
+
     }
     fun Ulog3Clicked(view: View)
     {
-        ulog1.isChecked = false
-        ulog2.isChecked = false
-        ulog4.isChecked = false
-        ulog = 50
+        if(ulogCheck == true)
+        {
+        if((ulog + 50 <= maxBet)&&(ulog + 50 <= stanje)) {
+            cancel_bet.setBackgroundResource(cancel_background)
+            total_bet_chip.setImageResource(ulog_50)
+            ulog = ulog + 50
+            total_bet.text = "TOTAL BET: $ulog $currency"
+        }
+        else{
+            Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+        }
     }
+    else
+    {
+        Log.d(TAG, "Error with Ulog3Clicked")
+    }
+    }
+
+
 
     fun Ulog4Clicked(view: View)
     {
-        ulog1.isChecked = false
-        ulog2.isChecked = false
-        ulog3.isChecked = false
-        ulog = 100
+        if(ulogCheck == true)
+        {
+        if((ulog + 100 <= maxBet)&&(ulog + 100 <= stanje)) {
+            cancel_bet.setBackgroundResource(cancel_background)
+            total_bet_chip.setImageResource(ulog_100)
+            ulog = ulog + 100
+            total_bet.text = "TOTAL BET: $ulog $currency"
+        }
+        else{
+            Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
+        }
+        }
+        else
+        {
+            Log.d(TAG, "Error with Ulog4Clicked")
+        }
+    }
+
+
+    fun cancelCliked(view: View)
+    {
+        ulog = 0
+        total_bet.text = "TOTAL BET: $ulog $currency"
+        total_bet_chip.setImageResource(0)
+        handler.postDelayed({
+            cancel_bet.setBackgroundResource(0)
+        }, 200)
+
     }
 
     fun dijeli()
@@ -631,7 +1003,7 @@ class Blackjack : AppCompatActivity() {
         handler.postDelayed({
                 show.text = ""
                // show.setBackgroundColor(color)
-        }, 3000)
+        }, 2500)
     }
 
     // provjera pozicije u deck

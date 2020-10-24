@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background2"
+    android:onClick="cancelCliked"
     tools:context=".Blackjack"
     tools:layout_editor_absoluteY="25dp">
 
@@ -161,8 +162,10 @@
         android:layout_height="80dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="80dp"
+        android:layout_marginBottom="32dp"
         android:contentDescription="@string/no_card_for_player_also_place_for_players_first_card"
         android:src="@drawable/no_card"
+        app:layout_constraintBottom_toTopOf="@+id/double_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -243,32 +246,15 @@
         app:layout_constraintBottom_toTopOf="@+id/ulog1"
         app:layout_constraintStart_toStartOf="@+id/ulog1" />
 
-    <ToggleButton
-        android:id="@+id/ulog2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/ulog2_onoff"
-        android:onClick="Ulog2Clicked"
-        android:textOff=""
-        android:textOn=""
-        app:layout_constraintBottom_toBottomOf="@+id/ulog1"
-        app:layout_constraintEnd_toStartOf="@+id/ulog3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ulog1"
-        app:layout_constraintTop_toTopOf="@+id/ulog1" />
-
-    <ToggleButton
+    <Button
         android:id="@+id/ulog1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/ulog1_onoff"
+        android:background="@drawable/ulog_10_off"
         android:fontFamily="@font/montserrat_subrayada"
-        android:onClick="Ulog1Clicked"
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/total_bet"
@@ -278,27 +264,28 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ToggleButton
-        android:id="@+id/ulog4"
-        android:layout_width="48dp"
-        android:layout_height="46dp"
+    <Button
+        android:id="@+id/ulog2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/ulog4_onoff"
-        android:onClick="Ulog4Clicked"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/ulog_25_off"
         android:textOff=""
         android:textOn=""
-        app:layout_constraintBottom_toBottomOf="@+id/ulog3"
-        app:layout_constraintStart_toEndOf="@+id/ulog3"
-        app:layout_constraintTop_toTopOf="@+id/ulog3" />
+        app:layout_constraintBottom_toBottomOf="@+id/ulog1"
+        app:layout_constraintEnd_toStartOf="@+id/ulog3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ulog1"
+        app:layout_constraintTop_toTopOf="@+id/ulog1" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/ulog3"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/ulog3_onoff"
-        android:onClick="Ulog3Clicked"
+        android:background="@drawable/ulog_50_off"
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toBottomOf="@+id/ulog2"
@@ -306,6 +293,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ulog2"
         app:layout_constraintTop_toTopOf="@+id/ulog2" />
+
+    <Button
+        android:id="@+id/ulog4"
+        android:layout_width="48dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/ulog_100_off"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="@+id/ulog3"
+        app:layout_constraintStart_toEndOf="@+id/ulog3"
+        app:layout_constraintTop_toTopOf="@+id/ulog3" />
 
 
     <TextView
@@ -426,46 +425,53 @@
 
     <TextView
         android:id="@+id/player_sum"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="84dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/custom_text"
+        android:elegantTextHeight="true"
         android:text="@string/player_sum"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/player_sum2"
-        android:layout_width="72dp"
-        android:layout_height="36dp"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:layout_marginStart="72dp"
+        android:layout_marginBottom="4dp"
+        android:elegantTextHeight="true"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/player_card_background"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/pc_sum"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="144dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/custom_text"
+        android:elegantTextHeight="true"
         android:text="@string/pc_sum"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/pc_card_background"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/pc_sum2"
-        android:layout_width="72dp"
-        android:layout_height="36dp"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:layout_marginStart="132dp"
+        android:layout_marginBottom="4dp"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="24sp"
@@ -485,11 +491,12 @@
 
     <TextView
         android:id="@+id/total_bet"
-        android:layout_width="86dp"
-        android:layout_height="27dp"
+        android:layout_width="166dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="TOTAL BET"
+        android:text="TOTAL BET:"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -503,15 +510,14 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:srcCompat="@drawable/ulog3_onoff" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <Button
         android:id="@+id/cancel_bet"
         android:layout_width="30dp"
         android:layout_height="0dp"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/cancel_button"
+        android:onClick="cancelCliked"
         app:layout_constraintBottom_toBottomOf="@+id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
