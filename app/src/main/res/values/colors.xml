@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#51ACF5</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="textBackground">#206723</color>
+    <color name="prva_cyan">#51acf5</color>
+    <color name="new_cyan">#007793</color>
 </resources>

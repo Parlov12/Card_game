@@ -12,20 +12,21 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/card_background"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_start"
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ace_3"
-        android:contentDescription="@string/card_background" />
+        app:srcCompat="@drawable/ace_3" />
 
     <Button
-        android:id="@+id/blackjack_button"
-        android:layout_width="173dp"
-        android:layout_height="61dp"
-        android:layout_marginBottom="32dp"
+        android:id="@+id/start_button"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/custom_button"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
@@ -33,50 +34,102 @@
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintBottom_toTopOf="@+id/levels_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/briskula_button"
-        android:layout_width="173dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="32dp"
+        android:id="@+id/levels_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/custom_button"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="@string/briskula_game_main"
+        android:text="@string/levels"
         android:textColor="#ffffff"
         android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        app:layout_constraintBottom_toTopOf="@+id/instructions_button"
+        app:layout_constraintEnd_toEndOf="@+id/start_button"
+        app:layout_constraintStart_toStartOf="@+id/start_button"
+        app:layout_constraintTop_toBottomOf="@+id/start_button" />
+
+    <Button
+        android:id="@+id/instructions_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/custom_button"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="@string/instructions"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/settings_button"
+        app:layout_constraintEnd_toEndOf="@+id/levels_button"
+        app:layout_constraintStart_toStartOf="@+id/levels_button"
+        app:layout_constraintTop_toBottomOf="@+id/levels_button" />
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/custom_button"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="@string/settings"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/about_button"
+        app:layout_constraintEnd_toEndOf="@+id/instructions_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/instructions_button"
+        app:layout_constraintTop_toBottomOf="@+id/instructions_button" />
+
+    <Button
+        android:id="@+id/about_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="@string/about"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/settings_button"
+        app:layout_constraintStart_toStartOf="@+id/settings_button"
+        app:layout_constraintTop_toBottomOf="@+id/settings_button" />
 
     <TextView
         android:id="@+id/title_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:text="@string/title_main"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        android:textSize="42sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.09" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

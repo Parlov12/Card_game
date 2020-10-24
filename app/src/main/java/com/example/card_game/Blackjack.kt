@@ -17,42 +17,63 @@ class Blackjack : AppCompatActivity() {
 
     val handler = Handler()
     var ulog: Int = 0
-    var result_background = Color.parseColor("#ffffff")
+    // ??? var result_background = Color.parseColor("#ffffff")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blackjack)
 
-        val vuci_on:Int = R.drawable.vuci_button_on
-        val vuci_off:Int = R.drawable.vuci_button_off
-        val vuci_disabled:Int = R.drawable.vuci_button_disabled
-        val dosta_on: Int = R.drawable.dosta_button_on
-        val dosta_off: Int = R.drawable.dosta_button_off
-        val dosta_disabled: Int = R.drawable.dosta_button_disabled
+        //image variables
+        val vuci_on:Int = R.drawable.vuci_button_on_fix
+        val vuci_off:Int = R.drawable.vuci_button_off_fix
+        val vuci_disabled:Int = R.drawable.vuci_button_disabled_fix
+        val dosta_on: Int = R.drawable.dosta_button_on_fix
+        val dosta_off: Int = R.drawable.dosta_button_off_fix
+        val dosta_disabled: Int = R.drawable.dosta_button_disabled_fix
         val show_suma: Int = R.drawable.custom_text
-        val TAG: String = "provjera"
+        val back_text_color: Int = R.drawable.background_text
+        val vuci_dis_text_color: Int = R.drawable.vuci_disabled_text_color
+        val dosta_dis_text_color: Int = R.drawable.dosta_disabled_text_color
+        val button_color: Int = R.drawable.button_color_white
+
+        // check variables
         var ulogCheck: Boolean = true
         var checkVuci: Boolean = false
         var checkDosta: Boolean = false
         var checkDijeli: Boolean = true
-        var pHandPc: Int = 0
+        var checkDouble: Boolean = false
+        var checkSplit: Boolean = false
+
+
+        // pointer variables
         var pDeck: Int = 0
         var pHandPlayer: Int = 0
+        var pHandPc: Int = 0
+
+        // sum variables
+        var playerSum: Int = 0
+        var pomPlayerSum: Int = 0
+        var pcSum: Int = 0
+        var mainPlayerSum: Int = 0
+        var pomPcSum: Int = 0
+        var mainPcSum: Int = 0
+
+        // other variables
         val handler = Handler()
         var no_card: Int = R.drawable.no_card
-        var pomPlayerSum: Int = 0
-        var mainPlayerSum: Int = 0
-        var mainPcSum: Int = 0
-        var pomPcSum: Int = 0
-        var playerSum: Int = 0
-        var pcSum: Int = 0
-
+        val TAG: String = "provjera"
         var stanje: Int = 1000
+
+
+        var back_text: TextView = findViewById(R.id.background_text)
+        back_text.setTextColor(back_text_color)
+
+
+
+
         var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
-        stanje_text.text = "STANJE: $stanje kn"
-
-
+        balance_text.text = "BALANCE: $stanje kn"
 
 
         var bj_cards = arrayOfNulls<blackjack_class>(52)
@@ -110,17 +131,23 @@ class Blackjack : AppCompatActivity() {
         bj_cards[51] = blackjack_class(13,"herc",10, pic = R.drawable.herc_13)
 
 
+        handler.postDelayed({
+        background_text.setText("")
+        }, 1500)
 
         bjNiz.shuffle()
         vuci_button.setBackgroundResource(vuci_disabled)
+        //vuci_button.setTextColor(vuci_dis_text_color)
         dosta_button.setBackgroundResource(dosta_disabled)
+       // dosta_button.setTextColor(dosta_dis_text_color)
 
         Log.d(TAG, "\n${bj_cards[bjNiz[0]]!!.number} - ${bj_cards[0]!!.type}\n" +
                          "${bj_cards[bjNiz[1]]!!.number} - ${bj_cards[bjNiz[1]]!!.type}\n" +
                          "${bj_cards[bjNiz[2]]!!.number} - ${bj_cards[bjNiz[2]]!!.type}\n" +
                          "${bj_cards[bjNiz[3]]!!.number} - ${bj_cards[bjNiz[3]]!!.type}\n")
 
-    
+
+
 
         dijeli_button.setOnClickListener {
                     if (checkDijeli == false) {
@@ -129,9 +156,13 @@ class Blackjack : AppCompatActivity() {
                             show_text.text = ""
                              }, 2000)
                      }
-                    else if (((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false))||(ulogCheck == false)) {
+                    else if (((ulog1.isChecked == false) && (ulog2.isChecked == false) && (ulog3.isChecked == false)&&(ulog4.isChecked == false))||(ulogCheck == false)) {
                         Toast.makeText(this, "Choose your bet!", Toast.LENGTH_SHORT)
                             .show()
+                    }
+                    else if(stanje == 0 || stanje < ulog)
+                    {
+                        Toast.makeText(this, "Insuficient balance!", Toast.LENGTH_SHORT).show()
                     }
                     else {
                         checkDijeli = false
@@ -225,9 +256,9 @@ class Blackjack : AppCompatActivity() {
                         pHandPlayer = pHandPlayer + 2
                         //
                         stanje = stanje - ulog
-                        stanje_text.text = "STANJE: $stanje kn"
+                        balance_text.text = "BALANCE: $stanje kn"
 
-                        Log.d(TAG, "${bj_cards[bjNiz[pDeck-1]]!!.value}\n${bj_cards[bjNiz[pDeck-2]]!!.value}")
+                        //Log.d(TAG, "${bj_cards[bjNiz[pDeck-1]]!!.value}\n${bj_cards[bjNiz[pDeck-2]]!!.value}")
                         // if player gets 21 in first to cards, he/she instantly wins
                         if((bj_cards[bjNiz[pDeck-1]]!!.value == 1 && bj_cards[bjNiz[pDeck-2]]!!.value == 10)||(bj_cards[bjNiz[pDeck-1]]!!.value == 10 && bj_cards[bjNiz[pDeck-2]]!!.value == 1))
                         {
@@ -235,7 +266,7 @@ class Blackjack : AppCompatActivity() {
                             Toast.makeText(this, "Blackjack!", Toast.LENGTH_SHORT).show()
                             show_n_disappear("  +${(ulog*2.5).toInt()} kn!!", show_text)
                             stanje = stanje + ulog*2
-                            stanje_text.text = "STANJE: $stanje kn"
+                            balance_text.text = "BALANCE: $stanje kn"
                             pHandPc = 0
                             pHandPlayer = 0
                             checkVuci = false
@@ -246,6 +277,12 @@ class Blackjack : AppCompatActivity() {
                             player_sum.text = "$mainPlayerSum"
                             vuci_button.setBackgroundResource(vuci_disabled)
                             dosta_button.setBackgroundResource(dosta_disabled)
+                        }
+
+                        // check for checkDouble
+                        if((playerSum == 9)||(playerSum == 10)||(playerSum==11))
+                        {
+                            checkDouble == true
                         }
 
                         Log.d(
@@ -317,7 +354,6 @@ class Blackjack : AppCompatActivity() {
                         stanje = stanje
                         checkDosta = false
                         checkVuci = false
-                        Toast.makeText(this, "Preko 21!", Toast.LENGTH_SHORT).show()
                         show_n_disappear("  -${ulog} kn", show_text)
                         vuci_button.setBackgroundResource(vuci_disabled)
                         dosta_button.setBackgroundResource(dosta_disabled)
@@ -360,7 +396,7 @@ class Blackjack : AppCompatActivity() {
 
             while (mainPcSum < 17) {
 
-                right_place_for_pic(pDeck, pHandPc, pc_second_card, pc_third_card, pc_forth_card, pc_fifth_card, pc_second_card, bjNiz, bj_cards)
+                right_place_for_pic(pDeck, pHandPc, pc_second_card, pc_third_card, pc_forth_card, pc_fifth_card, pc_second_card, pc_seventh_card, bjNiz, bj_cards)
 
                 pHandPc = pHandPc + 1
                 pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
@@ -376,10 +412,10 @@ class Blackjack : AppCompatActivity() {
                 mainPcSum = sum_check(pcSum, pomPcSum)
 
                 if (mainPcSum > 21) {
-                    Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +${ulog*2}!", show_text)
                     stanje = stanje + ulog*2
-                    stanje_text.text = "STANJE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje kn"
                     pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
@@ -387,30 +423,30 @@ class Blackjack : AppCompatActivity() {
                 }
                 else if(mainPcSum >= 17 && mainPcSum  <= 21 && mainPcSum > mainPlayerSum )
                 {
-                    Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  -${ulog} kn", show_text)
                     stanje = stanje
-                    stanje_text.text = "STANJE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje kn"
                     pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
                 }
                 else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
-                    Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +0 kn!", show_text)
                     stanje = stanje + ulog
-                    stanje_text.text = "STANJE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje kn"
                         pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
                     checkDijeli = true
                 }
                 else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
-                    Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
                     show_n_disappear("  +${ulog*2} kn!!", show_text)
                     stanje = stanje + ulog*2
-                    stanje_text.text = "STANJE: $stanje kn"
+                    balance_text.text = "BALANCE: $stanje kn"
                     pHandPc = 0
                     pHandPlayer = 0
                     checkVuci = false
@@ -441,6 +477,24 @@ class Blackjack : AppCompatActivity() {
 
         } // end of dosta_button
 
+        double_button.setOnClickListener {
+            Toast.makeText(this, "Not available yet!", Toast.LENGTH_SHORT).show()
+
+            if(checkDouble == false)
+            {
+                Log.d(TAG, "Double is not available")
+            }
+            else
+            {
+
+            }
+
+        }
+
+        split_button.setOnClickListener {
+            Toast.makeText(this, "Nota available yet!", Toast.LENGTH_SHORT).show()
+
+        }
 
     } // end of onCreate()
 
@@ -456,18 +510,25 @@ class Blackjack : AppCompatActivity() {
         f.setImageResource(0)
     }
 
-    fun right_place_for_pic(pDeck: Int, pHand: Int , view1: ImageView, view2: ImageView, view3: ImageView, view4: ImageView, view5: ImageView, niz: IntArray, nizKarata: Array<blackjack_class?>)
+    fun right_place_for_pic(pDeck: Int, pHand: Int , view1: ImageView, view2: ImageView, view3: ImageView, view4: ImageView, view5: ImageView, view6: ImageView, niz: IntArray, nizKarata: Array<blackjack_class?>)
     {
         if (pHand == 1) {
             view1.setImageResource(nizKarata[niz[pDeck]]!!.pic)
-        } else if (pHand == 2) {
+        }
+        else if (pHand == 2) {
             view2.setImageResource(nizKarata[niz[pDeck]]!!.pic)
-        } else if (pHand == 3) {
+        }
+        else if (pHand == 3) {
             view3.setImageResource(nizKarata[niz[pDeck]]!!.pic)
-        } else if (pHand == 4) {
+        }
+        else if (pHand == 4) {
             view4.setImageResource(nizKarata[niz[pDeck]]!!.pic)
-        } else if (pHand == 5) {
+        }
+        else if (pHand == 5) {
             view5.setImageResource(nizKarata[niz[pDeck]]!!.pic)
+        }
+        else if (pHand == 6) {
+            view6.setImageResource(nizKarata[niz[pDeck]]!!.pic)
         }
     }
     //  function sum_text -> arguments(first sum, second sum - first sum but changed if there is an ace in deck,
@@ -530,19 +591,30 @@ class Blackjack : AppCompatActivity() {
     {
         ulog2.isChecked = false
         ulog3.isChecked = false
-        ulog = 100
+        ulog4.isChecked = false
+        ulog = 10
     }
     fun Ulog2Clicked(view: View)
     {
         ulog1.isChecked = false
         ulog3.isChecked = false
-        ulog = 200
+        ulog4.isChecked = false
+        ulog = 25
     }
     fun Ulog3Clicked(view: View)
     {
         ulog1.isChecked = false
         ulog2.isChecked = false
-        ulog = 500
+        ulog4.isChecked = false
+        ulog = 50
+    }
+
+    fun Ulog4Clicked(view: View)
+    {
+        ulog1.isChecked = false
+        ulog2.isChecked = false
+        ulog3.isChecked = false
+        ulog = 100
     }
 
     fun dijeli()

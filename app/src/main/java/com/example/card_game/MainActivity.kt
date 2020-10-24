@@ -11,10 +11,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-           briskula_button.background.alpha = 200
-           blackjack_button.background.alpha = 200
+           //settings_button.background.alpha = 200
+           //start_button.background.alpha = 200
 
-        briskula_button.setOnClickListener {
+        start_button.setOnClickListener {
+            val black_jack = Intent(this, Blackjack::class.java)
+
+            startActivity(black_jack)
+        }
+
+        levels_button.setOnClickListener {
+
+            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
+        }
+
+        settings_button.setOnClickListener {
 
             Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
 
@@ -25,12 +36,19 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        blackjack_button.setOnClickListener {
-            val black_jack = Intent(this, Blackjack::class.java)
+        instructions_button.setOnClickListener {
 
-            startActivity(black_jack)
+            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
         }
+
+        about_button.setOnClickListener {
+
+            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
         }
+
+
+
+        } // end of onCreate()
 
 
 

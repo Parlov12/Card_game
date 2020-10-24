@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="CardGames"
+        android:text="Blackjack"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="50sp"
