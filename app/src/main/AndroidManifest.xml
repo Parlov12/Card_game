@@ -4,11 +4,21 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/icon1"
+        android:icon="@mipmap/icon2"
         android:label="BJ Counter"
-        android:roundIcon="@mipmap/icon1"
+        android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UsernameActivtiy"></activity>
+        <activity android:name=".InstructionsActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6132108251524203~8867520941" />
+
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,16 +28,14 @@
         </activity>
         <activity
             android:name=".Blackjack"
-            android:theme="@style/Custom"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Custom" />
         <activity
             android:name=".PlayingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

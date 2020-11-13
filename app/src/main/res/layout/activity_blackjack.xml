@@ -4,11 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background3"
+    android:background="#ffffff"
     android:onClick="doNothing"
     tools:context=".Blackjack"
     tools:layout_editor_absoluteY="25dp">
 
+
+    <ImageView
+        android:id="@+id/background_shared"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background2_white"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/background_text"
@@ -252,42 +265,111 @@
         app:layout_constraintTop_toTopOf="@+id/player_sixth_card"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/choose_bet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bangers"
+    <ImageView
+        android:id="@+id/split_card_background"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/no_card_for_player_also_place_for_players_first_card"
         android:onClick="doNothing"
-        android:text="@string/choose_bet"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/ulog1"
-        app:layout_constraintStart_toStartOf="@+id/ulog1" />
+        app:layout_constraintBottom_toTopOf="@+id/double_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="0.526" />
+
+    <ImageView
+        android:id="@+id/split_second_card"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/second_player_card"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/split_card_background"
+        app:layout_constraintStart_toStartOf="@+id/split_card_background"
+        app:layout_constraintTop_toTopOf="@+id/split_card_background"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/split_third_card"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/third_player_card"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/split_second_card"
+        app:layout_constraintStart_toStartOf="@+id/split_second_card"
+        app:layout_constraintTop_toTopOf="@+id/split_second_card"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/split_forth_card"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/forth_player_card"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/split_third_card"
+        app:layout_constraintStart_toStartOf="@+id/split_third_card"
+        app:layout_constraintTop_toTopOf="@+id/split_third_card"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/split_fifth_card"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/fifth_player_card"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/split_forth_card"
+        app:layout_constraintStart_toStartOf="@+id/split_forth_card"
+        app:layout_constraintTop_toTopOf="@+id/split_forth_card"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/split_sixth_card"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/sixth_player_card"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/split_fifth_card"
+        app:layout_constraintStart_toStartOf="@+id/split_fifth_card"
+        app:layout_constraintTop_toTopOf="@+id/split_fifth_card"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/split_seventh_card"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/seventh_player_card"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/split_sixth_card"
+        app:layout_constraintStart_toStartOf="@+id/split_sixth_card"
+        app:layout_constraintTop_toTopOf="@+id/split_sixth_card"
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <Button
         android:id="@+id/ulog1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/ulog_10_off"
         android:fontFamily="@font/montserrat_subrayada"
         android:textOff=""
         android:textOn=""
-        app:layout_constraintBottom_toTopOf="@+id/total_bet"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/ulog2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/ulog2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
         android:background="@drawable/ulog_25_off"
         android:textOff=""
         android:textOn=""
@@ -299,10 +381,8 @@
 
     <Button
         android:id="@+id/ulog3"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
         android:background="@drawable/ulog_50_off"
         android:textOff=""
         android:textOn=""
@@ -314,21 +394,22 @@
 
     <Button
         android:id="@+id/ulog4"
-        android:layout_width="48dp"
-        android:layout_height="46dp"
-        android:layout_marginLeft="5dp"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
         android:background="@drawable/ulog_100_off"
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toBottomOf="@+id/ulog3"
+        app:layout_constraintEnd_toStartOf="@+id/dijeli_button"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ulog3"
         app:layout_constraintTop_toTopOf="@+id/ulog3" />
 
 
     <TextView
         android:id="@+id/balance_background"
-        android:layout_width="149dp"
-        android:layout_height="46dp"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/balance_background"
@@ -340,24 +421,43 @@
         android:id="@+id/balance_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="6dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:onClick="doNothing"
-        android:text="@string/balance"
+        android:text="1000000"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/balance_background"
         app:layout_constraintEnd_toEndOf="@+id/balance_background"
         app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/balance_background"
         app:layout_constraintTop_toTopOf="@+id/balance_background"
         app:layout_constraintVertical_bias="1.0" />
 
+
+    <TextView
+        android:id="@+id/plus_money"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/plus_background"
+        android:elegantTextHeight="true"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onLogin"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/balance_background"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/balance_background"
+        app:layout_constraintTop_toTopOf="@+id/balance_background" />
 
     <Button
         android:id="@+id/dijeli_button"
@@ -377,10 +477,10 @@
 
     <Button
         android:id="@+id/vuci_button"
-        android:layout_width="65dp"
+        android:layout_width="75dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/vuci_button_off_fix"
+        android:background="@drawable/deal_cust"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:text="HIT"
@@ -394,7 +494,7 @@
 
     <Button
         android:id="@+id/dosta_button"
-        android:layout_width="65dp"
+        android:layout_width="75dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -412,16 +512,17 @@
 
     <Button
         android:id="@+id/double_button"
-        android:layout_width="65dp"
+        android:layout_width="75dp"
         android:layout_height="40dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/deal_cust"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:text="DOUBLE"
         android:textColor="#ffffff"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/choose_bet"
+        app:layout_constraintBottom_toTopOf="@+id/ulog2"
         app:layout_constraintEnd_toStartOf="@+id/split_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -429,7 +530,7 @@
 
     <Button
         android:id="@+id/split_button"
-        android:layout_width="65dp"
+        android:layout_width="75dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -512,28 +613,69 @@
         android:onClick="doNothing"
         android:textAlignment="center"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <TextView
+        android:id="@+id/arrow_down"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/balance_background"
+        android:onClick="doNothing"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bet_background"
+        android:layout_width="141dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/balance_background"
+        android:onClick="doNothing"
+        android:text=""
+        app:layout_constraintEnd_toStartOf="@+id/arrow_down"
+        app:layout_constraintStart_toEndOf="@+id/balance_background"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/between_bet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:onClick="doNothing"
+        app:layout_constraintBottom_toBottomOf="@+id/bet_background"
+        app:layout_constraintEnd_toEndOf="@+id/bet_background"
+        app:layout_constraintStart_toStartOf="@+id/bet_background"
+        app:layout_constraintTop_toTopOf="@+id/bet_background" />
 
     <TextView
         android:id="@+id/total_bet"
-        android:layout_width="190dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:onClick="doNothing"
-        android:text="TOTAL BET:"
+        android:text="BET:"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bet_background"
+        app:layout_constraintEnd_toEndOf="@+id/bet_background"
+        app:layout_constraintStart_toStartOf="@+id/bet_background"
+        app:layout_constraintTop_toTopOf="@+id/bet_background" />
 
     <ImageView
         android:id="@+id/total_bet_chip"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:onClick="doNothing"
         app:layout_constraintEnd_toStartOf="@+id/cancel_bet"
         app:layout_constraintHorizontal_bias="0.5"
@@ -543,7 +685,7 @@
 
     <Button
         android:id="@+id/cancel_bet"
-        android:layout_width="30dp"
+        android:layout_width="35dp"
         android:layout_height="0dp"
         android:layout_marginLeft="30dp"
         android:onClick="cancelCliked"
@@ -551,7 +693,88 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@+id/total_bet_chip" />
+        app:layout_constraintTop_toTopOf="@+id/total_bet_chip"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/plus_money"
+        app:layout_constraintEnd_toEndOf="@+id/plus_money"
+        app:layout_constraintStart_toStartOf="@+id/plus_money"
+        app:layout_constraintTop_toTopOf="@+id/plus_money"
+        app:srcCompat="@drawable/cross" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/balance_background"
+        app:layout_constraintStart_toStartOf="@+id/balance_background"
+        app:layout_constraintTop_toTopOf="@+id/balance_background"
+        app:srcCompat="@drawable/dollar" />
+
+    <TextView
+        android:id="@+id/cards_left"
+        android:layout_width="66dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/bangers"
+        android:text="0/52"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bet_background" />
+
+    <TextView
+        android:id="@+id/counter_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="X"
+        android:textAlignment="center"
+        android:textColor="#FBFAFA"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/cards_left"
+        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintStart_toStartOf="@+id/cards_left"
+        app:layout_constraintTop_toBottomOf="@+id/cards_left" />
+
+    <ImageView
+        android:id="@+id/repeat_bet"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/vuci_button"
+        app:layout_constraintEnd_toEndOf="@+id/vuci_button"
+        app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/arrow_down"
+        app:layout_constraintEnd_toEndOf="@+id/arrow_down"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/arrow_down"
+        app:layout_constraintTop_toTopOf="@+id/arrow_down"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
