@@ -13,6 +13,7 @@ import android.provider.Settings.Global.putInt
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -48,7 +49,7 @@ class Blackjack : AppCompatActivity() {
     val cancel_background: Int = R.drawable.cancel_button
     var maxBet: Int = 2000
     var currency: String = "$"
-    val TAG: String = "provjera"
+    val TAG: String = "TAG"
     var ulogCheck: Boolean = true
     var stanje: Int = 5000
     val default_on: Int = R.drawable.deal_cust_on
@@ -56,6 +57,7 @@ class Blackjack : AppCompatActivity() {
     val repeatOn: Int = android.R.drawable.stat_notify_sync_noanim
     var lastBet: Int = 0
     var pDeck: Int = 0
+    var num_of_decks: Int = 2
 
 
     // google ads - rewarded ad
@@ -75,7 +77,7 @@ class Blackjack : AppCompatActivity() {
         // sound variables
         var dealing_cards: MediaPlayer? = MediaPlayer.create(this, R.raw.dealing_cards_fix)
         var chipsound1: MediaPlayer? = MediaPlayer.create(this, R.raw.chip1_sound_fix)
-        var winSound: MediaPlayer?? = MediaPlayer.create(this, R.raw.allin_win)
+        var winSound: MediaPlayer? = MediaPlayer.create(this, R.raw.allin_win)
 
 
         // image/color variables
@@ -122,29 +124,36 @@ class Blackjack : AppCompatActivity() {
         val handler = Handler()
         var no_card: Int = R.drawable.no_card
         var i: Int = 0
+        var j: Int = 0
         var counter: Int = 0
         var pCounter: Int = 0
         var repeatBet: Int = 0
+
+        // button/view variables
+
 
         cancel_bet.setBackgroundResource(0)
         repeat_bet.setImageResource(0)
 
 
-        var bjNiz = IntArray(104){it}
-        var j: Int = 52
-
-        for(i in 0..51)
+        var bjNiz: IntArray = intArrayOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51)
+        /*for(i in 0..103)
         {
-            bjNiz[j] = i
-            bjNiz[i] = i
+            bjNiz[i] = j
             j++
-        }
+            if(j == 51)
+            {
+                j = 0
+            }
+        }*/
+
 
 
         balance_text.text = "$stanje"
 
 
         var bj_cards = arrayOfNulls<blackjack_class>(52)
+
         bj_cards[0] = blackjack_class(1,"tref",1, pic = R.drawable.tref_1)
         bj_cards[1] = blackjack_class(2,"tref", 2, pic = R.drawable.tref_2)
         bj_cards[2] = blackjack_class(3,"tref", 3, pic = R.drawable.tref_3)
@@ -170,7 +179,7 @@ class Blackjack : AppCompatActivity() {
         bj_cards[22] = blackjack_class(10,"pik", 10, pic = R.drawable.pik_10)
         bj_cards[23] = blackjack_class(11, "pik", 10, pic = R.drawable.pik_11)
         bj_cards[24] = blackjack_class(12,"pik",10, pic = R.drawable.pik_12)
-        bj_cards[50] = blackjack_class(13,"pik",10, pic = R.drawable.pik_13)
+        bj_cards[25] = blackjack_class(13,"pik",10, pic = R.drawable.pik_13)
         bj_cards[26] = blackjack_class(1,"karo",1, pic = R.drawable.karo_1)
         bj_cards[27] = blackjack_class(2,"karo", 2, pic = R.drawable.karo_2)
         bj_cards[28] = blackjack_class(3,"karo", 3, pic = R.drawable.karo_3)
@@ -215,12 +224,23 @@ class Blackjack : AppCompatActivity() {
         bjNiz.shuffle()
         bjNiz.shuffle()
 
+        var deck: String = ""
 
-
-        for(i in 0..51)
+        for(i in 0..103)
         {
-            Log.d("SVE_KARTE", "${i+1}. ${bj_cards[bjNiz[i]]!!.number} ${bj_cards[bjNiz[i]]!!.type}")
+            deck = "${deck}${bj_cards[bjNiz[i]]!!.type}${bj_cards[bjNiz[i]]!!.number}"
         }
+        Log.d(TAG, deck)
+
+
+
+        i = 0
+       for(i in 0..103)
+        {
+            Log.d(TAG, "${i+1}. ${bj_cards[bjNiz[i]]!!.number}  ${bj_cards[bjNiz[i]]!!.type}")
+        }
+
+
 
 
 
@@ -246,7 +266,7 @@ class Blackjack : AppCompatActivity() {
                 checkRepeat = false
                 repeat_bet.setImageResource(0)
 
-                dealing_cards?.start()
+                dealing_cards?.start() // sound
                 /*  if(pDeck != 0)
                    {
                        position_check(pDeck, bjNiz)
@@ -294,7 +314,7 @@ class Blackjack : AppCompatActivity() {
 
                 pc_second_card.setImageResource(R.drawable.deck1_backside)
 
-                pDeck = position_check(pDeck, bjNiz)
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
                 //setting up player sum
                 playerSum = 0
                 playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
@@ -326,10 +346,20 @@ class Blackjack : AppCompatActivity() {
                 // setting up sum text above cards - player
                 sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
 
+                Log.d(
+                    TAG,
+                    "\nBefore - DIJELI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                )
+
                 // fix - player must have two cards at start
                 pDeck = pDeck + 1
-                pDeck = position_check(pDeck, bjNiz)
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
                 playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
+
+                Log.d(
+                    "Nakon 357" ,
+                    "\nBefore - DIJELI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                )
                 //setting up pomPlayer sum
                 pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck]]!!.value
                 if(bj_cards[bjNiz[pDeck]]!!.number == 1)
@@ -356,7 +386,7 @@ class Blackjack : AppCompatActivity() {
 
                 //increasing "pointer" to deck +1 and that will be pc's first card
                 pDeck = pDeck + 1
-                pDeck = position_check(pDeck, bjNiz)
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
 
                 //setting up pc sum
                 pcSum = 0
@@ -435,7 +465,7 @@ class Blackjack : AppCompatActivity() {
                 {
                     checkDouble = true
                     double_button.setBackgroundResource(default_on)
-                    Log.d(TAG, "Sucessful check")
+                    Log.d(TAG, "Sucessfull check")
                 }
 
                 if(bj3 == bj4)
@@ -474,7 +504,7 @@ class Blackjack : AppCompatActivity() {
                 split_button.setBackgroundResource(default_off)
                 double_button.setBackgroundResource(default_off)
                 pDeck = pDeck + 1
-                pDeck = position_check(pDeck, bjNiz)
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
 
 
                 // "pointer" to player's hand, used to check where card must be playes
@@ -540,7 +570,7 @@ class Blackjack : AppCompatActivity() {
                     total_bet.text = "BET: 0 $currency"
                     saveData()
                     pDeck = pDeck + 1
-                    pDeck = position_check(pDeck, bjNiz)
+                    pDeck = position_check(pDeck, bjNiz, num_of_decks)
                     if(repeatBet <= stanje) {
                         repeat_bet.setImageResource(repeatOn)
                         checkRepeat = true
@@ -595,29 +625,42 @@ class Blackjack : AppCompatActivity() {
                 checkDosta = false
                 pHandPc = 1
                 pDeck = pDeck + 1
-                pDeck = position_check(pDeck,bjNiz)
+                pDeck = position_check(pDeck,bjNiz, num_of_decks)
 
                 while (mainPcSum < 17) {
+
+
+
                     dealing_cards?.start()
 
                     // counter part
-                    if(pCounter > 51)
-                    {
+                    if (pCounter > 51) {
                         counter = 0
                     }
                     counter += cardCounter(bj_cards[bjNiz[pDeck]])
                     counter_text.text = "$counter"
                     // end of counter part
 
-                    right_place_for_pic(pDeck, pHandPc, pc_second_card, pc_third_card, pc_forth_card, pc_fifth_card, pc_sixth_card, pc_seventh_card, bjNiz, bj_cards)
+
+                    right_place_for_pic(
+                        pDeck,
+                        pHandPc,
+                        pc_second_card,
+                        pc_third_card,
+                        pc_forth_card,
+                        pc_fifth_card,
+                        pc_sixth_card,
+                        pc_seventh_card,
+                        bjNiz,
+                        bj_cards
+                    )
 
                     pHandPc = pHandPc + 1
                     pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
                     Log.d(TAG, "pcSum = $pcSum")
                     // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
                     pomPcSum = pomPcSum + bj_cards[bjNiz[pDeck]]!!.value
-                    if(bj_cards[bjNiz[pDeck]]!!.number == 1)
-                    {
+                    if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
                         pomPcSum = pomPcSum - 1 + 11 // zamjena vrijednosti asa sa 11 na 1
                     }
                     sum_text_dealer(pcSum, pomPcSum, pc_sum, pc_sum2, show_suma)
@@ -627,8 +670,8 @@ class Blackjack : AppCompatActivity() {
                     if (mainPcSum > 21) {
                         // Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
                         winSound?.start()
-                        show_n_disappear("  +${ulog*2} $currency!", show_text)
-                        stanje = stanje + ulog*2
+                        show_n_disappear("  +${ulog * 2} $currency!", show_text)
+                        stanje = stanje + ulog * 2
                         balance_text.text = "$stanje"
                         pHandPc = 0
                         pHandPlayer = 0
@@ -640,13 +683,11 @@ class Blackjack : AppCompatActivity() {
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
                         saveData()
-                        if(repeatBet <= stanje) {
+                        if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
-                    }
-                    else if(mainPcSum >= 17 && mainPcSum  <= 21 && mainPcSum > mainPlayerSum )
-                    {
+                    } else if (mainPcSum >= 17 && mainPcSum <= 21 && mainPcSum > mainPlayerSum) {
                         //Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
                         show_n_disappear("  -${ulog} $currency", show_text)
                         stanje = stanje
@@ -661,12 +702,11 @@ class Blackjack : AppCompatActivity() {
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
                         saveData()
-                        if(repeatBet <= stanje) {
+                        if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
-                    }
-                    else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
+                    } else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
                         //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
                         show_n_disappear("  +0 $currency!", show_text)
                         stanje = stanje + ulog
@@ -681,16 +721,15 @@ class Blackjack : AppCompatActivity() {
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
                         saveData()
-                        if(repeatBet <= stanje) {
+                        if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
-                    }
-                    else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
+                    } else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
                         //Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
                         winSound?.start()
-                        show_n_disappear("  +${ulog*2} $currency!!", show_text)
-                        stanje = stanje + ulog*2
+                        show_n_disappear("  +${ulog * 2} $currency!!", show_text)
+                        stanje = stanje + ulog * 2
                         balance_text.text = "$stanje"
                         pHandPc = 0
                         pHandPlayer = 0
@@ -702,17 +741,17 @@ class Blackjack : AppCompatActivity() {
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
                         saveData()
-                        if(repeatBet <= stanje) {
+                        if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
                     }
 
                     pDeck = pDeck + 1
-                    pDeck = position_check(pDeck,bjNiz)
+                    pDeck = position_check(pDeck, bjNiz, num_of_decks)
 
 
-                }
+                } // end of while(pcSum <17)
 
 
                 dosta_button.setBackgroundResource(default_off)
@@ -744,7 +783,7 @@ class Blackjack : AppCompatActivity() {
                 // part of code from vuci_button
 
                 pDeck = pDeck + 1
-                pDeck = position_check(pDeck, bjNiz)
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
 
 
 
@@ -796,7 +835,7 @@ class Blackjack : AppCompatActivity() {
                 checkDosta = false
                 pHandPc = 1
                 pDeck = pDeck + 1
-                pDeck = position_check(pDeck, bjNiz)
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
 
                 mainPcSum = sum_check(pcSum, pomPcSum)
                 mainPlayerSum = sum_check(playerSum, pomPlayerSum)
@@ -908,7 +947,7 @@ class Blackjack : AppCompatActivity() {
                     }
 
                     pDeck = pDeck + 1
-                    pDeck = position_check(pDeck, bjNiz)
+                    pDeck = position_check(pDeck, bjNiz, num_of_decks)
 
 
 
@@ -1459,15 +1498,26 @@ class Blackjack : AppCompatActivity() {
     // checks if pDeck get to last card
     // so if pDeck = 51, it sets it up to 0
     // also shuffles deck again
-    fun position_check(deckPosition: Int, deck: IntArray): Int {
+    fun position_check(deckPosition: Int, deck: IntArray, number_of_decks: Int): Int {
         var pos: Int = deckPosition
-        if(deckPosition >= 51)
+        if(deckPosition >= (number_of_decks*52 - 1))
         {
             pos = 0
             deck.shuffle()
         }
         savePDeck()
         return pos
+
+    }
+
+    //fun pause
+    fun pause1(time: Int)
+    {
+        var vrijeme = 0
+        while(vrijeme == 0)
+        {
+
+        }
 
     }
 
@@ -1492,7 +1542,7 @@ class Blackjack : AppCompatActivity() {
         }
         else
         {
-            count = 1000
+            count = 0
         }
 
         return count
@@ -1515,6 +1565,8 @@ class Blackjack : AppCompatActivity() {
 
         Log.d(TAG, "Data saved!")
     }
+
+
 
     // a second one I do not understand at all
     private fun loadData()
