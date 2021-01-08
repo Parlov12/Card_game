@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UsernameActivtiy"></activity>
+        <activity android:name=".Parameters"></activity>
+        <activity android:name=".UsernameActivtiy" />
         <activity android:name=".InstructionsActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -30,9 +31,6 @@
             android:name=".Blackjack"
             android:screenOrientation="portrait"
             android:theme="@style/Custom" />
-        <activity
-            android:name=".PlayingActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />

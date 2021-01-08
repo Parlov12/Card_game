@@ -11,107 +11,112 @@
 
     <Button
         android:id="@+id/about_button"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:background="@drawable/custom_button"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="@string/about"
-        android:textColor="#ffffff"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addView"
-        app:layout_constraintEnd_toEndOf="@+id/settings_button"
-        app:layout_constraintStart_toStartOf="@+id/settings_button"
-        app:layout_constraintTop_toBottomOf="@+id/settings_button" />
-
-    <Button
-        android:id="@+id/instructions_button"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/i_white"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="@string/instructions"
         android:textColor="#ffffff"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/settings_button"
-        app:layout_constraintEnd_toEndOf="@+id/levels_button"
-        app:layout_constraintStart_toStartOf="@+id/levels_button"
-        app:layout_constraintTop_toBottomOf="@+id/levels_button" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/settings_button"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/custom_button"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/settings_icon"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="@string/settings"
         android:textColor="#ffffff"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/about_button"
-        app:layout_constraintEnd_toEndOf="@+id/instructions_button"
-        app:layout_constraintStart_toStartOf="@+id/instructions_button"
-        app:layout_constraintTop_toBottomOf="@+id/instructions_button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/levels_button"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/instructions_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/question_mark_white"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="@string/levels"
         android:textColor="#ffffff"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/instructions_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/continue_btn"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:background="@drawable/main_button_onoff"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="CONTINUE"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/main_button_onoff"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="NEW"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/continue_btn" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/blackjack_title" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="COUNT"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:background="@drawable/main_button_onoff"
         app:layout_constraintEnd_toEndOf="@+id/start_button"
         app:layout_constraintStart_toStartOf="@+id/start_button"
         app:layout_constraintTop_toBottomOf="@+id/start_button" />
 
-    <Button
-        android:id="@+id/start_button"
-        android:layout_width="200dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/custom_button"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="@string/blackjack_game_main"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/levels_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_start"
-        app:layout_constraintVertical_chainStyle="packed" />
 
-    <TextView
-        android:id="@+id/title_start"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="@string/title_main"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="80sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-   <!-- <com.google.android.gms.ads.AdView
+    <!-- <com.google.android.gms.ads.AdView
         android:id="@+id/addView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
