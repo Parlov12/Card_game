@@ -129,10 +129,6 @@ class   MainActivity : AppCompatActivity() {
 
         }
 
-        instructions_button.setOnClickListener {
-
-            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
-        }
 
         about_button.setOnClickListener {
 

@@ -61,6 +61,7 @@ open class Blackjack : AppCompatActivity() {
     val repeatOn: Int = android.R.drawable.stat_notify_sync_noanim
     var lastBet: Int = 0
     var pDeck: Int = 0
+    var counter: Int = 0
     var num_of_decks: Int = 0
 
 
@@ -143,7 +144,6 @@ open class Blackjack : AppCompatActivity() {
         var no_card: Int = R.drawable.no_card
         var i: Int = 0
         var j: Int = 0
-        var counter: Int = 0
         var pCounter: Int = 0
         var repeatBet: Int = 0
 
@@ -1074,6 +1074,7 @@ open class Blackjack : AppCompatActivity() {
                 playerSum = playerSum/2
                 splitSum = playerSum
                 pomSplitSum = splitSum
+                pHandSplitPlayer = 1
                 split_card_background.setImageResource(bj_cards[bjNiz[pDeck-1]]!!.pic)
                 player_second_card.setImageResource(0)
                 split_button.setBackgroundResource(default_off)
@@ -1620,9 +1621,10 @@ open class Blackjack : AppCompatActivity() {
     // also shuffles deck again
     fun position_check(deckPosition: Int, deck: IntArray, number_of_decks: Int): Int {
         var pos: Int = deckPosition
-        if(deckPosition >= (number_of_decks*52 - 1))
+        if(deckPosition > (number_of_decks*52 - 1))
         {
             pos = 0
+            counter = 0
             deck.shuffle()
         }
         savePDeck()

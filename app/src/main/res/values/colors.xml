@@ -7,7 +7,10 @@
     <color name="prva_cyan">#51acf5</color>
     <color name="new_cyan">#007793</color>
     <color name="theme">#103855</color>
-    <color name="theme2">#103855</color>
+    <color name="theme2">#0760c1</color>
 
-    <!-- old color 001f66 -->
+
+   <!--
+    <color name="theme2">#103855</color>
+   -->
 </resources>
