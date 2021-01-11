@@ -1,4 +1,14 @@
 <resources>
+
+    <!-- SHARED PREFERENCES STRINGS -->
+    <string name="pDeck">pDeck</string>
+    <string name="num_of_decks">num_of_decks</string>
+
+    <!-- SHARED PREFERENCES STRINGS -->
+
+
+    <string name="currency">$</string>
+
     <string name="app_name">Card_game</string>
     <string name="player_card1">player_card1</string>
     <string name="player_card2">player_card2</string>

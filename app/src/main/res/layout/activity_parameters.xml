@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Parameters"
-    android:background="@drawable/radial_background">
+    android:background="@drawable/radial_background"
+    tools:context=".Parameters">
 
     <ImageView
         android:id="@+id/deckHolder"
@@ -268,6 +268,114 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linear_check_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/choose_method_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customize_text">
+
+        <TextView
+            android:id="@+id/check_box_position_text"
+            android:layout_width="379dp"
+            android:layout_height="50dp"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/bangers"
+            android:text="SHOW POSITION IN DECK:"
+            android:textAlignment="viewStart"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="212dp" />
+
+        <TextView
+            android:id="@+id/check_box_counter_text"
+            android:layout_width="379dp"
+            android:layout_height="50dp"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/bangers"
+            android:text="SHOW COUNTER SUM:"
+            android:textAlignment="viewStart"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="147dp" />
+
+        <TextView
+            android:id="@+id/check_box_possibility_text"
+            android:layout_width="379dp"
+            android:layout_height="50dp"
+            android:elegantTextHeight="false"
+            android:fontFamily="@font/bangers"
+            android:text="SHOW WIN POSSIBILITY:"
+            android:textAlignment="viewStart"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="81dp" />
+
+        <TextView
+            android:id="@+id/check_box_something_text"
+            android:layout_width="379dp"
+            android:layout_height="50dp"
+            android:elegantTextHeight="false"
+            android:fontFamily="@font/bangers"
+            android:text="SHOW SOMETHING:"
+            android:textAlignment="viewStart"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="81dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_check_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/choose_method_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linear_check_text"
+        app:layout_constraintTop_toBottomOf="@+id/customize_text">
+
+        <CheckBox
+            android:id="@+id/check_box_possibility"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:buttonTint="#000000"
+            android:textColorHighlight="#FFFFFF" />
+
+        <CheckBox
+            android:id="@+id/check_box_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:buttonTint="#000000" />
+
+        <CheckBox
+            android:id="@+id/check_position"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:buttonTint="#000000" />
+
+        <CheckBox
+            android:id="@+id/check_something"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:buttonTint="#000000" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/right_arrow"
@@ -278,91 +386,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/right_arrow" />
-
-
-    <TextView
-        android:id="@+id/check_box_position_text"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="SHOW POSITION IN DECK:"
-        android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/choose_method_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <CheckBox
-        android:id="@+id/check_position"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/check_box_position_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/check_box_position_text"
-        android:buttonTint="#000000" />
-
-
-
-    <TextView
-        android:id="@+id/check_box_counter_text"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="SHOW COUNTER SUM:"
-        android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/check_box_position_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <CheckBox
-        android:id="@+id/check_box_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/check_box_position_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/check_box_counter_text"
-        android:buttonTint="#000000" />
-
-
-    <TextView
-        android:id="@+id/check_box_possibility_text"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:elegantTextHeight="false"
-        android:fontFamily="@font/bangers"
-        android:text="SHOW WIN POSSIBILITY:"
-        android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/check_box_counter_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <CheckBox
-        android:id="@+id/check_box_possibility"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="32dp"
-        android:textColorHighlight="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/check_box_possibility_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/check_box_possibility_text"
-        android:buttonTint="#000000" />
-
 
 
     <TextView

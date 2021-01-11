@@ -1,9 +1,8 @@
 package com.example.card_game
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -11,13 +10,17 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import android.widget.ToggleButton
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_parameters.*
 import kotlinx.android.synthetic.main.activity_username_activtiy.*
 
+
 class Parameters : AppCompatActivity() {
 
     var num_of_decks: Int = 0
+    var method: Int = 0
 
     val TAG = "TAG"
 
@@ -25,13 +28,19 @@ class Parameters : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parameters)
 
+        var checkDeck: Boolean
+        var checkMethod: Boolean
+
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
         val intent = Intent(this, Blackjack::class.java)
 
         right_arrow.setOnClickListener{
+
+
             if(one_deck.isChecked == true)
             {
                 num_of_decks = 1
@@ -70,16 +79,24 @@ class Parameters : AppCompatActivity() {
             }
             else
             {
-                Toast.makeText(this,"Something missing", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Something missing", Toast.LENGTH_SHORT).show()
             }
 
 
         }
-    }
+
+    } // end of onCreate()
+
 
 
     // fun deckClick -> when one deck is clicked, the other five decks are turned off(isChecked = fale)
-    fun deckClick(deck1: ToggleButton, deck2: ToggleButton, deck3: ToggleButton, deck4: ToggleButton, deck5: ToggleButton)
+    fun deckClick(
+        deck1: ToggleButton,
+        deck2: ToggleButton,
+        deck3: ToggleButton,
+        deck4: ToggleButton,
+        deck5: ToggleButton
+    )
     {
         deck1.isChecked = false
         deck2.isChecked = false
@@ -142,7 +159,7 @@ class Parameters : AppCompatActivity() {
 
     fun saveNumDeck()
     {
-        var pref = PreferenceManager.getDefaultSharedPreferences(this)
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var editor = pref.edit()
         editor.putInt("NUM_OF_DECKS", num_of_decks)
         editor.commit()

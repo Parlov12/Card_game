@@ -1,7 +1,9 @@
 package com.example.card_game
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.media.ToneGenerator
@@ -32,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.w3c.dom.Text
 import java.util.*
 import com.example.card_game.Decks
+import kotlinx.android.synthetic.main.dialog_layout.view.*
 
 
 //class Blackjack : AppCompatActivity(), RewardedVideoAdListener {
@@ -63,6 +66,15 @@ open class Blackjack : AppCompatActivity() {
 
     // google ads - rewarded ad
    //ads private lateinit var mRewardedVideoAd: RewardedVideoAd
+
+
+    override fun onBackPressed() {
+       val i = Intent(this, MainActivity::class.java)
+        startActivity(i)
+        finish()
+
+
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +121,7 @@ open class Blackjack : AppCompatActivity() {
         var pHandPlayer: Int = 0
         var pHandPc: Int = 0
         var pHandSplitPlayer: Int = 0
-        var pHandSplitPc: Int = 0
+
 
         // sum variables
         var splitSum: Int = 0
@@ -160,7 +172,7 @@ open class Blackjack : AppCompatActivity() {
         }
 
         balance_text.text = "$stanje"
-        cards_left.text = "${pDeck+1}/${num_of_decks*52}"
+        cards_left.text = "${pDeck}/${num_of_decks*52}"
 
 
 
@@ -245,12 +257,10 @@ open class Blackjack : AppCompatActivity() {
 
 
 
-        i = 0
-       for(i in 0..103)
-        {
-            Log.d(TAG, "${i+1}. ${bj_cards[bjNiz[i]]!!.number}  ${bj_cards[bjNiz[i]]!!.type}")
-        }
 
+        // test split button
+        bjNiz[0] = 0
+        bjNiz[1] = 0
 
         dijeli_button.setOnClickListener {
 
@@ -321,7 +331,6 @@ open class Blackjack : AppCompatActivity() {
                 )
 
 
-                pDeck = pDeck + 1
                 pDeck = position_check(pDeck, bjNiz, num_of_decks)
                 //setting up player sum
                 playerSum = 0
@@ -335,11 +344,6 @@ open class Blackjack : AppCompatActivity() {
 
 
                 // counter part
-                if(pDeck > 103)
-                {
-                    counter = 0
-                    Toast.makeText(this,"Counter reseted!",Toast.LENGTH_SHORT).show()
-                }
                 counter += cardCounter(bj_cards[bjNiz[pDeck]])
                 counter_text.text = "$counter"
                 // end of counter part
@@ -384,11 +388,8 @@ open class Blackjack : AppCompatActivity() {
 
                 bj2 = bj_cards[bjNiz[pDeck]]!!.value
                 bj4 = bj_cards[bjNiz[pDeck]]!!.number
-                // counter part
-                if(pCounter > 51)
-                {
-                    counter = 0
-                }
+
+
                 counter += cardCounter(bj_cards[bjNiz[pDeck]])
                 counter_text.text = "$counter"
                 // end of counter part
@@ -416,10 +417,6 @@ open class Blackjack : AppCompatActivity() {
 
 
                 // counter part
-                if(pCounter > 51)
-                {
-                    counter = 0
-                }
                 counter += cardCounter(bj_cards[bjNiz[pDeck]])
                 counter_text.text = "$counter"
                 // end of counter part
@@ -428,15 +425,14 @@ open class Blackjack : AppCompatActivity() {
                 sum_text_dealer(pcSum, pomPcSum, pc_sum, pc_sum2, show_suma)
 
 
-                // "pointer" to player's card, setting it to 0 and also increasing it line after to 1, because we already have first card
+                // "pointer" to player's card, setting it to 0 and also increasing it line after to 2, because we already have two cards
                 pHandPlayer = 0
                 pHandPlayer = pHandPlayer + 2
                 //
                 stanje = stanje - ulog
                 balance_text.text = "$stanje"
 
-                //Log.d(TAG, "${bj_cards[bjNiz[pDeck-1]]!!.value}\n${bj_cards[bjNiz[pDeck-2]]!!.value}")
-                // if player gets 21 in first to cards, he/she instantly wins
+                // if player gets 21 in first two cards, he/she instantly wins
                 if((bj1== 1 && bj2 == 10)||(bj1 == 10 && bj2 == 1))
                 {
                     winSound?.start()
@@ -463,16 +459,18 @@ open class Blackjack : AppCompatActivity() {
                     ulogCheck = true
                     ulog = 0
                     total_bet.text = "BET: 0 $currency"
+                    bet_text_under_chip.text = ""
                     total_bet_chip.setImageResource(0)
                     if(repeatBet <= stanje) {
                         repeat_bet.setImageResource(repeatOn)
                         checkRepeat = true
                     }
+                    pDeck = pDeck + 1
 
                     saveData()
                 }
 
-                // check for checkDouble
+                // check checkDouble
                 if(((playerSum == 9)||(playerSum == 10)||(playerSum==11))&&((pomPlayerSum == 9)||(pomPlayerSum == 10)||(pomPlayerSum==11))&&(ulog <= stanje))
                 {
                     checkDouble = true
@@ -480,7 +478,8 @@ open class Blackjack : AppCompatActivity() {
                     Log.d(TAG, "Sucessfull check")
                 }
 
-                if(bj3 == bj4)
+                // check checkSplit
+                if((bj3 == bj4)&&(stanje >= ulog))
                 {
                     split_button.setBackgroundResource(default_on)
                     checkSplit = true
@@ -502,46 +501,132 @@ open class Blackjack : AppCompatActivity() {
 
         vuci_button.setOnClickListener {
 
-               if (checkVuci == false) {
-                   println("Error!")
-               } else {
-                   Log.d(
-                       TAG,
-                       "\nBefore - VUCI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
-                   )
-                   dealing_cards?.start()
-                   checkDouble = false
-                   checkSplit = false
-                   //splitEnabled = false
-                   split_button.setBackgroundResource(default_off)
-                   double_button.setBackgroundResource(default_off)
-                   pDeck = pDeck + 1
-                   pDeck = position_check(pDeck, bjNiz, num_of_decks)
-                   savePDeck()
-                   cards_left.text = "${pDeck+1}/${num_of_decks*52}"
+            if(splitEnabled == false) {
+                if (checkVuci == false) {
+                    println("Error!")
+                } else {
+                    Log.d(
+                        TAG,
+                        "\nBefore - VUCI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                    )
+                    dealing_cards?.start()
+                    checkDouble = false
+                    checkSplit = false
+                    //splitEnabled = false
+                    split_button.setBackgroundResource(default_off)
+                    double_button.setBackgroundResource(default_off)
+                    pDeck = pDeck + 1
+                    pDeck = position_check(pDeck, bjNiz, num_of_decks)
+                    savePDeck()
+                    cards_left.text = "${pDeck+1}/${num_of_decks * 52}"
 
 
+                    // "pointer" to player's hand, used to check where card must be playes
+                    if (splitEnabled == false) {
+                        right_place_for_pic(
+                            pDeck,
+                            pHandPlayer,
+                            player_second_card,
+                            player_third_card,
+                            player_forth_card,
+                            player_fifth_card,
+                            player_sixth_card,
+                            player_seventh_card,
+                            bjNiz,
+                            bj_cards
+                        )
+                    } else if (splitEnabled == true) {
+                        right_place_for_pic(
+                            pDeck,
+                            pHandPlayer,
+                            split_second_card,
+                            split_third_card,
+                            split_forth_card,
+                            split_fifth_card,
+                            split_sixth_card,
+                            split_seventh_card,
+                            bjNiz,
+                            bj_cards
+                        )
+                    }
+                    // adding sum to playerSum
+                    playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
 
-                   // "pointer" to player's hand, used to check where card must be playes
-                   if (splitEnabled == false) {
-                       right_place_for_pic(
-                           pDeck,
-                           pHandPlayer,
-                           player_second_card,
-                           player_third_card,
-                           player_forth_card,
-                           player_fifth_card,
-                           player_sixth_card,
-                           player_seventh_card,
-                           bjNiz,
-                           bj_cards
-                       )
-                   }
-                   else if(splitEnabled == true)
-                   {
-                    right_place_for_pic(
+                    //adding that same sum to pomSum
+                    pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck]]!!.value
+                    if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
+                        pomPlayerSum = pomPlayerSum + 11 - 1 // replacing A values: A-1 -> A-11
+                    }
+                    pHandPlayer = pHandPlayer + 1
+
+                    if (playerSum >= 0 && playerSum <= 21 && pomPlayerSum >= 0 && pomPlayerSum <= 21) {
+
+
+                    } else if (playerSum >= 0 && playerSum <= 21 && pomPlayerSum > 21) {
+
+                    } else if ((playerSum > 21) && (pomPlayerSum > 21)) {
+                        stanje = stanje
+                        checkDosta = false
+                        checkVuci = false
+                        show_n_disappear("  -${ulog} $currency", show_text)
+                        vuci_button.setBackgroundResource(default_off)
+                        dosta_button.setBackgroundResource(default_off)
+                        double_button.setBackgroundResource(default_off)
+                        //dijeli_button.setBackgroundResource(default_on)
+
+                        checkDijeli = true
+                        ulogCheck = true
+                        splitEnabled = false
+                        total_bet_chip.setImageResource(0)
+                        ulog = 0
+                        total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
+                        saveData()
+                        pDeck = pDeck + 1
+                        pDeck = position_check(pDeck, bjNiz, num_of_decks)
+                        savePDeck()
+
+                        if (repeatBet <= stanje) {
+                            repeat_bet.setImageResource(repeatOn)
+                            checkRepeat = true
+                        }
+                    } else {
+                        Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+                    }
+
+                    // counter part
+                    if (pCounter > 51) {
+                        counter = 0
+                    }
+                    counter += cardCounter(bj_cards[bjNiz[pDeck]])
+                    counter_text.text = "$counter"
+                    // end of counter part
+
+                    // regulation of what text shows between playerSum and pomPlayerSum
+                    sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
+
+                    Log.d(
+                        TAG,
+                        "\nAfter - VUCI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
+                    )
+                } // end of provjera checkVuci
+            }
+            else if(splitEnabled == true)
+            {
+                dealing_cards?.start()
+                checkDouble = false
+                checkSplit = false
+                //splitEnabled = false
+                split_button.setBackgroundResource(default_off)
+                double_button.setBackgroundResource(default_off)
+                pDeck = pDeck + 1
+                pDeck = position_check(pDeck, bjNiz, num_of_decks)
+                savePDeck()
+                cards_left.text = "${pDeck+1}/${num_of_decks * 52}"
+
+                right_place_for_pic(
                         pDeck,
-                        pHandPlayer,
+                        pHandSplitPlayer,
                         split_second_card,
                         split_third_card,
                         split_forth_card,
@@ -551,68 +636,52 @@ open class Blackjack : AppCompatActivity() {
                         bjNiz,
                         bj_cards
                     )
-                    }
-                   // adding sum to playerSum
-                   playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
 
-                   //adding that same sum to pomSum
-                   pomPlayerSum = pomPlayerSum + bj_cards[bjNiz[pDeck]]!!.value
-                   if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
-                       pomPlayerSum = pomPlayerSum + 11 - 1 // replacing A values: A-1 -> A-11
-                   }
-                   pHandPlayer = pHandPlayer + 1
+                // adding sum to splitSum
+                splitSum = splitSum + bj_cards[bjNiz[pDeck]]!!.value
 
-                   if (playerSum >= 0 && playerSum <= 21 && pomPlayerSum >= 0 && pomPlayerSum <= 21) {
+                //adding that same sum to pomSplitSum
+                pomSplitSum = pomSplitSum + bj_cards[bjNiz[pDeck]]!!.value
+                if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
+                    pomSplitSum = pomSplitSum + 11 - 1 // replacing A values: A-1 -> A-11
+                }
+                pHandSplitPlayer = pHandSplitPlayer + 1
+
+                if (splitSum >= 0 && splitSum <= 21 && pomSplitSum >= 0 && pomSplitSum <= 21) {
 
 
-                   } else if (playerSum >= 0 && playerSum <= 21 && pomPlayerSum > 21) {
+                } else if (splitSum >= 0 && splitSum <= 21 && pomSplitSum > 21) {
 
-                   } else if ((playerSum > 21) && (pomPlayerSum > 21)) {
-                       stanje = stanje
-                       checkDosta = false
-                       checkVuci = false
-                       show_n_disappear("  -${ulog} $currency", show_text)
-                       vuci_button.setBackgroundResource(default_off)
-                       dosta_button.setBackgroundResource(default_off)
-                       double_button.setBackgroundResource(default_off)
-                       //dijeli_button.setBackgroundResource(default_on)
+                } else if ((splitSum > 21) && (pomSplitSum > 21)) {
+                    show_n_disappear("  -${ulog} $currency", show_text)
+                    double_button.setBackgroundResource(default_off)
+                    //dijeli_button.setBackgroundResource(default_on)
 
-                       checkDijeli = true
-                       ulogCheck = true
-                       splitEnabled = false
-                       total_bet_chip.setImageResource(0)
-                       ulog = 0
-                       total_bet.text = "BET: 0 $currency"
-                       saveData()
-                       pDeck = pDeck + 1
-                       pDeck = position_check(pDeck, bjNiz, num_of_decks)
-                       savePDeck()
+                    bet_text_under_chip.text = ""
+                    saveData()
+                    pDeck = pDeck + 1
+                    pDeck = position_check(pDeck, bjNiz, num_of_decks)
+                    savePDeck()
 
-                       if (repeatBet <= stanje) {
-                           repeat_bet.setImageResource(repeatOn)
-                           checkRepeat = true
-                       }
-                   } else {
-                       Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
-                   }
+                } else {
+                    Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
+                }
 
-                   // counter part
-                   if (pCounter > 51) {
-                       counter = 0
-                   }
-                   counter += cardCounter(bj_cards[bjNiz[pDeck]])
-                   counter_text.text = "$counter"
-                   // end of counter part
+                // counter part
+                if (pCounter > 51) {
+                    counter = 0
+                }
+                counter += cardCounter(bj_cards[bjNiz[pDeck]])
+                counter_text.text = "$counter"
+                // end of counter part
 
-                   // regulation of what text shows between playerSum and pomPlayerSum
-                   sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
-
-                   Log.d(
-                       TAG,
-                       "\nAfter - VUCI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
-                   )
-               } // end of provjera checkVuci
-
+                // regulation of what text shows between splitSum and pomSplitSum
+                sum_text(splitSum, pomSplitSum, player_sum, player_sum2, show_suma)
+            }
+            else
+            {
+                Log.d(TAG,"Something went wrong with splitEnabled check...")
+            }
 
 
         } // end of vuci_button
@@ -622,6 +691,8 @@ open class Blackjack : AppCompatActivity() {
                 TAG,
                 "\nBefore - DOSTA\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
             )
+
+            var totalWin: Int = 0
 
             mainPlayerSum = sum_check(playerSum, pomPlayerSum)
             mainPcSum = sum_check(pcSum, pomPcSum)
@@ -654,9 +725,6 @@ open class Blackjack : AppCompatActivity() {
                     dealing_cards?.start()
 
                     // counter part
-                    if (pCounter > 51) {
-                        counter = 0
-                    }
                     counter += cardCounter(bj_cards[bjNiz[pDeck]])
                     counter_text.text = "$counter"
                     // end of counter part
@@ -681,14 +749,13 @@ open class Blackjack : AppCompatActivity() {
                     // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
                     pomPcSum = pomPcSum + bj_cards[bjNiz[pDeck]]!!.value
                     if (bj_cards[bjNiz[pDeck]]!!.number == 1) {
-                        pomPcSum = pomPcSum - 1 + 11 // zamjena vrijednosti asa sa 11 na 1
+                        pomPcSum = pomPcSum - 1 + 11 // zamjena vrijednosti asa sa 1 na 11
                     }
                     sum_text_dealer(pcSum, pomPcSum, pc_sum, pc_sum2, show_suma)
 
                     mainPcSum = sum_check(pcSum, pomPcSum)
 
                     if (mainPcSum > 21) {
-                        // Toast.makeText(this, "You WIN!!!", Toast.LENGTH_SHORT).show()
                         winSound?.start()
                         show_n_disappear("  +${ulog * 2} $currency!", show_text)
                         stanje = stanje + ulog * 2
@@ -702,13 +769,14 @@ open class Blackjack : AppCompatActivity() {
                         //dijeli_button.setBackgroundResource(default_on)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
+                        pDeck = pDeck + 1
                         saveData()
                         if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
                     } else if (mainPcSum >= 17 && mainPcSum <= 21 && mainPcSum > mainPlayerSum) {
-                        //Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
                         show_n_disappear("  -${ulog} $currency", show_text)
                         stanje = stanje
                         balance_text.text = "$stanje"
@@ -721,6 +789,8 @@ open class Blackjack : AppCompatActivity() {
                         //dijeli_button.setBackgroundResource(default_on)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
+                        pDeck = pDeck + 1
                         saveData()
                         if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
@@ -740,6 +810,8 @@ open class Blackjack : AppCompatActivity() {
                         //dijeli_button.setBackgroundResource(default_on)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
+                        pDeck = pDeck + 1
                         saveData()
                         if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
@@ -760,6 +832,8 @@ open class Blackjack : AppCompatActivity() {
                         //dijeli_button.setBackgroundResource(default_on)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
+                        pDeck = pDeck + 1
                         saveData()
                         if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
@@ -800,6 +874,7 @@ open class Blackjack : AppCompatActivity() {
 
                 pDeck = pDeck + 1
                 pDeck = position_check(pDeck, bjNiz, num_of_decks)
+                cards_left.text = "${pDeck+1}/${num_of_decks * 52}"
                 savePDeck()
 
 
@@ -902,6 +977,7 @@ open class Blackjack : AppCompatActivity() {
                         total_bet_chip.setImageResource(0)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
                         if(repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
@@ -919,6 +995,7 @@ open class Blackjack : AppCompatActivity() {
                         total_bet_chip.setImageResource(0)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
                         if(repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
@@ -937,6 +1014,8 @@ open class Blackjack : AppCompatActivity() {
                         total_bet_chip.setImageResource(0)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
+                        bet_text_under_chip.text = ""
                         if(repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
@@ -958,6 +1037,7 @@ open class Blackjack : AppCompatActivity() {
                         total_bet_chip.setImageResource(0)
                         ulog = 0
                         total_bet.text = "BET: 0 $currency"
+                        bet_text_under_chip.text = ""
                         if(repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
@@ -991,11 +1071,16 @@ open class Blackjack : AppCompatActivity() {
             else
             {
                 splitEnabled = true
+                playerSum = playerSum/2
+                splitSum = playerSum
+                pomSplitSum = splitSum
                 split_card_background.setImageResource(bj_cards[bjNiz[pDeck-1]]!!.pic)
                 player_second_card.setImageResource(0)
                 split_button.setBackgroundResource(default_off)
-                playerSum = playerSum / 2
-                pomPlayerSum = pomPlayerSum / 2
+                stanje = stanje - ulog
+                ulog = ulog*2
+                bet_text_under_chip.text = "${currency}${ulog}"
+                total_bet.text = "${currency}${ulog}"
             }
 
 
@@ -1004,7 +1089,8 @@ open class Blackjack : AppCompatActivity() {
         repeat_bet.setOnClickListener{
             if(repeatBet <= stanje && checkRepeat == true) {
                 ulog = repeatBet
-                total_bet.text = "BET: $ulog $currency"
+                total_bet.text = "BET: $currency$ulog"
+                bet_text_under_chip.text = "$currency$ulog"
                 dijeli_button.setBackgroundResource(default_on)
                 repeat_bet.setImageResource(0)
                 cancel_bet.setBackgroundResource(cancel_background)
@@ -1059,7 +1145,8 @@ open class Blackjack : AppCompatActivity() {
                     cancel_bet.setBackgroundResource(cancel_background)
                     total_bet_chip.setImageResource(ulog_10)
                     ulog = ulog + 10
-                    total_bet.text = "BET: $ulog $currency"
+                    total_bet.text = "BET: $currency$ulog"
+                    bet_text_under_chip.text = "$currency$ulog"
                     show_text.text = ""
                     background_text.text = ""
                     pc_sum.text = "0"
@@ -1123,7 +1210,8 @@ open class Blackjack : AppCompatActivity() {
                     cancel_bet.setBackgroundResource(cancel_background)
                     total_bet_chip.setImageResource(ulog_25)
                     ulog = ulog + 25
-                    total_bet.text = "BET: $ulog $currency"
+                    total_bet.text = "BET: $currency$ulog"
+                    bet_text_under_chip.text = "$currency$ulog"
                     show_text.text = ""
                     background_text.text = ""
                     pc_sum.text = "0"
@@ -1186,7 +1274,8 @@ open class Blackjack : AppCompatActivity() {
                     cancel_bet.setBackgroundResource(cancel_background)
                     total_bet_chip.setImageResource(ulog_50)
                     ulog = ulog + 50
-                    total_bet.text = "BET: $ulog $currency"
+                    total_bet.text = "BET: $currency$ulog"
+                    bet_text_under_chip.text = "$currency$ulog"
                     show_text.text = ""
                     background_text.text = ""
                     pc_sum.text = "0"
@@ -1248,7 +1337,8 @@ open class Blackjack : AppCompatActivity() {
                     cancel_bet.setBackgroundResource(cancel_background)
                     total_bet_chip.setImageResource(ulog_100)
                     ulog = ulog + 100
-                    total_bet.text = "BET: $ulog $currency"
+                    total_bet.text = "BET: $currency$ulog"
+                    bet_text_under_chip.text = "$currency$ulog"
                     show_text.text = ""
                     background_text.text = ""
                     pc_sum.text = "0"
@@ -1423,7 +1513,8 @@ open class Blackjack : AppCompatActivity() {
                 cancel_bet.setBackgroundResource(cancel_background)
                 total_bet_chip.setImageResource(ulog_10)
                 ulog = ulog + 10
-                total_bet.text = "BET: $ulog $currency"
+                total_bet.text = "BET: $currency$ulog"
+                bet_text_under_chip.text = "$currency$ulog"
             }
             else{
                 // Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
@@ -1442,7 +1533,8 @@ open class Blackjack : AppCompatActivity() {
                 cancel_bet.setBackgroundResource(cancel_background)
                 total_bet_chip.setImageResource(ulog_25)
                 ulog = ulog + 25
-                total_bet.text = "BET: $ulog $currency"
+                total_bet.text = "BET: $currency$ulog"
+                bet_text_under_chip.text = "$currency$ulog"
             }
             else{
                 Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
@@ -1462,7 +1554,8 @@ open class Blackjack : AppCompatActivity() {
                 cancel_bet.setBackgroundResource(cancel_background)
                 total_bet_chip.setImageResource(ulog_50)
                 ulog = ulog + 50
-                total_bet.text = "BET: $ulog $currency"
+                total_bet.text = "BET: $currency$ulog"
+                bet_text_under_chip.text = "$currency$ulog"
             }
             else{
                 Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
@@ -1481,7 +1574,8 @@ open class Blackjack : AppCompatActivity() {
                 cancel_bet.setBackgroundResource(cancel_background)
                 total_bet_chip.setImageResource(ulog_100)
                 ulog = ulog + 100
-                total_bet.text = "BET: $ulog $currency"
+                total_bet.text = "BET: $currency$ulog"
+                bet_text_under_chip.text = "$currency$ulog"
             }
             else{
                 Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
@@ -1498,7 +1592,8 @@ open class Blackjack : AppCompatActivity() {
     fun cancelCliked(view: View)
     {
         ulog = 0
-        total_bet.text = "BET: $ulog $currency"
+        total_bet.text = "BET: $currency$ulog"
+        bet_text_under_chip.text = "$currency$ulog"
         total_bet_chip.setImageResource(0)
         cancel_bet.setBackgroundResource(0)
         dijeli_button.setBackgroundResource(default_off)
@@ -1576,7 +1671,7 @@ open class Blackjack : AppCompatActivity() {
     // do nothing!
     fun doNothing(view: View)
     {
-        Log.d(TAG, "Do nothin!")
+        Log.d(TAG, "Do nothing!")
     }
 
     // a one I do not understand at all
@@ -1584,7 +1679,7 @@ open class Blackjack : AppCompatActivity() {
     {
         val pref_stanje: SharedPreferences = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val editor = pref_stanje.edit()
-        editor.putInt("STRING_KEY", stanje)
+        editor.putInt("STANJE", stanje)
         editor.commit()
 
         Log.d(TAG, "Stanje saved!")
@@ -1594,8 +1689,8 @@ open class Blackjack : AppCompatActivity() {
     // a second one I do not understand at all
     fun loadData()
     {
-        var pref_stanje = PreferenceManager.getDefaultSharedPreferences(this)
-        stanje = pref_stanje.getInt("STRING_KEY", stanje)
+        var pref_stanje = getSharedPreferences("sharedPref",Context.MODE_PRIVATE)
+        stanje = pref_stanje.getInt("STANJE", stanje)
 
 
     }
@@ -1650,7 +1745,7 @@ open class Blackjack : AppCompatActivity() {
 */
    fun savePDeck()
     {
-        var pref_pdeck = PreferenceManager.getDefaultSharedPreferences(this)
+        var pref_pdeck = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var editor = pref_pdeck.edit()
         editor.putInt("POINTER_ON_DECK", pDeck)
         editor.commit()
@@ -1659,14 +1754,14 @@ open class Blackjack : AppCompatActivity() {
     }
     fun loadPDeck()
     {
-        var pref_pdeck = PreferenceManager.getDefaultSharedPreferences(this)
+        var pref_pdeck = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         pDeck = pref_pdeck.getInt("POINTER_ON_DECK", 0)
 
     }
 
     fun loadNumDeck()
     {
-        var pref = PreferenceManager.getDefaultSharedPreferences(this)
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         num_of_decks = pref.getInt("NUM_OF_DECKS",0)
 
     }

@@ -723,10 +723,11 @@
 
     <TextView
         android:id="@+id/cards_left"
-        android:layout_width="66dp"
-        android:layout_height="44dp"
+        android:layout_width="103dp"
+        android:layout_height="39dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:text="0/104"
         android:textAlignment="center"
@@ -775,6 +776,18 @@
         app:layout_constraintTop_toTopOf="@+id/arrow_down"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <TextView
+        android:id="@+id/bet_text_under_chip"
+        android:layout_width="72dp"
+        android:layout_height="27dp"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
+        app:layout_constraintTop_toBottomOf="@id/total_bet_chip" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
