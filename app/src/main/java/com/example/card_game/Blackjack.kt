@@ -1,24 +1,17 @@
 package com.example.card_game
 
-import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
-import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
-import android.provider.Settings.Global.putInt
 import android.util.Log
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_blackjack.*
 /*
 import com.google.android.gms.ads.AdRequest
@@ -29,12 +22,6 @@ import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
 import com.google.android.gms.ads.rewarded.RewardedAd
 */
-import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.activity_main.*
-import org.w3c.dom.Text
-import java.util.*
-import com.example.card_game.Decks
-import kotlinx.android.synthetic.main.dialog_layout.view.*
 
 
 //class Blackjack : AppCompatActivity(), RewardedVideoAdListener {
@@ -63,6 +50,11 @@ open class Blackjack : AppCompatActivity() {
     var pDeck: Int = 0
     var counter: Int = 0
     var num_of_decks: Int = 0
+    var deck: String = ""
+    var state = arrayOf<Int>(4)
+
+    // variable where true = IN GAME and false = NEW GAME
+    var game_state: Boolean = false
 
 
     // google ads - rewarded ad
@@ -95,6 +87,7 @@ open class Blackjack : AppCompatActivity() {
 
         //ads  mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this)
         //adsmRewardedVideoAd.rewardedVideoAdListener = this
+
 
         // sound variables
         var dealing_cards: MediaPlayer? = MediaPlayer.create(this, R.raw.dealing_cards_fix)
@@ -146,33 +139,26 @@ open class Blackjack : AppCompatActivity() {
         var j: Int = 0
         var pCounter: Int = 0
         var repeatBet: Int = 0
+        var char: Char
+        var pom: Int = 0
+        var brojac: Int = 0
+
 
         // button/view variables
+
+        // false = new true = continue
+        loadGameState()
 
 
         cancel_bet.setBackgroundResource(0)
         repeat_bet.setImageResource(0)
 
+        //  NEW GAME - INITIALIZING INT ARRAY - NEW DECK
+
 
         // deklariranje niza te odredivanje njegove velicine
-        // velicina iznosi broj dekovv * 52 s obzirom da svaki dek ima 52 karte
-        var bjNiz = IntArray(num_of_decks*52)
-
-
-        // for petljom se niz popuni elementima 0-51 s obzirom da niz tipa klase blackjack_class pocinje indexom 0
-        // kada j dode do 52, resetira se ponovno na 0 i puni ostatak bjNiz niza
-        for(i in 0..(num_of_decks*52 - 1))
-        {
-            bjNiz[i] = j
-            j++
-            if(j == 52)
-            {
-                j = 0
-            }
-        }
-
-        balance_text.text = "$stanje"
-        cards_left.text = "${pDeck}/${num_of_decks*52}"
+        // velicina iznosi broj dekova * 52 s obzirom da svaki dek ima 52 karte
+        var bjNiz = IntArray(num_of_decks * 52)
 
 
 
@@ -233,28 +219,53 @@ open class Blackjack : AppCompatActivity() {
 
 
 
+        if(game_state == false) {
+
+            deck = newGameState(num_of_decks, bjNiz)
+            saveDeckString()
+            Log.d(TAG,"game_state = false $deck")
+        }
+        else if(game_state == true)
+        {
+            loadDeckString()
+            i = 0
+            j = 0
+            char = deck[0]
+            while(char != 'e')
+            {
+                if(char == 'n')
+                {
+                    if((deck[i+1] != 'n') && (deck[i+2] != 'n') && (deck[i+2] != 'e'))
+                    {
+                        bjNiz[j] = deck[i+1].toInt()*10 + deck[i+2].toInt()
+                        j++
+                    }
+                    if((deck[i+1] != 'n') && (deck[i+2] == 'n'))
+                    {
+                        bjNiz[j] = deck[i+1].toInt()
+                        j++
+                    }
+
+                }
+
+                i++
+                char = deck[i]
+            }
+            Log.d(TAG,"game_state = true $deck")
+        }
+
+        balance_text.text = "$stanje"
+        cards_left.text = "${pDeck}/${num_of_decks*52}"
+
+
+
+
         dijeli_button.setBackgroundResource(default_on)
 
 
         handler.postDelayed({
             background_text.setText("")
         }, 1500)
-
-
-
-
-        bjNiz.shuffle()
-        bjNiz.shuffle()
-        bjNiz.shuffle()
-
-        var deck: String = ""
-
-        for(i in 0..(num_of_decks*52-1))
-        {
-            deck = "${deck}${bj_cards[bjNiz[i]]!!.type}${bj_cards[bjNiz[i]]!!.number}"
-        }
-        Log.d(TAG, deck)
-
 
 
 
@@ -1766,6 +1777,65 @@ open class Blackjack : AppCompatActivity() {
         var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         num_of_decks = pref.getInt("NUM_OF_DECKS",0)
 
+    }
+
+    fun saveDeckString()
+    {
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        var editor = pref.edit()
+        editor.putString("DECK_STRING", deck)
+        editor.commit()
+    }
+
+    fun loadDeckString()
+    {
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        deck = pref.getString("DECK_STRING","").toString()
+    }
+
+    fun saveGameState()
+    {
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        var editor = pref.edit()
+        editor.putBoolean("GAME_STATE", game_state)
+        editor.commit()
+    }
+
+    fun loadGameState()
+    {
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        game_state = pref.getBoolean("GAME_STATE",false)
+    }
+
+    fun newGameState(num_of_decks: Int, bjNiz: IntArray) : String
+    {
+        pDeck = 0
+        var deck: String = ""
+        var i = 0
+        var j = 0
+        // for petljom se niz popuni elementima 0-51 s obzirom da niz tipa klase blackjack_class pocinje indexom 0
+        // kada j dode do 52, resetira se ponovno na 0 i puni ostatak bjNiz niza
+        for (i in 0..(num_of_decks * 52 - 1)) {
+            bjNiz[i] = j
+            j++
+            if (j == 52) {
+                j = 0
+            }
+        }
+
+        bjNiz.shuffle()
+        bjNiz.shuffle()
+
+        for(i in 0..(num_of_decks*52-1))
+        {
+            deck = "${deck}n${bjNiz[i]}"
+            if(i == (num_of_decks*52-1))
+            {
+                deck = "${deck}e"
+            }
+        }
+
+        return deck
     }
 
 }   // end of class BlackJack

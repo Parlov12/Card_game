@@ -7,10 +7,11 @@
     <color name="prva_cyan">#51acf5</color>
     <color name="new_cyan">#007793</color>
     <color name="theme">#103855</color>
-    <color name="theme2">#0760c1</color>
+    <color name="theme2">#103855</color>
 
 
    <!--
-    <color name="theme2">#103855</color>
+    <color name="theme2">#0760c1</color>
+    pom = 
    -->
 </resources>

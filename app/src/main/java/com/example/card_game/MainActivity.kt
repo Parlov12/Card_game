@@ -18,6 +18,7 @@ class   MainActivity : AppCompatActivity() {
     var pDeck: Int = 0
     var num_of_decks: Int = 0
     val TAG = "TAG"
+    var game_state: Boolean = false
 
 
 
@@ -145,6 +146,8 @@ class   MainActivity : AppCompatActivity() {
     {
         savePDeck()
         saveNumDeck()
+        game_state = false
+        saveGameState()
         val customize = Intent(this, Parameters::class.java)
         startActivity(customize)
     }
@@ -154,6 +157,8 @@ class   MainActivity : AppCompatActivity() {
         val black_jack = Intent(this, Blackjack::class.java)
         if(num_of_decks != 0) {
             startActivity(black_jack)
+            game_state = true
+            saveGameState()
         }
     }
 
@@ -181,6 +186,14 @@ class   MainActivity : AppCompatActivity() {
         var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         num_of_decks = pref.getInt("NUM_OF_DECKS", 0)
 
+    }
+
+    fun saveGameState()
+    {
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        var editor = pref.edit()
+        editor.putBoolean("GAME_STATE", game_state)
+        editor.commit()
     }
 
 
