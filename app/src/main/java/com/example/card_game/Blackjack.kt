@@ -13,21 +13,12 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_blackjack.*
-/*
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration
-import com.google.android.gms.ads.reward.RewardItem
-import com.google.android.gms.ads.reward.RewardedVideoAd
-import com.google.android.gms.ads.reward.RewardedVideoAdListener
-import com.google.android.gms.ads.rewarded.RewardedAd
-*/
+
 
 
 //class Blackjack : AppCompatActivity(), RewardedVideoAdListener {
 
 open class Blackjack : AppCompatActivity() {
-
 
     // outside
 
@@ -51,24 +42,15 @@ open class Blackjack : AppCompatActivity() {
     var counter: Int = 0
     var num_of_decks: Int = 0
     var deck: String = ""
-    var state = arrayOf<Int>(4)
 
     // variable where true = IN GAME and false = NEW GAME
     var game_state: Boolean = false
-
-
-    // google ads - rewarded ad
-   //ads private lateinit var mRewardedVideoAd: RewardedVideoAd
-
 
     override fun onBackPressed() {
        val i = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()
-
-
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,12 +64,6 @@ open class Blackjack : AppCompatActivity() {
         loadData()
         loadNumDeck()
         loadPDeck()
-
-        //adsMobileAds.initialize(this@Blackjack) {}
-
-        //ads  mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this)
-        //adsmRewardedVideoAd.rewardedVideoAdListener = this
-
 
         // sound variables
         var dealing_cards: MediaPlayer? = MediaPlayer.create(this, R.raw.dealing_cards_fix)
@@ -107,7 +83,6 @@ open class Blackjack : AppCompatActivity() {
         var checkDijeli: Boolean = true
         var checkDouble: Boolean = false
         var checkSplit: Boolean = false
-        var pomPDeck: Boolean = true
         var splitEnabled: Boolean = false
         var checkRepeat: Boolean = false
 
@@ -139,21 +114,17 @@ open class Blackjack : AppCompatActivity() {
         var j: Int = 0
         var pCounter: Int = 0
         var repeatBet: Int = 0
-        var char: Char
         var pom: Int = 0
         var brojac: Int = 0
+
+        // game state storage
+        var current_state : GameState = GameState(0,0,0,0, false)
 
 
         // button/view variables
 
         // false = new true = continue
         loadGameState()
-
-
-        cancel_bet.setBackgroundResource(0)
-        repeat_bet.setImageResource(0)
-
-        //  NEW GAME - INITIALIZING INT ARRAY - NEW DECK
 
 
         // deklariranje niza te odredivanje njegove velicine
@@ -218,6 +189,12 @@ open class Blackjack : AppCompatActivity() {
         bj_cards[51] = blackjack_class(13,"herc",10, pic = R.drawable.herc_13)
 
 
+        // setting up screen on the very start
+        dijeli_button.setBackgroundResource(default_on)
+        cancel_bet.setBackgroundResource(0)
+        repeat_bet.setImageResource(0)
+        balance_text.text = "$stanje"
+        cards_left.text = "${pDeck}/${num_of_decks*52}"
 
         if(game_state == false) {
 
@@ -228,39 +205,50 @@ open class Blackjack : AppCompatActivity() {
         else if(game_state == true)
         {
             loadDeckString()
-            i = 0
-            j = 0
-            char = deck[0]
-            while(char != 'e')
+            fillDeck(deck, bjNiz)
+            if(current_state.status == true)
             {
-                if(char == 'n')
+                pHandPlayer = current_state.lastPDeck - current_state.firstPDeck - 2
+                pom = current_state.firstPDeck
+                player_card_background.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                pom++
+                player_second_card.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                pom++
+                pc_card_background.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                pom++
+                pc_second_card.setImageResource(no_card)
+                pom++
+
+                if(pom != current_state.lastPDeck)
                 {
-                    if((deck[i+1] != 'n') && (deck[i+2] != 'n') && (deck[i+2] != 'e'))
-                    {
-                        bjNiz[j] = deck[i+1].toInt()*10 + deck[i+2].toInt()
-                        j++
-                    }
-                    if((deck[i+1] != 'n') && (deck[i+2] == 'n'))
-                    {
-                        bjNiz[j] = deck[i+1].toInt()
-                        j++
-                    }
-
+                    player_third_card.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                    pom++
                 }
+                if(pom != current_state.lastPDeck)
+                {
+                    player_forth_card.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                    pom++
+                }
+                if(pom != current_state.lastPDeck)
+                {
+                    player_fifth_card.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                    pom++
+                }
+                if(pom != current_state.lastPDeck)
+                {
+                    player_sixth_card.setImageResource(bj_cards[bjNiz[pom]]!!.pic)
+                    pom++
+                }
+                checkDosta = true
+                checkVuci = true
+                pcSum = current_state.pcSum
+                playerSum = current_state.playerSum
 
-                i++
-                char = deck[i]
             }
+
+
             Log.d(TAG,"game_state = true $deck")
         }
-
-        balance_text.text = "$stanje"
-        cards_left.text = "${pDeck}/${num_of_decks*52}"
-
-
-
-
-        dijeli_button.setBackgroundResource(default_on)
 
 
         handler.postDelayed({
@@ -269,9 +257,9 @@ open class Blackjack : AppCompatActivity() {
 
 
 
-        // test split button
+        /* test split button
         bjNiz[0] = 0
-        bjNiz[1] = 0
+        bjNiz[1] = 0 */
 
         dijeli_button.setOnClickListener {
 
@@ -291,36 +279,31 @@ open class Blackjack : AppCompatActivity() {
             }
             else {
 
-                repeatBet = ulog
-                checkRepeat = false
-                repeat_bet.setImageResource(0)
-
-                dealing_cards?.start() // sound
-                /*  if(pDeck != 0)
-                   {
-                       position_check(pDeck, bjNiz)
-                       pDeck = pDeck + 1
-                       pomPDeck = false
-                   } */
-
-                checkDijeli = false
-                ulogCheck = false
-
-                cancel_bet.setBackgroundResource(0)
-                dijeli_button.setBackgroundResource(default_off)
-
-
                 Log.d(
                     TAG,
                     "\nBefore - DIJELI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
                 )
 
+                current_state.firstPDeck = pDeck
+                current_state.numberPlayerCards = 2
+                current_state.numberPcCards = 2
+
+                repeatBet = ulog
+                checkRepeat = false
+                checkDijeli = false
+                ulogCheck = false
+                checkDosta = true
+                checkVuci = true
+
+                repeat_bet.setImageResource(0)
+                cancel_bet.setBackgroundResource(0)
+                dijeli_button.setBackgroundResource(default_off)
                 dosta_button.setBackgroundResource(default_on)
                 vuci_button.setBackgroundResource(default_on)
 
+                dealing_cards?.start() // sound
 
-                checkDosta = true
-                checkVuci = true
+
 
                 reset_views(
                     pc_card_background,
@@ -531,6 +514,7 @@ open class Blackjack : AppCompatActivity() {
                     savePDeck()
                     cards_left.text = "${pDeck+1}/${num_of_decks * 52}"
 
+                    current_state.numberPlayerCards = current_state.numberPcCards + 1
 
                     // "pointer" to player's hand, used to check where card must be playes
                     if (splitEnabled == false) {
@@ -596,11 +580,15 @@ open class Blackjack : AppCompatActivity() {
                         pDeck = pDeck + 1
                         pDeck = position_check(pDeck, bjNiz, num_of_decks)
                         savePDeck()
+                        saveData()
+                        current_state.lastPDeck = pDeck
 
                         if (repeatBet <= stanje) {
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+
                     } else {
                         Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show()
                     }
@@ -1713,49 +1701,6 @@ open class Blackjack : AppCompatActivity() {
         stanje = stanje + 2000
     }
 
-    // extra function for rewarded video ad
-
-   /*
-   private fun loadRewardedVideoAd()
-    {
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-            AdRequest.Builder().build())
-    }
-
-    // google ads - rewarded ad
-    override fun onRewardedVideoAdLoaded() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRewardedVideoAdOpened() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRewardedVideoStarted() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRewardedVideoAdClosed() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRewarded(p0: RewardItem?) {
-        TODO("Not yet implemented")
-        stanje = stanje + 1000
-    }
-
-    override fun onRewardedVideoAdLeftApplication() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRewardedVideoAdFailedToLoad(p0: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRewardedVideoCompleted() {
-        TODO("Not yet implemented")
-    }
-*/
    fun savePDeck()
     {
         var pref_pdeck = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
@@ -1767,8 +1712,8 @@ open class Blackjack : AppCompatActivity() {
     }
     fun loadPDeck()
     {
-        var pref_pdeck = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        pDeck = pref_pdeck.getInt("POINTER_ON_DECK", 0)
+        var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        pDeck = pref.getInt("POINTER_ON_DECK", 0)
 
     }
 
@@ -1836,6 +1781,44 @@ open class Blackjack : AppCompatActivity() {
         }
 
         return deck
+    }
+
+    fun fillDeck(deck: String, bjNiz: IntArray)
+    {
+        var char: Char
+        var i: Int = 0
+        var j: Int = 0
+        i = 0
+        j = 0
+        char = deck[0]
+        while(char != 'e')
+        {
+            if(char == 'n')
+            {
+                if((deck[i+1] != 'n') && (deck[i+2] != 'n') && (deck[i+2] != 'e'))
+                {
+                    bjNiz[j] = deck[i+1].toInt()*10 + deck[i+2].toInt()
+                    j++
+                }
+                if((deck[i+1] != 'n') && (deck[i+2] == 'n'))
+                {
+                    bjNiz[j] = deck[i+1].toInt()
+                    j++
+                }
+
+            }
+
+            i++
+            char = deck[i]
+        }
+    }
+
+    fun saveState(currentState: GameState, pcSum: Int, playerSum: Int, pomPcSum: Int, pomPlayerSum: Int)
+    {
+        currentState.pcSum = pcSum
+        currentState.playerSum = playerSum
+        currentState.pomPlayerSum = pomPlayerSum
+        currentState.pomPcSum = pomPcSum
     }
 
 }   // end of class BlackJack
