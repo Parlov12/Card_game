@@ -39,7 +39,7 @@ open class Blackjack : AppCompatActivity() {
     val repeatOn: Int = android.R.drawable.stat_notify_sync_noanim
     var lastBet: Int = 0
     var pDeck: Int = 0
-    var counter: Int = 0
+    var counter: Int = 00
     var num_of_decks: Int = 0
     var deck: String = ""
 
