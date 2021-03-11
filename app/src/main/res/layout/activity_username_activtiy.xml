@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@+id/username_background" />
 
     <Button
-        android:id="@+id/continue_button"
+        android:id="@+id/continue_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"

@@ -23,24 +23,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/background_text"
-        android:layout_width="238dp"
-        android:layout_height="91dp"
-        android:fontFamily="@font/bangers"
-        android:onClick="doNothing"
-        android:text="BLACKJACK"
-        android:textAlignment="center"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.427" />
-
     <ImageView
-        android:id="@+id/deck"
+        android:id="@+id/deck_background"
         android:layout_width="60dp"
         android:layout_height="80dp"
         android:layout_alignParentStart="true"
@@ -61,14 +45,14 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/deck"
+        android:layout_toEndOf="@+id/deck_background"
         android:contentDescription="@string/no_card_for_pc_also_place_for_first_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
         android:src="@drawable/no_card"
-        app:layout_constraintBottom_toBottomOf="@+id/deck"
-        app:layout_constraintStart_toEndOf="@+id/deck"
-        app:layout_constraintTop_toTopOf="@+id/deck" />
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintStart_toEndOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background" />
 
     <ImageView
         android:id="@+id/pc_second_card"
@@ -269,15 +253,11 @@
         android:id="@+id/split_card_background"
         android:layout_width="60dp"
         android:layout_height="80dp"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="32dp"
         android:contentDescription="@string/no_card_for_player_also_place_for_players_first_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toTopOf="@+id/double_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintBottom_toTopOf="@+id/repeat_bet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_seventh_card" />
 
     <ImageView
         android:id="@+id/split_second_card"
@@ -410,7 +390,7 @@
         android:id="@+id/balance_background"
         android:layout_width="150dp"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/balance_background"
         android:onClick="doNothing"
@@ -475,43 +455,11 @@
         app:layout_constraintTop_toTopOf="@+id/ulog4"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/vuci_button"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/deal_cust"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="HIT"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/dosta_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/dosta_button"
-        app:layout_constraintTop_toTopOf="@+id/dosta_button" />
+    app:layout_constraintHorizontal_bias="0.5"
 
+    <!--
     <Button
-        android:id="@+id/dosta_button"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/deal_cust"
-        android:elegantTextHeight="true"
-        android:fontFamily="@font/bangers"
-        android:text="STAND"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/split_button"
-        app:layout_constraintEnd_toStartOf="@+id/vuci_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/split_button"
-        app:layout_constraintTop_toTopOf="@+id/split_button" />
-
-    <Button
-        android:id="@+id/double_button"
+        android:id="@+id/split_button"
         android:layout_width="75dp"
         android:layout_height="40dp"
         android:layout_marginRight="5dp"
@@ -519,32 +467,68 @@
         android:background="@drawable/deal_cust"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="DOUBLE"
+        android:text="SPLIT"
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/ulog2"
-        app:layout_constraintEnd_toStartOf="@+id/split_button"
+        app:layout_constraintEnd_toStartOf="@+id/double_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
+        -->
 
     <Button
-        android:id="@+id/split_button"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:id="@+id/double_button"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/deal_cust"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
-        android:text="Split"
+        android:text="DOUBLE"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/ulog1"
+        app:layout_constraintEnd_toStartOf="@+id/dosta_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/background_shared" />
+
+    <Button
+        android:id="@+id/dosta_button"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/deal_cust"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="STAND"
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/double_button"
-        app:layout_constraintEnd_toStartOf="@+id/dosta_button"
+        app:layout_constraintEnd_toStartOf="@+id/vuci_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/double_button"
         app:layout_constraintTop_toTopOf="@+id/double_button" />
+
+    <Button
+        android:id="@+id/vuci_button"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/deal_cust"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="HIT"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dosta_button"
+        app:layout_constraintEnd_toStartOf="@+id/background_shared"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dosta_button"
+        app:layout_constraintTop_toTopOf="@+id/dosta_button" />
 
     <TextView
         android:id="@+id/player_sum"
@@ -606,45 +590,20 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/show_text"
-        android:layout_width="288dp"
-        android:layout_height="54dp"
-        android:fontFamily="@font/bangers"
-        android:onClick="doNothing"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
-
-    <TextView
-        android:id="@+id/arrow_down"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/balance_background"
-        android:onClick="doNothing"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/bet_background"
-        android:layout_width="141dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/balance_background"
         android:onClick="doNothing"
         android:text=""
-        app:layout_constraintEnd_toStartOf="@+id/arrow_down"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/balance_background"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ImageView
         android:id="@+id/between_bet"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -660,11 +619,13 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:onClick="doNothing"
-        android:text="BET:"
+        android:text="BET: $99999"
+        android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/bet_background"
@@ -761,33 +722,46 @@
         app:layout_constraintEnd_toEndOf="@+id/vuci_button"
         app:srcCompat="@android:drawable/stat_notify_sync_noanim" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/arrow_down"
-        app:layout_constraintEnd_toEndOf="@+id/arrow_down"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/arrow_down"
-        app:layout_constraintTop_toTopOf="@+id/arrow_down"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/arrow_down_float" />
-
     <TextView
         android:id="@+id/bet_text_under_chip"
         android:layout_width="72dp"
         android:layout_height="27dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
+        android:paddingRight="5dp"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
         app:layout_constraintStart_toStartOf="@id/total_bet_chip"
         app:layout_constraintTop_toBottomOf="@id/total_bet_chip" />
+
+    <TextView
+        android:id="@+id/background_text"
+        android:layout_width="238dp"
+        android:layout_height="91dp"
+        android:fontFamily="@font/bangers"
+        android:onClick="doNothing"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427" />
+
+    <TextView
+        android:id="@+id/show_text"
+        android:layout_width="288dp"
+        android:layout_height="54dp"
+        android:fontFamily="@font/bangers"
+        android:onClick="doNothing"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

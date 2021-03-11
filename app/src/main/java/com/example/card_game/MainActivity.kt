@@ -11,6 +11,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_username_activtiy.*
+import java.lang.System.exit
 
 
 class   MainActivity : AppCompatActivity() {
@@ -22,9 +24,18 @@ class   MainActivity : AppCompatActivity() {
 
 
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        loadGameState()
+        loadNumDeck()
+
 
         val handler = Handler()
 
@@ -34,7 +45,6 @@ class   MainActivity : AppCompatActivity() {
         )
 
 
-        loadNumDeck()
 
         //settings_button.background.alpha = 200
         //start_button.background.alpha = 200
@@ -42,11 +52,11 @@ class   MainActivity : AppCompatActivity() {
         val customize = Intent(this, Parameters::class.java)
         val black_jack = Intent(this, Blackjack::class.java)
 
-       /* start_button.setOnClickListener {
-            savePDeck()
-            saveNumDeck()
-            startActivity(customize)
-        } */
+        /* start_button.setOnClickListener {
+             savePDeck()
+             saveNumDeck()
+             startActivity(customize)
+         } */
 
 
         start_button.setOnClickListener { v -> startButton()
@@ -54,7 +64,7 @@ class   MainActivity : AppCompatActivity() {
             handler.postDelayed({
                 start_button.animate().scaleX(1f).scaleY(1f).setDuration(50)
             }, 50)
-        true}
+            true}
         start_button.setOnLongClickListener { v ->
             start_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
             false
@@ -67,24 +77,25 @@ class   MainActivity : AppCompatActivity() {
             false
         }
 
-        continue_btn.setOnClickListener { v -> continueButton()
-           continue_btn.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
+        continue_button.setOnClickListener { v -> continueButton()
+            continue_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
             handler.postDelayed({
-                continue_btn.animate().scaleX(1f).scaleY(1f).setDuration(50)
+                continue_button.animate().scaleX(1f).scaleY(1f).setDuration(50)
             }, 50)
             true
         }
-        continue_btn.setOnLongClickListener { v ->
-            continue_btn.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
+        continue_button.setOnLongClickListener { v ->
+            continue_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
             true
         }
-        continue_btn.setOnTouchListener { v, event ->
+        continue_button.setOnTouchListener { v, event ->
             if (event.getAction() === MotionEvent.ACTION_UP) {
-                continue_btn.animate().scaleX(1.0f).scaleY(1.0f).setDuration(50)
+                continue_button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(50)
             }
             false
         }
 
+        /*
         button.setOnClickListener { v ->
             button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
             handler.postDelayed({
@@ -121,19 +132,16 @@ class   MainActivity : AppCompatActivity() {
             false
         }
 
+         */
         settings_button.setOnClickListener {
-
-            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
-
-
-
-
+            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(settingsIntent)
         }
 
 
         about_button.setOnClickListener {
-
-            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
+            val aboutIntent = Intent(this, AboutActivity::class.java)
+            startActivity(aboutIntent)
         }
 
 
@@ -142,10 +150,10 @@ class   MainActivity : AppCompatActivity() {
 
     } // end of onCreate()
 
+
     fun startButton()
     {
         savePDeck()
-        saveNumDeck()
         game_state = false
         saveGameState()
         val customize = Intent(this, Parameters::class.java)
@@ -155,10 +163,8 @@ class   MainActivity : AppCompatActivity() {
     fun continueButton()
     {
         val black_jack = Intent(this, Blackjack::class.java)
-        if(num_of_decks != 0) {
+        if(game_state == true) {
             startActivity(black_jack)
-            game_state = true
-            saveGameState()
         }
     }
 
@@ -194,6 +200,12 @@ class   MainActivity : AppCompatActivity() {
         var editor = pref.edit()
         editor.putBoolean("GAME_STATE", game_state)
         editor.commit()
+    }
+
+    fun loadGameState()
+    {
+        val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        game_state = pref.getBoolean("GAME_STATE", false)
     }
 
 

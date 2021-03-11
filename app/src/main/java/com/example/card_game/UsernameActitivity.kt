@@ -27,7 +27,7 @@ class UsernameActivtiy : AppCompatActivity() {
 
         val cont = Intent(this,MainActivity::class.java)
 
-        continue_button.setOnClickListener{
+        continue_btn.setOnClickListener{
             if(username_edit.text.toString() == "")
             {
                 username_background.setBackgroundResource(empty)

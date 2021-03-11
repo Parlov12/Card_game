@@ -4,7 +4,342 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/radial_background"
+    android:textAlignment="center"
     tools:context=".SettingsActivity">
 
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="SETTINGS"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/username_saved"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:hint="USERNAME"
+        android:inputType="text"
+        android:maxLength="15"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorLink="#EAEAEA"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/username_text"
+        android:layout_width="243dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/bangers"
+        android:text="USERNAME"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/username"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="SAVE"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline8">
+
+        <TextView
+            android:id="@+id/choose_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/bangers"
+            android:text="CHOOSE BACKGROUND"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="@+id/linear1"
+            app:layout_constraintStart_toStartOf="@+id/linear1" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/linear1"
+            app:layout_constraintStart_toStartOf="@id/linear1"
+            app:layout_constraintTop_toBottomOf="@id/choose_background">
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/horizontal1"
+                app:layout_constraintEnd_toEndOf="@id/horizontal1"
+                app:layout_constraintStart_toStartOf="@id/horizontal1"
+                app:layout_constraintTop_toTopOf="@id/horizontal1">
+
+                <ToggleButton
+                    android:id="@+id/back1"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background1"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="m1Click"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear2"
+                    app:layout_constraintTop_toTopOf="@id/linear2" />
+
+                <ToggleButton
+                    android:id="@+id/back2"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background2_white"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="m2Click"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear2"
+                    app:layout_constraintTop_toTopOf="@id/linear2" />
+
+                <ToggleButton
+                    android:id="@+id/back3"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background3"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="m3Click"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear2"
+                    app:layout_constraintTop_toTopOf="@id/linear2" />
+
+                <ToggleButton
+                    android:id="@+id/back4"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background4"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="m4Click"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear2"
+                    app:layout_constraintTop_toTopOf="@id/linear2" />
+
+                <ToggleButton
+                    android:id="@+id/back5"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background5"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="m5Click"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear2"
+                    app:layout_constraintTop_toTopOf="@id/linear2" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/choose_deck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/bangers"
+            android:text="CHOOSE_DECK"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="@+id/linear1"
+            app:layout_constraintStart_toStartOf="@+id/linear1" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/linear1"
+            app:layout_constraintStart_toStartOf="@id/linear1"
+            app:layout_constraintTop_toBottomOf="@id/choose_deck">
+
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/horizontal2"
+                app:layout_constraintEnd_toEndOf="@id/horizontal2"
+                app:layout_constraintStart_toStartOf="@id/horizontal2"
+                app:layout_constraintTop_toTopOf="@id/horizontal2">
+
+                <ToggleButton
+                    android:id="@+id/deck1"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/deck1"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="d1"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear3"
+                    app:layout_constraintTop_toTopOf="@id/linear3" />
+
+                <ToggleButton
+                    android:id="@+id/deck2"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/deck2"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="d2"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear3"
+                    app:layout_constraintTop_toTopOf="@id/linear3" />
+
+                <ToggleButton
+                    android:id="@+id/deck3"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/deck3"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="d3"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear3"
+                    app:layout_constraintTop_toTopOf="@id/linear3" />
+
+                <ToggleButton
+                    android:id="@+id/deck4"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/deck4"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="d4"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear3"
+                    app:layout_constraintTop_toTopOf="@id/linear3" />
+
+                <ToggleButton
+                    android:id="@+id/deck5"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/deck5"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="d5"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear3"
+                    app:layout_constraintTop_toTopOf="@id/linear3" />
+
+                <ToggleButton
+                    android:id="@+id/deck6"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/deck6"
+                    android:foreground="@drawable/customized_onoff"
+                    android:onClick="d6"
+                    android:textOff=""
+                    android:textOn=""
+                    app:layout_constraintBottom_toBottomOf="@id/linear3"
+                    app:layout_constraintTop_toTopOf="@id/linear3" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
