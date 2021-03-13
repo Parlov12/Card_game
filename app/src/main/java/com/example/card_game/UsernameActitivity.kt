@@ -43,16 +43,10 @@ class UsernameActivtiy : AppCompatActivity() {
             }
         }
 
-        // SharedPreferences Kotlin
-        var pref = PreferenceManager.getDefaultSharedPreferences(this)
-        pref.apply {
-            var name = getString("username","")
-            username_edit.setText(name)
-        }
     }
     fun saveData()
     {
-        var pref = PreferenceManager.getDefaultSharedPreferences(this)
+        var pref = getSharedPreferences("shared_pref",Context.MODE_PRIVATE)
         var editor = pref.edit()
         editor.putString("username", username_edit.text.toString())
         editor.commit()

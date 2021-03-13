@@ -8,19 +8,25 @@
         android:label="BJ Counter"
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Parameters"></activity>
-        <activity android:name=".UsernameActivtiy" />
-        <activity android:name=".InstructionsActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        android:theme="@style/Custom">
+        <activity android:name=".Parameters"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".UsernameActivtiy"
+            android:screenOrientation="portrait"/>
+         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6132108251524203~8867520941" />
 
         <activity
             android:name=".AboutActivity"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".SplashScreen">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Custom"/>
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +39,8 @@
             android:theme="@style/Custom" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Custom"/>
 
         <meta-data
             android:name="preloaded_fonts"

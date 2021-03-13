@@ -356,7 +356,7 @@ open class Blackjack : AppCompatActivity()
 
         dijeli_button.setOnClickListener {
             if (checkDijeli == false) {
-                show_text.text = "IN GAME..."
+                show_text.text = ""//IN GAME..
                 handler.postDelayed({
                     show_text.text = ""
                 }, 2000)
@@ -388,6 +388,10 @@ open class Blackjack : AppCompatActivity()
                 checkCancel = false
 
                 checkState = true
+
+                stanje = stanje - ulog
+                balance_text.text = "$stanje"
+
                 saveCurrentState()
                 saveCheckState()
 
@@ -530,8 +534,6 @@ open class Blackjack : AppCompatActivity()
                 pHandPlayer = 0
                 pHandPlayer = pHandPlayer + 2
                 //
-                stanje = stanje - ulog
-                balance_text.text = "$stanje"
 
                 showPCounter(cards_left, pDeck, num_of_decks, showCounter)
 
@@ -2037,6 +2039,7 @@ open class Blackjack : AppCompatActivity()
         editor.putBoolean("CHECK_REPEAT", checkRepeat)
         editor.putInt("REPEAT", repeatBet)
         editor.putInt("LAST_BET", lastBet)
+        editor.putInt("STANJE", stanje)
         editor.commit()
     }
     fun loadCurrentState()
@@ -2057,6 +2060,7 @@ open class Blackjack : AppCompatActivity()
         checkRepeat = pref.getBoolean("CHECK_REPEAT", checkRepeat)
         repeatBet = pref.getInt("REPEAT", 0)
         lastBet = pref.getInt("LAST_BET", 0)
+        stanje = pref.getInt("STANJE", stanje)
     }
 
     fun saveCheckState()

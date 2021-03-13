@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/radial_background"
+    android:background="@drawable/background1_1"
     android:textAlignment="center"
     tools:context=".SettingsActivity">
 
@@ -28,7 +28,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/username_saved"
+        android:background="@drawable/username"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:hint="USERNAME"
@@ -103,7 +103,7 @@
             android:text="CHOOSE BACKGROUND"
             android:textAlignment="center"
             android:textColor="#ffffff"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/linear1"
             app:layout_constraintStart_toStartOf="@+id/linear1" />
 
@@ -218,7 +218,7 @@
             android:text="CHOOSE_DECK"
             android:textAlignment="center"
             android:textColor="#ffffff"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/linear1"
             app:layout_constraintStart_toStartOf="@+id/linear1" />
 

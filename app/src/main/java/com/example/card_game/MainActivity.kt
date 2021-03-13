@@ -4,15 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_username_activtiy.*
-import java.lang.System.exit
 
 
 class   MainActivity : AppCompatActivity() {
@@ -44,95 +41,70 @@ class   MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-
-
-        //settings_button.background.alpha = 200
-        //start_button.background.alpha = 200
-
-        val customize = Intent(this, Parameters::class.java)
-        val black_jack = Intent(this, Blackjack::class.java)
-
-        /* start_button.setOnClickListener {
-             savePDeck()
-             saveNumDeck()
-             startActivity(customize)
-         } */
-
-
-        start_button.setOnClickListener { v -> startButton()
-            start_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
+// play_button
+        play_button.setOnClickListener { v -> playButton()
+            play_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(30)
             handler.postDelayed({
-                start_button.animate().scaleX(1f).scaleY(1f).setDuration(50)
+                play_button.animate().scaleX(1f).scaleY(1f).setDuration(30)
             }, 50)
-            true}
-        start_button.setOnLongClickListener { v ->
-            start_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
-            false
-
+            true
         }
-        start_button.setOnTouchListener { v, event ->
+        play_button.setOnLongClickListener { v ->
+            play_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(30)
+            true
+        }
+        play_button.setOnTouchListener { v, event ->
             if (event.getAction() === MotionEvent.ACTION_UP) {
-                start_button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(50)
+                play_button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(30)
+            }
+            false
+        }
+        
+        // practice_button end
+
+        // practice_button
+        practice_button.setOnClickListener { v -> practiceButton()
+            practice_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(30)
+            handler.postDelayed({
+                practice_button.animate().scaleX(1f).scaleY(1f).setDuration(30)
+            }, 50)
+            true
+        }
+        practice_button.setOnLongClickListener { v ->
+            practice_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(30)
+            true
+        }
+        practice_button.setOnTouchListener { v, event ->
+            if (event.getAction() === MotionEvent.ACTION_UP) {
+                practice_button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(30)
             }
             false
         }
 
-        continue_button.setOnClickListener { v -> continueButton()
-            continue_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
+        // practice_button end
+
+        // methods_button
+        methods_button.setOnClickListener { v -> methodsButton()
+            methods_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(30)
             handler.postDelayed({
-                continue_button.animate().scaleX(1f).scaleY(1f).setDuration(50)
+                methods_button.animate().scaleX(1f).scaleY(1f).setDuration(30)
             }, 50)
             true
         }
-        continue_button.setOnLongClickListener { v ->
-            continue_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
+        methods_button.setOnLongClickListener { v ->
+            methods_button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(30)
             true
         }
-        continue_button.setOnTouchListener { v, event ->
+        methods_button.setOnTouchListener { v, event ->
             if (event.getAction() === MotionEvent.ACTION_UP) {
-                continue_button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(50)
+                methods_button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(30)
             }
             false
         }
 
-        /*
-        button.setOnClickListener { v ->
-            button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
-            handler.postDelayed({
-                button.animate().scaleX(1f).scaleY(1f).setDuration(50)
-            }, 50)
-            true
-        }
-        button.setOnLongClickListener { v ->
-            button.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
-            true
-        }
-        button.setOnTouchListener { v, event ->
-            if (event.getAction() === MotionEvent.ACTION_UP) {
-                button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(50)
-            }
-            false
-        }
+        // methods_button end
+        
 
-        button2.setOnClickListener { v ->
-            button2.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
-            handler.postDelayed({
-                button2.animate().scaleX(1f).scaleY(1f).setDuration(50)
-            }, 50)
-            true
-        }
-        button2.setOnLongClickListener { v ->
-            button2.animate().scaleX(0.9f).scaleY(0.9f).setDuration(50)
-            true
-        }
-        button2.setOnTouchListener { v, event ->
-            if (event.getAction() === MotionEvent.ACTION_UP) {
-                button2.animate().scaleX(1.0f).scaleY(1.0f).setDuration(50)
-            }
-            false
-        }
-
-         */
         settings_button.setOnClickListener {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
@@ -142,6 +114,10 @@ class   MainActivity : AppCompatActivity() {
         about_button.setOnClickListener {
             val aboutIntent = Intent(this, AboutActivity::class.java)
             startActivity(aboutIntent)
+        }
+
+        button.setOnClickListener{
+            game_state = false
         }
 
 
@@ -160,12 +136,31 @@ class   MainActivity : AppCompatActivity() {
         startActivity(customize)
     }
 
-    fun continueButton()
+    fun playButton()
     {
         val black_jack = Intent(this, Blackjack::class.java)
+        val customize = Intent(this, Parameters::class.java)
+
         if(game_state == true) {
             startActivity(black_jack)
         }
+        else if(game_state == false){
+            startActivity(customize)
+        }
+        else
+        {
+            Toast.makeText(this, "Error - game_state",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun practiceButton()
+    {
+        //Toast.makeText(this,"Coming soon...", Toast.LENGTH_SHORT).show()
+    }
+
+    fun methodsButton()
+    {
+        //Toast.makeText(this,"Coming soon...", Toast.LENGTH_SHORT).show()
     }
 
     fun savePDeck()

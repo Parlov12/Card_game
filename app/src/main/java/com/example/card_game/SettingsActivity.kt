@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import android.widget.EditText
 import android.widget.Toast
 import android.widget.ToggleButton
 import android.widget.Toolbar
@@ -29,8 +32,14 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+        loadSettings()
         loadUsername()
-        username.setText(savedUsername)
+        username.text = Editable.Factory.getInstance().newEditable(savedUsername)
 
         val back = Intent(this, MainActivity::class.java)
 
@@ -47,7 +56,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
                 else if(back2.isChecked == true)
                 {
-                    background = R.drawable.background2_white
+                    background = R.drawable.background2_white_fix
                 }
                 else if(back3.isChecked == true)
                 {
@@ -88,7 +97,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
                 saveUsername()
                 startActivity(back)
-                saveBackground()
+                saveSettings()
             }
         }
 
@@ -115,8 +124,10 @@ class SettingsActivity : AppCompatActivity() {
         m2.isChecked = false
         m3.isChecked = false
         m4.isChecked = false
-        m5.isChecked == true
-
+        if(m5.isChecked == false)
+        {
+            m5.isChecked = true
+        }
 
     }
     fun dClick(m1: ToggleButton, m2: ToggleButton, m3: ToggleButton, m4: ToggleButton, m5: ToggleButton, m6: ToggleButton)
@@ -126,8 +137,10 @@ class SettingsActivity : AppCompatActivity() {
         m3.isChecked = false
         m4.isChecked = false
         m5.isChecked = false
-        m6.isChecked == true
-
+        if(m6.isChecked == false)
+        {
+            m6.isChecked = true
+        }
     }
 
     fun m1Click(view: View)
@@ -176,15 +189,39 @@ class SettingsActivity : AppCompatActivity() {
         dClick(deck1, deck2, deck3, deck4, deck5, deck6)
     }
 
-
-
-    fun saveBackground()
+    fun saveSettings()
     {
         val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putInt("BACKGROUND", background)
         editor.putInt("DECK_PIC", deckPic)
+        editor.putBoolean("DECK1", deck1.isChecked)
+        editor.putBoolean("DECK2", deck2.isChecked)
+        editor.putBoolean("DECK3", deck3.isChecked)
+        editor.putBoolean("DECK4", deck4.isChecked)
+        editor.putBoolean("DECK5", deck5.isChecked)
+        editor.putBoolean("DECK6", deck6.isChecked)
+        editor.putBoolean("BACK1",back1.isChecked)
+        editor.putBoolean("BACK2",back2.isChecked)
+        editor.putBoolean("BACK3",back3.isChecked)
+        editor.putBoolean("BACK4",back4.isChecked)
+        editor.putBoolean("BACK5",back5.isChecked)
         editor.commit()
+    }
 
+    fun loadSettings()
+    {
+        val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        back1.isChecked = pref.getBoolean("BACK1", false)
+        back2.isChecked = pref.getBoolean("BACK2", false)
+        back3.isChecked = pref.getBoolean("BACK3", false)
+        back4.isChecked = pref.getBoolean("BACK4", false)
+        back5.isChecked = pref.getBoolean("BACK5", false)
+        deck1.isChecked = pref.getBoolean("DECK1", false)
+        deck2.isChecked = pref.getBoolean("DECK2", false)
+        deck3.isChecked = pref.getBoolean("DECK3", false)
+        deck4.isChecked = pref.getBoolean("DECK4", false)
+        deck5.isChecked = pref.getBoolean("DECK5", false)
+        deck6.isChecked = pref.getBoolean("DECK6", false)
     }
 } // end of onCreate()
