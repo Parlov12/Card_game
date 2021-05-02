@@ -115,10 +115,7 @@ class   MainActivity : AppCompatActivity() {
             val aboutIntent = Intent(this, AboutActivity::class.java)
             startActivity(aboutIntent)
         }
-
-        button.setOnClickListener{
-            game_state = false
-        }
+        7
 
 
 

@@ -23,23 +23,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/deck_background"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="148dp"
-        android:contentDescription="@string/deck"
-        android:onClick="doNothing"
-        android:scaleType="fitCenter"
-        android:src="@drawable/deck6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/pc_card_background"
+        android:id="@+id/pc_card_background2"
         android:layout_width="60dp"
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
@@ -55,6 +41,22 @@
         app:layout_constraintTop_toTopOf="@+id/deck_background" />
 
     <ImageView
+        android:id="@+id/pc_card_background"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/deck_background"
+        android:contentDescription="@string/no_card_for_pc_also_place_for_first_card"
+        android:onClick="doNothing"
+        android:scaleType="fitCenter"
+        android:src="@drawable/no_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background" />/>
+
+    <ImageView
         android:id="@+id/pc_second_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
@@ -62,13 +64,13 @@
         android:layout_alignTop="@+id/pc_card_background"
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/second_pc_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/pc_card_background"
-        app:layout_constraintStart_toStartOf="@+id/pc_card_background"
-        app:layout_constraintTop_toTopOf="@+id/pc_card_background" />
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background" />/>
 
     <ImageView
         android:id="@+id/pc_third_card"
@@ -78,13 +80,13 @@
         android:layout_alignTop="@+id/pc_card_background"
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/third_pc_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/pc_second_card"
-        app:layout_constraintStart_toStartOf="@+id/pc_second_card"
-        app:layout_constraintTop_toTopOf="@+id/pc_second_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -95,13 +97,13 @@
         android:layout_alignTop="@+id/pc_card_background"
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/forth_pc_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/pc_third_card"
-        app:layout_constraintStart_toStartOf="@+id/pc_third_card"
-        app:layout_constraintTop_toTopOf="@+id/pc_third_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -112,13 +114,13 @@
         android:layout_alignTop="@+id/pc_card_background"
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/fifth_pc_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/pc_forth_card"
-        app:layout_constraintStart_toStartOf="@+id/pc_forth_card"
-        app:layout_constraintTop_toTopOf="@+id/pc_forth_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -129,13 +131,13 @@
         android:layout_alignTop="@+id/pc_card_background"
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/sixth_pc_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/pc_fifth_card"
-        app:layout_constraintStart_toStartOf="@+id/pc_fifth_card"
-        app:layout_constraintTop_toTopOf="@+id/pc_fifth_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -146,13 +148,13 @@
         android:layout_alignTop="@+id/pc_card_background"
         android:layout_alignBottom="@+id/pc_card_background"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/seventh_pc_card"
         android:onClick="doNothing"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/pc_sixth_card"
-        app:layout_constraintStart_toStartOf="@+id/pc_sixth_card"
-        app:layout_constraintTop_toTopOf="@+id/pc_sixth_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -164,7 +166,7 @@
         app:layout_constraintGuide_percent="0.47" />
 
     <ImageView
-        android:id="@+id/player_card_background"
+        android:id="@+id/player_card_background2"
         android:layout_width="60dp"
         android:layout_height="80dp"
         android:layout_marginStart="72dp"
@@ -178,157 +180,86 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <ImageView
+        android:id="@+id/player_card_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/no_card_for_player_also_place_for_players_first_card"
+        android:onClick="doNothing"
+        android:src="@drawable/no_card"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintTop_toTopOf="@+id/deck_background" />
+
+    <ImageView
         android:id="@+id/player_second_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/second_player_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/player_card_background"
-        app:layout_constraintStart_toStartOf="@+id/player_card_background"
-        app:layout_constraintTop_toTopOf="@+id/player_card_background"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"/>
 
     <ImageView
         android:id="@+id/player_third_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/third_player_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/player_second_card"
-        app:layout_constraintStart_toStartOf="@+id/player_second_card"
-        app:layout_constraintTop_toTopOf="@+id/player_second_card"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_forth_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/forth_player_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/player_third_card"
-        app:layout_constraintStart_toStartOf="@+id/player_third_card"
-        app:layout_constraintTop_toTopOf="@+id/player_third_card"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_fifth_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/fifth_player_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/player_forth_card"
-        app:layout_constraintStart_toStartOf="@+id/player_forth_card"
-        app:layout_constraintTop_toTopOf="@+id/player_forth_card"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_sixth_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/sixth_player_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/player_fifth_card"
-        app:layout_constraintStart_toStartOf="@+id/player_fifth_card"
-        app:layout_constraintTop_toTopOf="@+id/player_fifth_card"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/player_seventh_card"
         android:layout_width="60dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:contentDescription="@string/seventh_player_card"
         android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/player_sixth_card"
-        app:layout_constraintStart_toStartOf="@+id/player_sixth_card"
-        app:layout_constraintTop_toTopOf="@+id/player_sixth_card"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/split_card_background"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:contentDescription="@string/no_card_for_player_also_place_for_players_first_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toTopOf="@+id/repeat_bet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_seventh_card" />
-
-    <ImageView
-        android:id="@+id/split_second_card"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/second_player_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/split_card_background"
-        app:layout_constraintStart_toStartOf="@+id/split_card_background"
-        app:layout_constraintTop_toTopOf="@+id/split_card_background"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/split_third_card"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/third_player_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/split_second_card"
-        app:layout_constraintStart_toStartOf="@+id/split_second_card"
-        app:layout_constraintTop_toTopOf="@+id/split_second_card"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/split_forth_card"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/forth_player_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/split_third_card"
-        app:layout_constraintStart_toStartOf="@+id/split_third_card"
-        app:layout_constraintTop_toTopOf="@+id/split_third_card"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/split_fifth_card"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/fifth_player_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/split_forth_card"
-        app:layout_constraintStart_toStartOf="@+id/split_forth_card"
-        app:layout_constraintTop_toTopOf="@+id/split_forth_card"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/split_sixth_card"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/sixth_player_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/split_fifth_card"
-        app:layout_constraintStart_toStartOf="@+id/split_fifth_card"
-        app:layout_constraintTop_toTopOf="@+id/split_fifth_card"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/split_seventh_card"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:contentDescription="@string/seventh_player_card"
-        android:onClick="doNothing"
-        app:layout_constraintBottom_toBottomOf="@+id/split_sixth_card"
-        app:layout_constraintStart_toStartOf="@+id/split_sixth_card"
-        app:layout_constraintTop_toTopOf="@+id/split_sixth_card"
+        app:layout_constraintTop_toTopOf="@+id/deck_background"
+        app:layout_constraintStart_toStartOf="@+id/deck_background"
+        app:layout_constraintEnd_toEndOf="@+id/deck_background"
+        app:layout_constraintBottom_toBottomOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -543,7 +474,7 @@
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/player_card_background"
+        app:layout_constraintBottom_toTopOf="@+id/player_card_background2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -557,7 +488,7 @@
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/player_card_background"
+        app:layout_constraintBottom_toTopOf="@+id/player_card_background2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -762,6 +693,21 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <ImageView
+        android:id="@+id/deck_background"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="148dp"
+        android:contentDescription="@string/deck"
+        android:onClick="doNothing"
+        android:scaleType="fitCenter"
+        android:src="@drawable/deck6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
