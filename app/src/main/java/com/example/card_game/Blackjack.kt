@@ -20,6 +20,7 @@ import java.util.*
 class Blackjack : AppCompatActivity()
 {
 
+    // start values of background and deck
     var background:Int = R.drawable.background2_white
     var deckPic: Int = R.drawable.deck1_backside
 
@@ -252,6 +253,7 @@ class Blackjack : AppCompatActivity()
 
 
 
+
         // setting up screen on the very start
         dijeli_button.setBackgroundResource(default_on)
         cancel_bet.setBackgroundResource(0)
@@ -319,6 +321,18 @@ class Blackjack : AppCompatActivity()
             // FILL DECK END //
 
             if(checkState == true) {
+
+                // fix player cards - cards loading wrongly
+                    for(i in 0..listPlayerCards.size-1)
+                    {
+                        slideCard(listPlayerCards[i],deck_background, 0)
+                    }
+                // fix pc cards - cards loading wrongly
+                    for(i in 0..listPcCards.size-1)
+                    {
+                        slideCard(listPcCards[i],deck_background, 0)
+                    }
+
                 dijeli_button.setBackgroundResource(default_off)
                 vuci_button.setBackgroundResource(default_on)
                 dosta_button.setBackgroundResource(default_on)
@@ -329,32 +343,33 @@ class Blackjack : AppCompatActivity()
                 ulogCheck = false
                 loadCurrentState()
                 pDeck = pStartState
-                player_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                listPlayerCards[0].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                slideCard(listPlayerCards[0], player_card_background2, pomak)
                 pDeck++
-                player_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                pomak++
+                listPlayerCards[1].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                slideCard(listPlayerCards[1], player_card_background2, pomak)
                 pDeck++
-                pc_card_background.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                pc_second_card.setImageResource(deckPic)
+                pomak++
+                listPcCards[0].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                slideCard(listPcCards[0],pc_card_background2,pomakPc)
+                listPcCards[1].setImageResource(deckPic)
                 pDeck++
-                if (pDeck <= pEndState) {
-                    player_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                    pDeck++
-                }
-                if (pDeck <= pEndState) {
-                    player_forth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                    pDeck++
-                }
+                pomakPc++
 
-                if (pDeck <= pEndState) {
-                    player_fifth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                    pDeck++
-                }
+                var k = pHandPlayer
+                var m = 2
+                handler.postDelayed({
+                    while (k > 1) {
+                        listPlayerCards[m].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                        m++
+                        k--
+                        pDeck++
+                        pomak++
+                    }
+                    pDeck--
+                }, 3000)
 
-                if (pDeck <= pEndState) {
-                    player_sixth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                    pDeck++
-                }
-                pDeck--
 
 
                 sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
@@ -919,7 +934,6 @@ class Blackjack : AppCompatActivity()
                     saveCounter()
                     // end of counter part
 
-
                     right_place_for_pic(
                         pDeck,
                         pHandPc,
@@ -1078,23 +1092,19 @@ class Blackjack : AppCompatActivity()
                 savePDeck()
 
 
-
-                // "pointer" to player's hand, used to check where card must be playes
-                if (pHandPlayer == 1) {
-                    player_second_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 2) {
-                    player_third_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 3) {
-                    player_forth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 4) {
-                    player_fifth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                } else if (pHandPlayer == 5) {
-                    player_sixth_card.setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                    pHandPlayer = 0
-                } else {
-                    Toast.makeText(this, "Error!", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                right_place_for_pic(
+                    pDeck,
+                    pHandPlayer,
+                    player_card_background2,
+                    bjNiz,
+                    bj_cards,
+                    listPlayerCards,
+                    pomak,
+                    stand,
+                    pull
+                )
+                pomak = pomak + 35
+                pHandPlayer = pHandPlayer + 1
 
                 // adding sum to playerSum
                 playerSum = playerSum + bj_cards[bjNiz[pDeck]]!!.value
@@ -1140,18 +1150,17 @@ class Blackjack : AppCompatActivity()
                     right_place_for_pic(
                         pDeck,
                         pHandPc,
-                        player_card_background2,
+                        pc_card_background2,
                         bjNiz,
                         bj_cards,
                         listPcCards,
-                        pomak,
+                        pomakPc,
                         stand,
                         pull
                     )
-                    pomak = pomak + 35
-                    pHandPlayer = pHandPlayer + 1
-
+                    pomakPc = pomakPc + 35
                     pHandPc = pHandPc + 1
+
                     pcSum = pcSum + bj_cards[bjNiz[pDeck]]!!.value
                     Log.d(TAG, "pcSum = $pcSum")
                     // pomocna suma, koja sluzi za prikaz asa kao +1, a ne kao +11
@@ -2065,6 +2074,8 @@ class Blackjack : AppCompatActivity()
         editor.putInt("REPEAT", repeatBet)
         editor.putInt("LAST_BET", lastBet)
         editor.putInt("STANJE", stanje)
+        editor.putInt("HAND_PLAYER", pHandPlayer)
+        editor.putInt("HAND_PC", pHandPc)
         editor.commit()
     }
     fun loadCurrentState()
@@ -2086,6 +2097,8 @@ class Blackjack : AppCompatActivity()
         repeatBet = pref.getInt("REPEAT", 0)
         lastBet = pref.getInt("LAST_BET", 0)
         stanje = pref.getInt("STANJE", stanje)
+        pHandPlayer = pref.getInt("HAND_PLAYER", 0)
+        pHandPc = pref.getInt("HAND_PC", 0)
     }
 
     fun saveCheckState()

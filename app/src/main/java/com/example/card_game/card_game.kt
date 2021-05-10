@@ -7,7 +7,14 @@ import android.widget.Button
 import android.widget.ImageView
 import java.util.zip.Inflater
 
+// file with some external functions
 
+
+// basic model for card with its attributes
+// number - number of cards, 1=Ace, 2, 3, 4, 5, 5+1, 7, 8, 9, 10, 11=J, 12=Q, 13=K
+// type - type out of 4 types
+// value - value it has in blackjack
+// pic - pic value used to setImageResource()
 open class Card(var number: Int = 0, var type: String = "", var value: Int = 0, var pic: Int){
 
     fun setCard(num: Int, tip: String, vrijednost: Int, karta: Int)
@@ -53,6 +60,25 @@ fun unSlideCards(d1: ImageView, cards: List<ImageView>)
                 cards[i].y = d1.y
             }
             .start()
+    }
+}
+
+class bet{
+    var betList = mutableListOf<ImageView>()
+
+    init {
+        for(i in 0..betList.size-1)
+        {
+            betList[i].setImageResource(0)
+        }
+    }
+
+    fun setBets(list: List<ImageView>)
+    {
+        for(i in 0..list.size-1)
+        {
+            betList.add(list[i])
+        }
     }
 }
 
