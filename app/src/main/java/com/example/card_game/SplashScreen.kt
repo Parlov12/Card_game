@@ -30,15 +30,20 @@ class SplashScreen : AppCompatActivity() {
 
 
         var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        var savedUsername = pref.getString("username","")
+        var savedUsername = pref.getString("USERNAME","")
+        val editor = pref.edit()
 
 
 
         handler.postDelayed({
             if(savedUsername == "")
             {
+                editor.putBoolean("BACK2", true)
+                editor.putBoolean("DECK6",true)
+                editor.commit()
                 startActivity(user)
                 finish()
+
             }
             else
             {

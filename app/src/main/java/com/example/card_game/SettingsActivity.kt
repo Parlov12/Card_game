@@ -43,6 +43,18 @@ class SettingsActivity : AppCompatActivity() {
 
         val back = Intent(this, MainActivity::class.java)
 
+
+        if(!deck1.isChecked&&!deck2.isChecked&&!deck3.isChecked&&!deck4.isChecked&&!deck5.isChecked&&!deck1.isChecked&&!deck6.isChecked)
+        {
+            deck6.isChecked = true
+            saveSettings()
+        }
+        if(!back1.isChecked&&!back2.isChecked&&!back3.isChecked&&!back4.isChecked&&!back5.isChecked&&!back1.isChecked)
+        {
+            back2.isChecked = true
+            saveSettings()
+        }
+
         save_button.setOnClickListener{
 
             if((username.text.toString() == "")||(bool1 == false)||(bool2 == false))
@@ -101,20 +113,29 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
+        clear_data.setOnClickListener{
+            val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+            val editor = pref.edit()
+            editor.clear()
+            editor.commit()
+            val splash = Intent(this, SplashScreen::class.java)
+            startActivity(splash)
+        }
+
     }
 
 
     fun loadUsername()
     {
         var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        savedUsername = pref.getString("username","").toString()
+        savedUsername = pref.getString("USERNAME","").toString()
     }
 
     fun saveUsername()
     {
         val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putString("username", username.text.toString())
+        editor.putString("USERNAME", username.text.toString())
         editor.commit()
     }
 

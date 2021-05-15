@@ -41,6 +41,28 @@ fun slideCard(m1: ImageView, m2: ImageView, pomak: Int)
         .start()
 }
 
+fun slideChip(c1: ImageView, c2: ImageView, pomak: Int, hand: Int, chips: List<Int>, views: List<ImageView>)
+{
+    if(hand > 9)
+    {
+        for(i in 0..8)
+        {
+            views[i].setImageResource(chips[i+1])
+        }
+    }
+    var yOs = c2.y + pomak
+    c1.animate()
+        .x(c2.x)
+        .y(yOs)
+        .setDuration(300)
+        .withEndAction{
+            c2.x = c2.x
+            c2.y = yOs
+        }
+        .start()
+}
+
+
 fun unSlideCards(d1: ImageView, cards: List<ImageView>)
 {
     Log.d("VELIČINA LISTE","${cards.size}")

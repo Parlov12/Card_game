@@ -46,9 +46,9 @@ class UsernameActivtiy : AppCompatActivity() {
     }
     fun saveData()
     {
-        var pref = getSharedPreferences("shared_pref",Context.MODE_PRIVATE)
+        var pref = getSharedPreferences("sharedPref",Context.MODE_PRIVATE)
         var editor = pref.edit()
-        editor.putString("username", username_edit.text.toString())
+        editor.putString("USERNAME", username_edit.text.toString())
         editor.commit()
     }
 

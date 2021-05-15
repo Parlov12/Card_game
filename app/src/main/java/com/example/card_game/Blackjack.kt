@@ -16,7 +16,6 @@ import android.view.WindowManager
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_blackjack.*
 import java.util.*
-
 class Blackjack : AppCompatActivity()
 {
 
@@ -34,8 +33,10 @@ class Blackjack : AppCompatActivity()
     val ulog_25: Int = R.drawable.ulog_25_off
     val ulog_50: Int = R.drawable.ulog_50_off
     val ulog_100: Int = R.drawable.ulog_100_off
+    val ulog_500: Int = R.drawable.ulog_500
+    val ulog_1000: Int = R.drawable.ulog_1000
     val cancel_background: Int = R.drawable.cancel_button
-    val maxBet: Int = 10000
+    val maxBet: Int = 100000
     var currency: String = "$"
     val TAG: String = "TAG"
     var ulogCheck: Boolean = true
@@ -55,6 +56,7 @@ class Blackjack : AppCompatActivity()
     // NEW - pomak karte koji sluzi za odredivanje lijeve margine od prethodne karte, odnosno odreduje mjesto gdje ce otici karta prilikom animacije
     var pomak: Int = 0
     var pomakPc: Int = 0
+    var pomakBet: Int = 0
 
     // check variables
     var checkVuci: Boolean = false
@@ -73,6 +75,7 @@ class Blackjack : AppCompatActivity()
     var pHandPlayer: Int = 0
     var pHandPc: Int = 0
     var pHandSplitPlayer: Int = 0
+    var pHandChip: Int = 0
 
 
     // sum variables
@@ -91,6 +94,7 @@ class Blackjack : AppCompatActivity()
     var bj4: Int = 0
     var deck: String = ""
     var char: Char = 'l'
+    var betString: String = ""
 
 
     // variable where true = IN GAME and false = NEW GAME
@@ -134,8 +138,6 @@ class Blackjack : AppCompatActivity()
         // image/color variables
         val show_suma: Int = R.drawable.custom_text
         val  overbet: Int = R.drawable.between_color
-
-
 
         // other variables
         val handler = Handler()
@@ -220,6 +222,11 @@ class Blackjack : AppCompatActivity()
         bj_cards[50]?.setCard(12,"herc",10,  R.drawable.herc_12)
         bj_cards[51]?.setCard(13,"herc",10,  R.drawable.herc_13)
 
+        vuci_button.visibility = View.INVISIBLE
+        dosta_button.visibility = View.INVISIBLE
+        double_button.visibility = View.INVISIBLE
+
+
         Log.d("TAG", "ALL CARDS")
         for(i in 0..51)
         {
@@ -249,9 +256,21 @@ class Blackjack : AppCompatActivity()
             player_seventh_card
         )
 
+        // LISTA CHIPOVA
+        var listChips = mutableListOf<ImageView>(
+            bet1,
+            bet2,
+            bet3,
+            bet4,
+            bet5,
+            bet6,
+            bet7,
+            bet8,
+            bet9,
+            bet10
+        )
 
-
-
+        var storeChips = mutableListOf<Int>()
 
 
         // setting up screen on the very start
@@ -273,10 +292,14 @@ class Blackjack : AppCompatActivity()
             handler.postDelayed({
                 background_text.setText("")
             }, 1000)
+            dijeli_button.visibility = View.VISIBLE
+            vuci_button.visibility = View.INVISIBLE
+            dosta_button.visibility = View.INVISIBLE
+            double_button.visibility = View.INVISIBLE
         }
         else if(game_state == true)
         {
-            dijeli_button.setBackgroundResource(default_on)
+            dijeli_button.setBackgroundResource(default_off)
             showCounter(counter_text, counter, showCounter)
             total_bet.text = "BET: $currency$ulog"
             loadDeckString()
@@ -321,69 +344,72 @@ class Blackjack : AppCompatActivity()
             // FILL DECK END //
 
             if(checkState == true) {
+                dijeli_button.visibility = View.INVISIBLE
+                vuci_button.visibility = View.VISIBLE
+                dosta_button.visibility = View.VISIBLE
+                double_button.visibility = View.VISIBLE
 
-                // fix player cards - cards loading wrongly
-                    for(i in 0..listPlayerCards.size-1)
-                    {
-                        slideCard(listPlayerCards[i],deck_background, 0)
-                    }
-                // fix pc cards - cards loading wrongly
-                    for(i in 0..listPcCards.size-1)
-                    {
-                        slideCard(listPcCards[i],deck_background, 0)
-                    }
-
-                dijeli_button.setBackgroundResource(default_off)
-                vuci_button.setBackgroundResource(default_on)
-                dosta_button.setBackgroundResource(default_on)
-                if(checkDouble == true)
-                {
-                    double_button.setBackgroundResource(default_on)
-                }
-                ulogCheck = false
-                loadCurrentState()
-                pDeck = pStartState
-                listPlayerCards[0].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                slideCard(listPlayerCards[0], player_card_background2, pomak)
-                pDeck++
-                pomak++
-                listPlayerCards[1].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                slideCard(listPlayerCards[1], player_card_background2, pomak)
-                pDeck++
-                pomak++
-                listPcCards[0].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                slideCard(listPcCards[0],pc_card_background2,pomakPc)
-                listPcCards[1].setImageResource(deckPic)
-                pDeck++
-                pomakPc++
-
-                var k = pHandPlayer
-                var m = 2
                 handler.postDelayed({
-                    while (k > 1) {
-                        listPlayerCards[m].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
-                        m++
-                        k--
-                        pDeck++
-                        pomak++
+
+                    dijeli_button.setBackgroundResource(default_off)
+                    vuci_button.setBackgroundResource(default_on)
+                    dosta_button.setBackgroundResource(default_on)
+                    if (checkDouble == true) {
+                        double_button.setBackgroundResource(default_on)
                     }
-                    pDeck--
-                }, 3000)
+                    ulogCheck = false
+                    loadCurrentState()
+                    pDeck = pStartState
+                    listPlayerCards[0].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    slideCard(listPlayerCards[0], player_card_background2, pomak)
+                    pDeck++
+                    pomak = pomak + 35
+                    listPlayerCards[1].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    slideCard(listPlayerCards[1], player_card_background2, pomak)
+                    pDeck++
+                    pomak = pomak + 35
+                    listPcCards[0].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                    slideCard(listPcCards[0], pc_card_background2, pomakPc)
+                    listPcCards[1].setImageResource(deckPic)
+                    pDeck++
+                    pomakPc = pomakPc + 35
+
+                    var k = pHandPlayer
+                    var m = 2
+                    handler.postDelayed({
+                        while (k - 1 > 1) {
+                            listPlayerCards[m].setImageResource(bj_cards[bjNiz[pDeck]]!!.pic)
+                            slideCard(listPlayerCards[m], player_card_background2, pomak)
+                            m++
+                            k--
+                            pDeck++
+                            pomak = pomak + 35
+                        }
+                        pDeck--
+                    }, 100)
 
 
 
-                sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
-                sum_text_dealer(pcSum, pomPcSum, pc_sum, pc_sum2, show_suma)
-                checkDijeli = false
-                checkDosta = true
-                checkVuci = true
-                checkSplit = false
-                bet_text_under_chip.text = "$$ulog"
-                showPCounter(cards_left, pDeck, num_of_decks, showCounter)
-                total_bet_chip.setImageResource(ulog_100)
+                    sum_text(playerSum, pomPlayerSum, player_sum, player_sum2, show_suma)
+                    sum_text_dealer(pcSum, pomPcSum, pc_sum, pc_sum2, show_suma)
+                    checkDijeli = false
+                    checkDosta = true
+                    checkVuci = true
+                    checkSplit = false
+                    bet_text_under_chip.text = "$$ulog"
+                    showPCounter(cards_left, pDeck, num_of_decks, showCounter)
+                    total_bet_chip.setImageResource(ulog_100)
 
-                Log.d(TAG, "game_state = true $deck")
+                    Log.d(TAG, "game_state = true $deck")
+                },2000)
+
             } // end of checkState
+            else{
+                dijeli_button.visibility = View.VISIBLE
+                vuci_button.visibility = View.INVISIBLE
+                dosta_button.visibility = View.INVISIBLE
+                double_button.visibility = View.INVISIBLE
+            }
         } // end of check current_state
 
 
@@ -419,6 +445,12 @@ class Blackjack : AppCompatActivity()
                     TAG,
                     "\nBefore - DIJELI\ncheckVuci = $checkVuci\ncheckDosta = $checkDosta\npDeck = $pDeck\nplayerSum = $playerSum\npomPlayerSum = $pomPlayerSum\npcSum = $pcSum\npomPcSum = $pomPcSum"
                 )
+                
+                dijeli_button.visibility = View.INVISIBLE
+                vuci_button.visibility = View.VISIBLE
+                dosta_button.visibility = View.VISIBLE
+                double_button.visibility = View.VISIBLE
+                
 
                 pStartState = pDeck
 
@@ -434,6 +466,8 @@ class Blackjack : AppCompatActivity()
                 pHandPc = 0
                 pomak = 0
                 pomakPc = 0
+                pomakBet = 0
+                pHandChip = 0
 
                 checkState = true
 
@@ -664,8 +698,13 @@ class Blackjack : AppCompatActivity()
                     saveData()
                     pomak = pomak + 35
                     pHandPlayer = pHandPlayer + 1
-                    unSlideCards(deck_background, listPlayerCards)
-                    unSlideCards(deck_background, listPcCards)
+                    pHandChip = 0
+                    pomakBet = 0
+
+                    dijeli_button.visibility = View.VISIBLE
+                    vuci_button.visibility = View.INVISIBLE
+                    dosta_button.visibility = View.INVISIBLE
+                    double_button.visibility = View.INVISIBLE
                 }
 
                 // check checkDouble
@@ -788,6 +827,15 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        unSlideCards(total_bet_chip, listChips)
+                        pHandChip = 0
+                        pomakBet = 0
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
 
 
 
@@ -981,6 +1029,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     } else if (mainPcSum >= 17 && mainPcSum <= 21 && mainPcSum > mainPlayerSum) {
                         show_n_disappear("  -${ulog} $currency", show_text)
                         stanje = stanje
@@ -1002,6 +1056,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     } else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
                         //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
                         show_n_disappear("  +0 $currency!", show_text)
@@ -1024,6 +1084,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     } else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
                         //Toast.makeText(this, "Ajdeeee!", Toast.LENGTH_SHORT).show()
                         winSound?.start()
@@ -1047,6 +1113,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     }
                 } // end of while(pcSum <17)
 
@@ -1056,7 +1128,9 @@ class Blackjack : AppCompatActivity()
                 vuci_button.setBackgroundResource(default_off)
                 double_button.setBackgroundResource(default_off)
 
-
+                unSlideCards(total_bet_chip, listChips)
+                pHandChip = 0
+                pomakBet = 0
 
 
 
@@ -1192,6 +1266,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     } else if (mainPcSum >= 17 && mainPcSum <= 21 && mainPcSum > mainPlayerSum) {
                         //Toast.makeText(this, "You lost!", Toast.LENGTH_SHORT).show()
                         show_n_disappear("  -${ulog} $currency", show_text)
@@ -1210,6 +1290,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     } else if (mainPcSum == mainPlayerSum && mainPcSum >= 17) {
                         winSound?.start()
                         //  Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show()
@@ -1231,7 +1317,10 @@ class Blackjack : AppCompatActivity()
                             checkRepeat = true
                         }
 
-
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
 
                     } else if (mainPcSum < mainPlayerSum && mainPcSum >= 17) {
                         winSound?.start()
@@ -1252,6 +1341,12 @@ class Blackjack : AppCompatActivity()
                             repeat_bet.setImageResource(repeatOn)
                             checkRepeat = true
                         }
+
+                        dijeli_button.visibility = View.VISIBLE
+                        vuci_button.visibility = View.INVISIBLE
+                        dosta_button.visibility = View.INVISIBLE
+                        double_button.visibility = View.INVISIBLE
+
                     }
 
                     pDeck = pDeck + 1
@@ -1350,7 +1445,18 @@ class Blackjack : AppCompatActivity()
                     checkCancel = true
                     chipsound1?.start()
                     cancel_bet.setBackgroundResource(cancel_background)
-                    total_bet_chip.setImageResource(ulog_10)
+                    //total_bet_chip.setImageResource(ulog_10)
+                    //NEW - SLIDING CHIPS
+                       storeChips.add(ulog_10)
+                    listChips[pHandChip].setImageResource(ulog_10)
+                    slideChip(listChips[pHandChip],total_bet_chip,pomakBet,pHandChip, storeChips, listChips)
+
+                    if(pHandChip < 9) {
+                        pHandChip = pHandChip + 1
+                        pomakBet = pomakBet - 2
+                    }
+
+                    //END - SLIDING CHIPS
                     ulog = ulog + 10
                     total_bet.text = "BET: $currency$ulog"
                     bet_text_under_chip.text = "$currency$ulog"
@@ -1388,6 +1494,8 @@ class Blackjack : AppCompatActivity()
                         no_card
                     )
 
+
+
                 }
                 else{
                     between_bet.setBackgroundResource(overbet)
@@ -1395,6 +1503,7 @@ class Blackjack : AppCompatActivity()
                         between_bet.setBackgroundResource(0)
                     }, 100)
                 }
+                manageString('1')
             }
             else
             {
@@ -1410,7 +1519,16 @@ class Blackjack : AppCompatActivity()
                     checkCancel = true
                     chipsound1?.start()
                     cancel_bet.setBackgroundResource(cancel_background)
-                    total_bet_chip.setImageResource(ulog_25)
+                    //total_bet_chip.setImageResource(ulog_25)
+                    //NEW - SLIDING CHIPS
+                    storeChips.add(ulog_25)
+                    listChips[pHandChip].setImageResource(ulog_25)
+                    slideChip(listChips[pHandChip],total_bet_chip,pomakBet,pHandChip, storeChips, listChips)
+                    if(pHandChip < 9) {
+                        pHandChip = pHandChip + 1
+                        pomakBet = pomakBet - 2
+                    }
+                    //END - SLIDING CHIPS
                     ulog = ulog + 25
                     total_bet.text = "BET: $currency$ulog"
                     bet_text_under_chip.text = "$currency$ulog"
@@ -1454,6 +1572,7 @@ class Blackjack : AppCompatActivity()
                     handler.postDelayed({
                         between_bet.setBackgroundResource(0)
                     }, 100)                }
+                manageString('2')
             }
             else
             {
@@ -1469,7 +1588,16 @@ class Blackjack : AppCompatActivity()
                     checkCancel = true
                     chipsound1?.start()
                     cancel_bet.setBackgroundResource(cancel_background)
-                    total_bet_chip.setImageResource(ulog_50)
+                    //total_bet_chip.setImageResource(ulog_50)
+                    //NEW - SLIDING CHIPS
+                    storeChips.add(ulog_50)
+                    listChips[pHandChip].setImageResource(ulog_50)
+                    slideChip(listChips[pHandChip],total_bet_chip,pomakBet,pHandChip, storeChips, listChips)
+                    if(pHandChip < 9) {
+                        pHandChip = pHandChip + 1
+                        pomakBet = pomakBet - 2
+                    }
+                    //END - SLIDING CHIPS
                     ulog = ulog + 50
                     total_bet.text = "BET: $currency$ulog"
                     bet_text_under_chip.text = "$currency$ulog"
@@ -1513,6 +1641,7 @@ class Blackjack : AppCompatActivity()
                     handler.postDelayed({
                         between_bet.setBackgroundResource(0)
                     }, 100)                }
+                manageString('3')
             }
             else
             {
@@ -1527,7 +1656,16 @@ class Blackjack : AppCompatActivity()
                     checkCancel = true
                     chipsound1?.start()
                     cancel_bet.setBackgroundResource(cancel_background)
-                    total_bet_chip.setImageResource(ulog_100)
+                    //total_bet_chip.setImageResource(ulog_100)
+                    //NEW - SLIDING CHIPS
+                    storeChips.add(ulog_100)
+                    listChips[pHandChip].setImageResource(ulog_100)
+                    slideChip(listChips[pHandChip],total_bet_chip,pomakBet, pHandChip, storeChips, listChips)
+                    if(pHandChip < 9) {
+                        pHandChip = pHandChip + 1
+                        pomakBet = pomakBet - 2
+                    }
+                    //END - SLIDING CHIPS
                     ulog = ulog + 100
                     total_bet.text = "BET: $currency$ulog"
                     bet_text_under_chip.text = "$currency$ulog"
@@ -1572,10 +1710,173 @@ class Blackjack : AppCompatActivity()
                     handler.postDelayed({
                         between_bet.setBackgroundResource(0)
                     }, 100)                }
+                manageString('4')
             }
             else
             {
                 Log.d(TAG, "Error with Ulog4Clicked")
+            }
+        }
+
+        ulog5.setOnClickListener {
+            if(ulogCheck == true)
+            {
+                if((ulog + 500 <= maxBet)&&(ulog + 500 <= stanje)) {
+                    checkCancel = true
+                    chipsound1?.start()
+                    cancel_bet.setBackgroundResource(cancel_background)
+                    //total_bet_chip.setImageResource(ulog_10)
+                    //NEW - SLIDING CHIPS
+                    storeChips.add(ulog_500)
+                    listChips[pHandChip].setImageResource(ulog_500)
+                    slideChip(listChips[pHandChip],total_bet_chip,pomakBet,pHandChip, storeChips, listChips)
+                    if(pHandChip < 9) {
+                        pHandChip = pHandChip + 1
+                        pomakBet = pomakBet - 2
+                    }
+                    //END - SLIDING CHIPS
+                    ulog = ulog + 500
+                    total_bet.text = "BET: $currency$ulog"
+                    bet_text_under_chip.text = "$currency$ulog"
+                    show_text.text = ""
+                    background_text.text = ""
+                    pc_sum.text = "0"
+                    pc_sum2.text = ""
+                    pc_sum2.setBackgroundResource(0)
+                    player_sum.text = "0"
+                    player_sum2.text = ""
+                    player_sum2.setBackgroundResource(0)
+                    dijeli_button.setBackgroundResource(default_on)
+                    repeat_bet.setImageResource(0)
+                    lastBet = ulog_500
+
+                    unSlideCards(deck_background, listPlayerCards)
+                    unSlideCards(deck_background, listPcCards)
+
+                    reset_views(
+                        pc_card_background,
+                        pc_second_card,
+                        pc_third_card,
+                        pc_forth_card,
+                        pc_fifth_card,
+                        pc_sixth_card,
+                        no_card
+                    )
+                    reset_views(
+                        player_card_background,
+                        player_second_card,
+                        player_third_card,
+                        player_forth_card,
+                        player_fifth_card,
+                        player_sixth_card,
+                        no_card
+                    )
+
+                }
+                else{
+                    between_bet.setBackgroundResource(overbet)
+                    handler.postDelayed({
+                        between_bet.setBackgroundResource(0)
+                    }, 100)
+                }
+                manageString('5')
+            }
+            else
+            {
+                Log.d(TAG, "Error with Ulog1Clicked")
+            }
+
+        }
+
+        ulog6.setOnClickListener {
+            if(ulogCheck == true)
+            {
+                if((ulog + 1000 <= maxBet)&&(ulog + 1000 <= stanje)) {
+                    checkCancel = true
+                    chipsound1?.start()
+                    cancel_bet.setBackgroundResource(cancel_background)
+                    //total_bet_chip.setImageResource(ulog_10)
+                    //NEW - SLIDING CHIPS
+                    storeChips.add(ulog_1000)
+                    listChips[pHandChip].setImageResource(ulog_1000)
+                    slideChip(listChips[pHandChip],total_bet_chip,pomakBet,pHandChip, storeChips, listChips)
+                    if(pHandChip < 9) {
+                        pHandChip = pHandChip + 1
+                        pomakBet = pomakBet - 2
+                    }
+                    //END - SLIDING CHIPS
+                    ulog = ulog + 1000
+                    total_bet.text = "BET: $currency$ulog"
+                    bet_text_under_chip.text = "$currency$ulog"
+                    show_text.text = ""
+                    background_text.text = ""
+                    pc_sum.text = "0"
+                    pc_sum2.text = ""
+                    pc_sum2.setBackgroundResource(0)
+                    player_sum.text = "0"
+                    player_sum2.text = ""
+                    player_sum2.setBackgroundResource(0)
+                    dijeli_button.setBackgroundResource(default_on)
+                    repeat_bet.setImageResource(0)
+                    lastBet = ulog_1000
+
+                    unSlideCards(deck_background, listPlayerCards)
+                    unSlideCards(deck_background, listPcCards)
+
+                    reset_views(
+                        pc_card_background,
+                        pc_second_card,
+                        pc_third_card,
+                        pc_forth_card,
+                        pc_fifth_card,
+                        pc_sixth_card,
+                        no_card
+                    )
+                    reset_views(
+                        player_card_background,
+                        player_second_card,
+                        player_third_card,
+                        player_forth_card,
+                        player_fifth_card,
+                        player_sixth_card,
+                        no_card
+                    )
+
+                }
+                else{
+                    between_bet.setBackgroundResource(overbet)
+                    handler.postDelayed({
+                        between_bet.setBackgroundResource(0)
+                    }, 100)
+                }
+                manageString('6')
+            }
+            else
+            {
+                Log.d(TAG, "Error with Ulog1Clicked")
+            }
+
+        }
+
+
+
+        cancel_bet.setOnClickListener{
+            if(checkCancel == true) {
+                checkCancel = false
+                ulog = 0
+                total_bet.text = "BET: $currency$ulog"
+                bet_text_under_chip.text = ""
+                //total_bet_chip.setImageResource(0)
+                cancel_bet.setBackgroundResource(0)
+                dijeli_button.setBackgroundResource(default_off)
+
+                unSlideCards(total_bet_chip, listChips)
+                for(i in 0..listChips.size-1)
+                {
+                    listChips[i].setImageResource(0)
+                }
+                pHandChip = 0
+                pomakBet = 0
             }
         }
 
@@ -1680,104 +1981,6 @@ class Blackjack : AppCompatActivity()
         return mainSum
     }
 
-    // functions below are changed with setOnClickListener{} but they r still here if something in future changes
-    fun Ulog1Clicked(view: View)
-    {
-        if(ulogCheck == true)
-        {
-            if((ulog + 10 <= maxBet)&&(ulog + 10 <= stanje)) {
-                cancel_bet.setBackgroundResource(cancel_background)
-                total_bet_chip.setImageResource(ulog_10)
-                ulog = ulog + 10
-                total_bet.text = "BET: $currency$ulog"
-                bet_text_under_chip.text = "$currency$ulog"
-            }
-            else{
-                // Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
-            }
-        }
-        else
-        {
-            Log.d(TAG, "Error with Ulog1Clicked")
-        }
-    }
-    fun Ulog2Clicked(view: View)
-    {
-        if(ulogCheck == true)
-        {
-            if((ulog + 25 <= maxBet)&&(ulog + 25 <= stanje)) {
-                cancel_bet.setBackgroundResource(cancel_background)
-                total_bet_chip.setImageResource(ulog_25)
-                ulog = ulog + 25
-                total_bet.text = "BET: $currency$ulog"
-                bet_text_under_chip.text = "$currency$ulog"
-            }
-            else{
-                Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
-            }
-        }
-        else
-        {
-            Log.d(TAG, "Error with Ulog2Clicked")
-        }
-
-    }
-    fun Ulog3Clicked(view: View)
-    {
-        if(ulogCheck == true)
-        {
-            if((ulog + 50 <= maxBet)&&(ulog + 50 <= stanje)) {
-                cancel_bet.setBackgroundResource(cancel_background)
-                total_bet_chip.setImageResource(ulog_50)
-                ulog = ulog + 50
-                total_bet.text = "BET: $currency$ulog"
-                bet_text_under_chip.text = "$currency$ulog"
-            }
-            else{
-                Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
-            }
-        }
-        else
-        {
-            Log.d(TAG, "Error with Ulog3Clicked")
-        }
-    }
-    fun Ulog4Clicked(view: View)
-    {
-        if(ulogCheck == true)
-        {
-            if((ulog + 100 <= maxBet)&&(ulog + 100 <= stanje)) {
-                cancel_bet.setBackgroundResource(cancel_background)
-                total_bet_chip.setImageResource(ulog_100)
-                ulog = ulog + 100
-                total_bet.text = "BET: $currency$ulog"
-                bet_text_under_chip.text = "$currency$ulog"
-            }
-            else{
-                Toast.makeText(this, "MAX BET: 500", Toast.LENGTH_SHORT).show()
-            }
-        }
-        else
-        {
-            Log.d(TAG, "Error with Ulog4Clicked")
-        }
-    }
-
-
-    // its pretty obvious what this fun does
-    fun cancelCliked(view: View)
-    {
-        if(checkCancel == true) {
-            checkCancel = false
-            ulog = 0
-            total_bet.text = "BET: $currency$ulog"
-            bet_text_under_chip.text = ""
-            total_bet_chip.setImageResource(0)
-            cancel_bet.setBackgroundResource(0)
-            dijeli_button.setBackgroundResource(default_off)
-        }
-
-    }
 
     // do I have to explain?
     fun show_n_disappear(message: String, show: TextView)
@@ -1940,7 +2143,7 @@ class Blackjack : AppCompatActivity()
 
     fun onLogin(view: View) {
         MyCustomDialog().show(supportFragmentManager, "MyCustomFragment")
-        stanje = stanje + 2000
+        stanje = stanje + 20000
     }
 
     fun savePDeck()
@@ -2173,6 +2376,32 @@ class Blackjack : AppCompatActivity()
         deckPic = pref.getInt("DECK_PIC", R.drawable.deck1_backside)
     }
 
+    fun saveChip()
+    {
+        val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt("HAND_CHIP", pHandChip)
+        editor.commit()
+    }
+
+
+    fun manageString(chip : Char)
+    {
+        betString = betString + char.toString()
+        if(betString.length == 11)
+        {
+            var n = CharArray(10)
+            for(i in 1..10)
+            {
+                n[i-1] = betString[i]
+            }
+            betString = ""
+            for(i in 0..9)
+            {
+                betString = betString + n[i]
+            }
+        }
+    }
 
 
 }   // end of class BlackJack
