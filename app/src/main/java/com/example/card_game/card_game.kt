@@ -25,6 +25,9 @@ open class Card(var number: Int = 0, var type: String = "", var value: Int = 0, 
         pic = karta
     }
 
+    var bets = mutableListOf<Int>()
+    var betsPic = mutableListOf<ImageView>()
+
 }
 
 fun slideCard(m1: ImageView, m2: ImageView, pomak: Int)
@@ -198,6 +201,73 @@ class Game()
 
 
 }
+
+class Deck{
+
+    var deck = arrayOfNulls<Card>(52)
+
+    init {
+
+        for (i in 0..51) {
+            deck[i] = Card(0, "default", 0, 0)
+        }
+
+        deck[0]?.setCard(1, "tref", 1, R.drawable.tref_1)
+        deck[1]?.setCard(2, "tref", 2, R.drawable.tref_2)
+        deck[2]?.setCard(3, "tref", 3, R.drawable.tref_3)
+        deck[3]?.setCard(4, "tref", 4, R.drawable.tref_4)
+        deck[4]?.setCard(5, "tref", 5, R.drawable.tref_5)
+        deck[5]?.setCard(6, "tref", 6, R.drawable.tref_6)
+        deck[6]?.setCard(7, "tref", 7, R.drawable.tref_7)
+        deck[7]?.setCard(8, "tref", 8, R.drawable.tref_8)
+        deck[8]?.setCard(9, "tref", 9, R.drawable.tref_9)
+        deck[9]?.setCard(10, "tref", 10, R.drawable.tref_10)
+        deck[10]?.setCard(11, "tref", 10, R.drawable.tref_11)
+        deck[11]?.setCard(12, "tref", 10, R.drawable.tref_12)
+        deck[12]?.setCard(13, "tref", 10, R.drawable.tref_13)
+        deck[13]?.setCard(1, "pik", 1, R.drawable.pik_1)
+        deck[14]?.setCard(2, "pik", 2, R.drawable.pik_2)
+        deck[15]?.setCard(3, "pik", 3, R.drawable.pik_3)
+        deck[16]?.setCard(4, "pik", 4, R.drawable.pik_4)
+        deck[17]?.setCard(5, "pik", 5, R.drawable.pik_5)
+        deck[18]?.setCard(6, "pik", 6, R.drawable.pik_6)
+        deck[19]?.setCard(7, "pik", 7, R.drawable.pik_7)
+        deck[20]?.setCard(8, "pik", 8, R.drawable.pik_8)
+        deck[21]?.setCard(9, "pik", 9, R.drawable.pik_9)
+        deck[22]?.setCard(10, "pik", 10, R.drawable.pik_10)
+        deck[23]?.setCard(11, "pik", 10, R.drawable.pik_11)
+        deck[24]?.setCard(12, "pik", 10, R.drawable.pik_12)
+        deck[25]?.setCard(13, "pik", 10, R.drawable.pik_13)
+        deck[26]?.setCard(1, "karo", 1, R.drawable.karo_1)
+        deck[27]?.setCard(2, "karo", 2, R.drawable.karo_2)
+        deck[28]?.setCard(3, "karo", 3, R.drawable.karo_3)
+        deck[29]?.setCard(4, "karo", 4, R.drawable.karo_4)
+        deck[30]?.setCard(5, "karo", 5, R.drawable.karo_5)
+        deck[31]?.setCard(6, "karo", 6, R.drawable.karo_6)
+        deck[32]?.setCard(7, "karo", 7, R.drawable.karo_7)
+        deck[33]?.setCard(8, "karo", 8, R.drawable.karo_8)
+        deck[34]?.setCard(9, "karo", 9, R.drawable.karo_9)
+        deck[35]?.setCard(10, "karo", 10, R.drawable.karo_10)
+        deck[36]?.setCard(11, "karo", 10, R.drawable.karo_11)
+        deck[37]?.setCard(12, "karo", 10, R.drawable.karo_12)
+        deck[38]?.setCard(13, "karo", 10, R.drawable.karo_13)
+        deck[39]?.setCard(1, "herc", 1, R.drawable.herc_1)
+        deck[40]?.setCard(2, "herc", 2, R.drawable.herc_2)
+        deck[41]?.setCard(3, "herc", 3, R.drawable.herc_3)
+        deck[42]?.setCard(4, "herc", 4, R.drawable.herc_4)
+        deck[43]?.setCard(5, "herc", 5, R.drawable.herc_5)
+        deck[44]?.setCard(6, "herc", 6, R.drawable.herc_6)
+        deck[45]?.setCard(7, "herc", 7, R.drawable.herc_7)
+        deck[46]?.setCard(8, "herc", 8, R.drawable.herc_8)
+        deck[47]?.setCard(9, "herc", 9, R.drawable.herc_9)
+        deck[48]?.setCard(10, "herc", 10, R.drawable.herc_10)
+        deck[49]?.setCard(11, "herc", 10, R.drawable.herc_11)
+        deck[50]?.setCard(12, "herc", 10, R.drawable.herc_12)
+        deck[51]?.setCard(13, "herc", 10, R.drawable.herc_13)
+
+    }
+}
+
 
 
 

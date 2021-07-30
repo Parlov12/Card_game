@@ -1,4 +1,4 @@
-    package com.example.card_game
+package com.example.card_game
 
 import android.content.Context
 import android.content.Intent
@@ -22,6 +22,7 @@ class Blackjack : AppCompatActivity()
     // start values of background and deck
     var background:Int = R.drawable.background2_white
     var deckPic: Int = R.drawable.deck1_backside
+
 
 
     // outside
@@ -109,6 +110,8 @@ class Blackjack : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blackjack)
+
+
 
         // postavljanje pozadine
         loadBackground()
@@ -420,7 +423,6 @@ class Blackjack : AppCompatActivity()
         {
             println("${bj_cards[bjNiz[i]]!!.type}-${bj_cards[bjNiz[i]]!!.number}\n")
         }
-
 
 
 

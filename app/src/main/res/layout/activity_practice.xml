@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1_1"
+    tools:context=".PracticeActivity">
+
+    <Button
+        android:id="@+id/first_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/practice_methods"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="HI-LO"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/second_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/practice_methods"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="K-O"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/first_method"
+        app:layout_constraintStart_toStartOf="@+id/first_method"
+        app:layout_constraintTop_toBottomOf="@+id/first_method" />
+
+    <Button
+        android:id="@+id/third_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/practice_methods"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text=" HI-OPT I"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/second_method"
+        app:layout_constraintStart_toStartOf="@+id/second_method"
+        app:layout_constraintTop_toBottomOf="@+id/second_method" />
+
+    <Button
+        android:id="@+id/forth_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/practice_methods"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="HI-OPT II"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/third_method"
+        app:layout_constraintStart_toStartOf="@+id/third_method"
+        app:layout_constraintTop_toBottomOf="@+id/third_method" />
+
+    <Button
+        android:id="@+id/fifth_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/practice_methods"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:text="ZEN"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/forth_method"
+        app:layout_constraintStart_toStartOf="@+id/forth_method"
+        app:layout_constraintTop_toBottomOf="@+id/forth_method" />
+</androidx.constraintlayout.widget.ConstraintLayout>

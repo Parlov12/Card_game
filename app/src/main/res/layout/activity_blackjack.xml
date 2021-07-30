@@ -261,20 +261,37 @@
         app:layout_constraintTop_toTopOf="@+id/deck_background"
         app:layout_constraintVertical_bias="0.0" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontal_bets"
+    <ImageView
+        android:id="@+id/bets_holder"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:layout_marginStart="59dp"
         android:layout_marginEnd="59dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/deck_holder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_bets"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/bets_holder"
+        app:layout_constraintEnd_toEndOf="@+id/bets_holder"
+        app:layout_constraintStart_toStartOf="@+id/bets_holder"
+        app:layout_constraintTop_toTopOf="@id/bets_holder">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:weightSum="1"
             app:layout_constraintBottom_toBottomOf="@id/horizontal_bets"
             app:layout_constraintEnd_toEndOf="@id/horizontal_bets"
             app:layout_constraintStart_toStartOf="@id/horizontal_bets"
@@ -286,7 +303,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="1"
+                android:layout_weight="1.166"
                 android:background="@drawable/ulog_10_off"
                 android:textOff=""
                 android:textOn="" />
@@ -297,6 +314,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1.166"
                 android:background="@drawable/ulog_25_off"
                 android:textOff=""
                 android:textOn="" />
@@ -307,6 +325,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1.166"
                 android:background="@drawable/ulog_50_off"
                 android:textOff=""
                 android:textOn="" />
@@ -318,6 +337,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1.166"
                 android:background="@drawable/ulog_100_off"
                 android:textOff=""
                 android:textOn="" />
@@ -328,6 +348,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1.166"
                 android:background="@drawable/ulog_500"
                 android:textOff=""
                 android:textOn="" />
@@ -338,6 +359,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1.166"
                 android:background="@drawable/ulog_1000"
                 android:textOff=""
                 android:textOn="" />

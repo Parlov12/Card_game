@@ -153,6 +153,8 @@ class   MainActivity : AppCompatActivity() {
     fun practiceButton()
     {
         //Toast.makeText(this,"Coming soon...", Toast.LENGTH_SHORT).show()
+        val startPractice: Intent = Intent(this, PracticeActivity::class.java)
+        startActivity(startPractice)
     }
 
     fun methodsButton()
