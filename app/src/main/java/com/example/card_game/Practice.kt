@@ -7,13 +7,16 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 
-class Practice(file: SharedPreferences)
+class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: ImageView, pocetnaKarta : ImageView)
 {
     private val data: SharedPreferences = file
     val editor = data.edit()
     var currentMethod = 0
     var dek : Deck = Deck()
     var methodLevels: IntArray = intArrayOf(0,0,0,0,0)
+    var sumCards = listOf<ImageView>()
+    var defaultCard : ImageView
+    var startCard : ImageView
 
     init{
         methodLevels[0] = data.getInt("M1_LVL", 1)
@@ -23,6 +26,10 @@ class Practice(file: SharedPreferences)
         methodLevels[4] = data.getInt("M5_LVL", 1)
 
         currentMethod = data.getInt("METHOD", 0)
+
+        sumCards = listOfCards
+        defaultCard = defCard
+        startCard = pocetnaKarta
     }
 
     fun generateDeck()
@@ -77,6 +84,22 @@ class Practice(file: SharedPreferences)
         else{
             return 0
         }
+    }
+
+    fun dealCards()
+    {
+        var pomak = 0
+        for(i in 0 until methodLevels[currentMethod])
+        {
+            sumCards[i].setImageResource(dek.deck[i]!!.pic)
+            slideCard(sumCards[i], defaultCard, pomak)
+            pomak = pomak + 200
+        }
+    }
+
+    fun undealCards()
+    {
+        unSlideCards(startCard, sumCards)
     }
 
     fun getSum(broj_karata: Int): Int

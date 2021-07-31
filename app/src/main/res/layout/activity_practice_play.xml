@@ -7,8 +7,17 @@
     android:background="@drawable/background1_1"
     tools:context=".PracticePlay">
 
+    <TextView
+        android:id="@+id/tap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/firstCard"
         android:layout_width="65dp"
         android:layout_height="99dp"
         android:layout_marginTop="32dp"
@@ -16,6 +25,98 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/start_text"
         app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/secondCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/thirdCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/forthCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/fifthCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/sixthCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/seventhCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/eighthCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/ninethCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+    <ImageView
+        android:id="@+id/tenthCard"
+        android:layout_width="65dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/start_text"
+        app:srcCompat="@drawable/herc_1" />
+
+
 
     <TextView
         android:id="@+id/start_text"
