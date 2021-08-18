@@ -117,6 +117,13 @@ class Blackjack : AppCompatActivity()
         loadBackground()
         background_shared.setBackgroundResource(background)
         deck_background.setImageResource(deckPic)
+        var lilDeck : ImageView = findViewById(R.id.lil_deck)
+        lilDeck.setImageResource(deckPic)
+
+        lilDeck.visibility = View.INVISIBLE
+        cards_left.visibility = View.INVISIBLE
+        counter_text.visibility = View.INVISIBLE
+
 
         // učitavanje odabrane metode te ostalih checkiranih kućica iz customize-a
         loadCheckBox()
@@ -1882,6 +1889,12 @@ class Blackjack : AppCompatActivity()
             }
         }
 
+        watchVideo.setOnClickListener {
+            stanje = stanje + 10000
+            dialogText.visibility  = View.INVISIBLE
+            watchVideo.visibility = View.INVISIBLE
+        }
+
 
     } // end of onCreate()
 
@@ -2144,7 +2157,9 @@ class Blackjack : AppCompatActivity()
     }
 
     fun onLogin(view: View) {
-        MyCustomDialog().show(supportFragmentManager, "MyCustomFragment")
+        //MyCustomDialog().show(supportFragmentManager, "MyCustomFragment")
+        dialogText.visibility = View.VISIBLE
+        watchVideo.visibility = View.VISIBLE
         stanje = stanje + 20000
     }
 

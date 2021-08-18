@@ -115,9 +115,14 @@ class SettingsActivity : AppCompatActivity() {
 
         clear_data.setOnClickListener{
             val pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-            val editor = pref.edit()
+            val pref2 = getSharedPreferences("practiceShared", Context.MODE_PRIVATE)
+            var editor = pref.edit()
             editor.clear()
             editor.commit()
+            editor = pref2.edit()
+            editor.clear()
+            editor.commit()
+
             val splash = Intent(this, SplashScreen::class.java)
             startActivity(splash)
         }

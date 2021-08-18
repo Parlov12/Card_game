@@ -368,62 +368,62 @@
     </HorizontalScrollView>
 
 
-        <TextView
-            android:id="@+id/balance_background"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/balance_background"
-            android:onClick="doNothing"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/balance_background"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/balance_background"
+        android:onClick="doNothing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/balance_text"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="6dp"
-            android:elegantTextHeight="true"
-            android:fontFamily="@font/bangers"
-            android:onClick="doNothing"
-            android:text="1000000"
-            android:textAlignment="viewStart"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@+id/balance_background"
-            app:layout_constraintEnd_toEndOf="@+id/balance_background"
-            app:layout_constraintHorizontal_bias="0.476"
-            app:layout_constraintStart_toStartOf="@+id/balance_background"
-            app:layout_constraintTop_toTopOf="@+id/balance_background"
-            app:layout_constraintVertical_bias="1.0" />
+    <TextView
+        android:id="@+id/balance_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="6dp"
+        android:elegantTextHeight="true"
+        android:fontFamily="@font/bangers"
+        android:onClick="doNothing"
+        android:text="1000000"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/balance_background"
+        app:layout_constraintEnd_toEndOf="@+id/balance_background"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/balance_background"
+        app:layout_constraintTop_toTopOf="@+id/balance_background"
+        app:layout_constraintVertical_bias="1.0" />
 
 
-        <TextView
-            android:id="@+id/plus_money"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/plus_background"
-            android:elegantTextHeight="true"
-            android:fontFamily="sans-serif-black"
-            android:onClick="onLogin"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/balance_background"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@+id/balance_background"
-            app:layout_constraintTop_toTopOf="@+id/balance_background" />
+    <TextView
+        android:id="@+id/plus_money"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/plus_background"
+        android:elegantTextHeight="true"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onLogin"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/balance_background"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/balance_background"
+        app:layout_constraintTop_toTopOf="@+id/balance_background" />
 
-        app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintHorizontal_bias="0.5"
 
-        <!--
+    <!--
         <Button
             android:id="@+id/split_button"
             android:layout_width="75dp"
@@ -749,17 +749,17 @@
 
     <TextView
         android:id="@+id/cards_left"
-        android:layout_width="103dp"
-        android:layout_height="39dp"
+        android:layout_width="125dp"
+        android:layout_height="34dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:elegantTextHeight="true"
         android:fontFamily="@font/bangers"
         android:text="0/104"
-        android:textAlignment="center"
+        android:textAlignment="viewEnd"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/lil_deck"
         app:layout_constraintTop_toBottomOf="@+id/bet_background" />
 
     <TextView
@@ -846,6 +846,88 @@
         android:src="@drawable/deck6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/lil_deck"
+        android:layout_width="27dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cards_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cards_left"
+        app:srcCompat="@drawable/deck1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.14" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.31" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.68" />
+
+    <TextView
+        android:id="@+id/dialogText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/dialog_shape"
+        android:fontFamily="@font/bangers"
+        android:gravity="center_horizontal"
+        android:text="Want some more money? Watch ad and get 5K!"
+        android:textColor="#ffffff"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/guideline13"
+        app:layout_constraintEnd_toEndOf="@id/guideline11"
+        app:layout_constraintStart_toStartOf="@id/guideline10"
+        app:layout_constraintTop_toTopOf="@id/guideline12" />
+
+    <Button
+        android:id="@+id/watchVideo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/dialog_button_shape"
+        android:fontFamily="@font/bangers"
+        android:text="WATCH AD"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/guideline13"
+        app:layout_constraintEnd_toEndOf="@id/guideline11"
+        app:layout_constraintStart_toStartOf="@id/guideline10"
+        app:layout_constraintTop_toTopOf="@id/guideline14" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
