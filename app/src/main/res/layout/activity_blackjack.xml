@@ -620,95 +620,93 @@
 
     <ImageView
         android:id="@+id/bet1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet8"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet9"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <ImageView
         android:id="@+id/bet10"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="70dp"
         app:layout_constraintBottom_toBottomOf="@id/total_bet_chip"
         app:layout_constraintEnd_toEndOf="@id/total_bet_chip"
         app:layout_constraintHorizontal_bias="0.414"
-        app:layout_constraintStart_toStartOf="@id/total_bet_chip"
-        app:layout_constraintTop_toTopOf="@id/total_bet_chip"
-        app:layout_constraintVertical_bias="0.495" />
+        app:layout_constraintStart_toStartOf="@id/total_bet_chip" />
 
     <Button
         android:id="@+id/cancel_bet"

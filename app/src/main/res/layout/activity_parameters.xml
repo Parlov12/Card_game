@@ -13,11 +13,12 @@
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/deck_holder"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_deck_text" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -132,15 +133,15 @@
         android:id="@+id/choose_deck_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/bangers"
         android:text="CHOOSE NUMBER OF DECKS:"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/deckHolder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/count_method_holder" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/count_method_holder"
@@ -148,11 +149,12 @@
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/deck_holder"
+        app:layout_constraintBottom_toTopOf="@+id/choose_deck_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_method_text" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <HorizontalScrollView
         android:id="@id/horizontalScrollView"
@@ -259,15 +261,17 @@
 
     <TextView
         android:id="@+id/choose_method_text"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/bangers"
         android:text="CHOOSE COUNTING METHOD:"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/customize_text" />
+        app:layout_constraintBottom_toTopOf="@+id/count_method_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linear_check_text"
@@ -278,7 +282,6 @@
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="32dp"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/choose_method_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -288,7 +291,6 @@
             android:id="@+id/check_box_position_text"
             android:layout_width="379dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
             android:elegantTextHeight="true"
             android:fontFamily="@font/bangers"
             android:text="SHOW POSITION IN DECK:"
@@ -296,14 +298,13 @@
             android:textColor="#FFFFFF"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="212dp" />
+            tools:layout_editor_absoluteY="212dp"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/check_box_counter_text"
             android:layout_width="379dp"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:elegantTextHeight="true"
             android:fontFamily="@font/bangers"
             android:text="SHOW COUNTER SUM:"
@@ -311,22 +312,23 @@
             android:textColor="#FFFFFF"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="147dp" />
+            tools:layout_editor_absoluteY="147dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:id="@+id/check_box_possibility_text"
             android:layout_width="379dp"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
             android:elegantTextHeight="false"
             android:fontFamily="@font/bangers"
             android:text="SHOW WIN POSSIBILITY:"
             android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
-            android:visibility="gone"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="81dp" />
+            tools:layout_editor_absoluteY="81dp"
+            android:layout_marginTop="5dp"/>
 
 
     </LinearLayout>
@@ -338,7 +340,6 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="32dp"
         android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/choose_method_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linear_check_text"
@@ -348,35 +349,34 @@
             android:id="@+id/check_box_position"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
             android:buttonTint="#000000"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
             android:textColorHighlight="#FFFFFF"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:scaleX="1.3"
+            android:scaleY="1.3"/>
 
         <CheckBox
             android:id="@+id/check_box_counter"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:buttonTint="#000000"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:scaleX="1.3"
-            android:scaleY="1.3" />
+            android:scaleY="1.3"/>
 
         <CheckBox
             android:id="@+id/check_box_possibility"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:buttonTint="#000000"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:scaleX="1.3"
-            android:scaleY="1.3"
-            android:visibility="gone" />
+            android:scaleY="1.3"/>
 
     </LinearLayout>
 

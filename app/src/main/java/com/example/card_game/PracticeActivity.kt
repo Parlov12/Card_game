@@ -14,7 +14,6 @@ class PracticeActivity : AppCompatActivity() {
 
         var file : SharedPreferences = getSharedPreferences("practiceShared", android.content.Context.MODE_PRIVATE)
 
-
         val firstMethod : Button = findViewById(R.id.first_method)
         val secondMethod : Button = findViewById(R.id.second_method)
         val thirdMethod : Button = findViewById(R.id.third_method)

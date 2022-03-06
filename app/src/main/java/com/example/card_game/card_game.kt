@@ -25,8 +25,8 @@ open class Card(var number: Int = 0, var type: String = "", var value: Int = 0, 
         pic = karta
     }
 
-    var bets = mutableListOf<Int>()
-    var betsPic = mutableListOf<ImageView>()
+    var bets = ArrayList<Int>()
+    var betsPic = ArrayList<ImageView>()
 
 }
 
@@ -89,7 +89,7 @@ fun unSlideCards(d1: ImageView, cards: List<ImageView>)
 }
 
 class bet{
-    var betList = mutableListOf<ImageView>()
+    var betList = ArrayList<ImageView>()
 
     init {
         for(i in 0..betList.size-1)
@@ -110,7 +110,7 @@ class bet{
 
 class Player ()
 {
-    val cards = mutableListOf<Card>()
+    val cards = ArrayList<Card>()
     var zero_card = Card(0,"",0,0)
     var sum = 0
 
@@ -122,7 +122,7 @@ class Player ()
 
     fun clearCards()
     {
-       cards.clear()
+        cards.clear()
     }
 
     fun resetSum()
@@ -136,13 +136,13 @@ class Player ()
 class Game()
 {
     var pDeck: Int
-    val deck = mutableListOf<Int>()
+    val deck = ArrayList<Int>()
     var stringDeck: String
     var i = 0
     var j = 0
     var numberOfDecks: Int = 0
-    var playerCards = mutableListOf<Card>()
-    var pcCards = mutableListOf<Card>()
+    var playerCards = ArrayList<Card>()
+    var pcCards = ArrayList<Card>()
 
     init {
         pDeck = 0
@@ -267,24 +267,5 @@ class Deck{
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -14,7 +14,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
     var currentMethod : Int
     var dek : Deck = Deck()
     var methodLevels: IntArray = intArrayOf(0,0,0,0,0)
-    var sumCards = mutableListOf<ImageView>()
+    var sumCards = ArrayList<ImageView>()
     var defaultCard : ImageView
     var startCard : ImageView
 
@@ -32,7 +32,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
 
         currentMethod = data.getInt("METHOD", 0)
 
-        for(i in 0..listOfCards.count()-1)
+        for(i in 0..listOfCards.size-1)
         {
             sumCards.add(listOfCards[i])
         }
@@ -122,7 +122,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
         var sum: Int = 0
         println("Check ${methodLevels[currentMethod-1]}")
         if(currentMethod == 1){
-            for(i in 0 until methodLevels[currentMethod-1])
+            for(i in 0..methodLevels[currentMethod-1])
             {
                 println("i = $i")
                 if(dek.deck[i]?.number == 1){sum = sum + (-1)}
@@ -143,7 +143,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
             return sum
         }
         else if(currentMethod == 2){
-            for(i in 0 until methodLevels[currentMethod-1])
+            for(i in 0..methodLevels[currentMethod-1])
             {
                 if(dek.deck[i]?.number == 1){sum = sum + (-1)}
                 else if(dek.deck[i]?.number == 2){sum = sum + 1}
@@ -163,7 +163,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
             return sum
         }
         else if(currentMethod == 3){
-            for(i in 0 until methodLevels[currentMethod-1])
+            for(i in 0..methodLevels[currentMethod-1])
             {
                 if(dek.deck[i]?.number == 1){sum = sum + 0}
                 else if(dek.deck[i]?.number == 2){sum = sum + 0}
@@ -183,7 +183,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
             return sum
         }
         else if(currentMethod == 4){
-            for(i in 0 until methodLevels[currentMethod-1])
+            for(i in 0..methodLevels[currentMethod-1])
             {
                 if(dek.deck[i]?.number == 1){sum = sum + 0}
                 else if(dek.deck[i]?.number == 2){sum = sum + 1}
@@ -203,7 +203,7 @@ class Practice(file: SharedPreferences, listOfCards : List<ImageView>, defCard: 
             return sum
         }
         else if(currentMethod == 5){
-            for(i in 0 until methodLevels[currentMethod-1])
+            for(i in 0..methodLevels[currentMethod-1])
             {
                 if(dek.deck[i]?.number == 1){sum = sum + (-1)}
                 else if(dek.deck[i]?.number == 2){sum = sum + 1}

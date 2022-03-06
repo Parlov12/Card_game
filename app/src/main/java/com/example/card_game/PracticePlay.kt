@@ -51,29 +51,29 @@ class PracticePlay : AppCompatActivity() {
         var img10 : ImageView = findViewById(R.id.tenthCard)
 
         // adding each ImageView to list
-        var sumCards = listOf<ImageView>(
-            img1,
-            img2,
-            img3,
-            img4,
-            img5,
-            img6,
-            img7,
-            img8,
-            img9,
-            img10
-        )
+        var sumCards = ArrayList<ImageView>()
+            sumCards.add(img1)
+            sumCards.add(img2)
+            sumCards.add(img3)
+            sumCards.add(img4)
+            sumCards.add(img5)
+            sumCards.add(img6)
+            sumCards.add(img7)
+            sumCards.add(img8)
+            sumCards.add(img9)
+            sumCards.add(img10)
+
 
         // adding TextView-s that will represent each result
         var res1 : TextView = findViewById(R.id.result1)
         var res2 : TextView = findViewById(R.id.result2)
         var res3 : TextView = findViewById(R.id.result3)
 
-        var results = listOf<TextView>(
-            res1,
-            res2,
-            res3
-        )
+        var results = ArrayList<TextView>()
+            results.add(res1)
+            results.add(res2)
+            results.add(res3)
+
 
         var methodName : String? = "null"
         var method = 1

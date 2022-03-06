@@ -161,7 +161,7 @@ class Parameters : AppCompatActivity() {
     {
         var pref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         var editor = pref.edit()
-        editor.putInt("NUM_OF_DECKS", num_of_decks)
+        editor.putInt("NUMBER_OF_DECKS", num_of_decks)
         editor.commit()
 
         Log.d(TAG, "num_of_decks saved!")

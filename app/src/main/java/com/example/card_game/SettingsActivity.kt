@@ -57,53 +57,53 @@ class SettingsActivity : AppCompatActivity() {
 
         save_button.setOnClickListener{
 
-            if((username.text.toString() == "")||(bool1 == false)||(bool2 == false))
+            if((username.text.toString() == "") || !bool1 || !bool2)
             {
                 Toast.makeText(this,"Something missing...", Toast.LENGTH_SHORT).show()
             }
             else {
-                if(back1.isChecked == true)
+                if(back1.isChecked)
                 {
                     background = R.drawable.background1
                 }
-                else if(back2.isChecked == true)
+                else if(back2.isChecked)
                 {
                     background = R.drawable.background2_white_fix
                 }
-                else if(back3.isChecked == true)
+                else if(back3.isChecked)
                 {
                     background = R.drawable.background3
                 }
-                else if(back4.isChecked == true)
+                else if(back4.isChecked)
                 {
                     background = R.drawable.background4
                 }
-                else if(back5.isChecked == true)
+                else if(back5.isChecked)
                 {
                     background = R.drawable.background5
                 }
 
-                if(deck1.isChecked == true)
+                if(deck1.isChecked)
                 {
                     deckPic = R.drawable.deck1
                 }
-                else if(deck2.isChecked == true)
+                else if(deck2.isChecked)
                 {
                     deckPic = R.drawable.deck2
                 }
-                else if(deck3.isChecked == true)
+                else if(deck3.isChecked)
                 {
                     deckPic = R.drawable.deck3
                 }
-                else if(deck4.isChecked == true)
+                else if(deck4.isChecked)
                 {
                     deckPic = R.drawable.deck4
                 }
-                else if(deck5.isChecked == true)
+                else if(deck5.isChecked)
                 {
                     deckPic = R.drawable.deck5
                 }
-                else if(deck6.isChecked == true)
+                else if(deck6.isChecked)
                 {
                     deckPic = R.drawable.deck6
                 }
@@ -163,7 +163,7 @@ class SettingsActivity : AppCompatActivity() {
         m3.isChecked = false
         m4.isChecked = false
         m5.isChecked = false
-        if(m6.isChecked == false)
+        if(!m6.isChecked)
         {
             m6.isChecked = true
         }

@@ -7,18 +7,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_username_activtiy.*
 
 class UsernameActivtiy : AppCompatActivity() {
 
-    lateinit var username: String
+    lateinit var file : SharedPreferences
+    lateinit var data : DataManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username_activtiy)
+
+        file = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        data  = DataManager(file)
 
         val empty: Int = R.drawable.username_empty
         val notEmpty: Int = R.drawable.username
@@ -37,19 +42,11 @@ class UsernameActivtiy : AppCompatActivity() {
 
             }
             else {
-                saveData()
+                data.setUsername(username_edit.text.toString())
                 startActivity(cont)
                 finish()
             }
         }
 
     }
-    fun saveData()
-    {
-        var pref = getSharedPreferences("sharedPref",Context.MODE_PRIVATE)
-        var editor = pref.edit()
-        editor.putString("USERNAME", username_edit.text.toString())
-        editor.commit()
-    }
-
 }
